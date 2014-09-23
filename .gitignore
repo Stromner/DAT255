@@ -1,11 +1,14 @@
-/.idea
-HazmatEasierManagement.iml
+.gradle
+.idea
+/build
+/gradle
 /SKETCHES
 build.gradle
 gradle.properties
-gradle/
 gradlew
 gradlew.bat
+HazmatEasierManagement.iml
 local.properties
 settings.gradle
+
 !/app/build.gradle
