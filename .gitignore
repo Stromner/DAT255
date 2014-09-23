@@ -1,0 +1,10 @@
+/.idea
+HazmatEasierManagement.iml
+/SKETCHES
+build.gradle
+gradle.properties
+gradle/
+gradlew
+gradlew.bat
+local.properties
+settings.gradle
