@@ -4,11 +4,5 @@
 /app/build
 .gradle
 .idea
-build.gradle
-gradle.properties
-gradlew
-gradlew.bat
-HazmatEasierManagement.iml
 local.properties
-settings.gradle
 !/app/build.gradle
