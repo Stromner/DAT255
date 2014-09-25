@@ -1,9 +1,7 @@
-#Comment
+# ! = Do include this file
 /build
-/gradle
 /SKETCHES
 /app/build
-.gradle
 .idea
 local.properties
 !/app/build.gradle
