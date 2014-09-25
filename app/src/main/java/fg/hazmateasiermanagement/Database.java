@@ -1,4 +1,4 @@
-package fg.hazmateasiermanagement;
+﻿package fg.hazmateasiermanagement;
 
 import java.util.List;
 import fg.hazmateasiermanagement.Element;
@@ -19,6 +19,7 @@ public class Database {
         return false;
     }
     public Boolean removeElement(Element element){
+	//Testing changing something in method
         return false;
     }
     public Element getElement(int position){
