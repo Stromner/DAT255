@@ -1,0 +1,13 @@
+# Ignore all files and sub-directories
+/*
+/*/
+
+# Except for these files
+!/app/
+!.gitignore
+!README.txt
+
+# But ignore these sub files in the allowed files
+/app/app.iml
+/app/build
+/app/proguard-rules.pro
