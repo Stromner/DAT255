@@ -16,6 +16,7 @@ import fg.hazmateasiermanagement.Element;
 
 public class Database {
     public Boolean addElement(Element element){
+	//Testing changing something in method addElement
         return false;
     }
     public Boolean removeElement(Element element){
