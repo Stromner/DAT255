@@ -19,14 +19,18 @@ import fg.hazmateasiermanagement.Element;
  */
 
 public class Database extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "HazmatDatabase.db";
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "hazmat_database.db";
+    public static final String TABLE_NAME = "table";
+    public static final String COLUMN_NAME_UN_ID = "un_id";
+    public static final String COLUMN_NAME_UN_NAME = "un_name";
 
     /**
      *
      * @param context
      */
     public Database(Context context){
-        super(context, DATABASE_NAME , null, 1);
+        super(context, DATABASE_NAME , null, DATABASE_VERSION);
     }
 
     @Override
