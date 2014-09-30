@@ -15,7 +15,7 @@ import fg.hazmateasiermanagement.Element;
  *
  * @author Johansson, Henrik
  * @author Strömner, David
- * @version 2014-09-24
+ * @version 2014-09-30
  */
 
 public class Database extends SQLiteOpenHelper {
