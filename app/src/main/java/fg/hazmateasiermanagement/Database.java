@@ -1,4 +1,4 @@
-﻿package fg.hazmateasiermanagement;
+package fg.hazmateasiermanagement;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,7 +14,7 @@ import fg.hazmateasiermanagement.Element;
  * transported with each other.
  *
  * @author Johansson, Henrik
- * @author Strömner, David
+ * @author Stromner, David
  * @version 2014-09-30
  */
 
