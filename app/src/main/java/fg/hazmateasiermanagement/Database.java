@@ -1,8 +1,9 @@
-﻿package fg.hazmateasiermanagement;
+package fg.hazmateasiermanagement;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.Cursor;
 
 import java.util.List;
 import fg.hazmateasiermanagement.Element;
@@ -62,17 +63,17 @@ public class Database extends SQLiteOpenHelper {
     public Boolean removeElement(Element element){
         SQLiteDatabase database = this.getWritableDatabase();
         int result = database.delete("table", COLUMN_NAME_UN_ID + "=" + element, null);
-        // http://www.tutorialspoint.com/android/android_sqlite_database.htm
         return result > 0? true:false;
     }
 
     /**
      *
-     * @param position
+     * @param element_id
      * @return
      */
-    public Element getElement(int position){
-        return null;
+    public Cursor getElement(int element_id){
+        SQLiteDatabase database = this.getReadableDatabase();
+        return database.rawQuery("SELECT * FROM table WHERE"+COLUMN_NAME_UN_ID+"="+element_id,null);
     }
 
     /**
