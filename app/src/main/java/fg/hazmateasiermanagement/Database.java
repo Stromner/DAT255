@@ -57,12 +57,12 @@ public class Database extends SQLiteOpenHelper {
 
     /**
      *
-     * @param element
+     * @param element_id
      * @return
      */
-    public Boolean removeElement(Element element){
+    public Boolean removeElement(int element_id){
         SQLiteDatabase database = this.getWritableDatabase();
-        int result = database.delete("table", COLUMN_NAME_UN_ID + "=" + element, null);
+        int result = database.delete("table", COLUMN_NAME_UN_ID + "=" + element_id, null);
         return result > 0? true:false;
     }
 
