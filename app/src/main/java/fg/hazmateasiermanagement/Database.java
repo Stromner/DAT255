@@ -14,7 +14,7 @@ import fg.hazmateasiermanagement.Element;
  * transported with each other.
  *
  * @author Johansson, Henrik
- * @author Strömner, David
+ * @author Stromner, David
  * @version 2014-09-30
  */
 
@@ -35,12 +35,13 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
+        sqLiteDatabase.execSQL("create table table" + "(un_id integer primary key, un_name text)");
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i2) {
-
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS table");
+        onCreate(sqLiteDatabase);
     }
 
     /**
@@ -49,6 +50,7 @@ public class Database extends SQLiteOpenHelper {
      * @return
      */
     public Boolean addElement(Element element){
+        // http://www.tutorialspoint.com/android/android_sqlite_database.htm
         return false;
     }
 
@@ -58,6 +60,7 @@ public class Database extends SQLiteOpenHelper {
      * @return
      */
     public Boolean removeElement(Element element){
+        // http://www.tutorialspoint.com/android/android_sqlite_database.htm
         return false;
     }
 
