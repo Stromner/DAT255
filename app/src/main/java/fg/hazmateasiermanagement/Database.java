@@ -60,8 +60,10 @@ public class Database extends SQLiteOpenHelper {
      * @return
      */
     public Boolean removeElement(Element element){
+        SQLiteDatabase database = this.getWritableDatabase();
+        int result = database.delete("table", COLUMN_NAME_UN_ID + "=" + element, null);
         // http://www.tutorialspoint.com/android/android_sqlite_database.htm
-        return false;
+        return result > 0? true:false;
     }
 
     /**
