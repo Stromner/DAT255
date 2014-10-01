@@ -1,4 +1,4 @@
-package fg.hazmateasiermanagement;
+﻿package fg.hazmateasiermanagement;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -36,7 +36,7 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table table" + "(un_id integer primary key, un_name text)");
+        sqLiteDatabase.execSQL("create table table" + "("+COLUMN_NAME_UN_ID+" integer primary key, "+COLUMN_NAME_UN_NAME+" text)");
     }
 
     @Override
@@ -47,11 +47,17 @@ public class Database extends SQLiteOpenHelper {
 
     /**
      *
-     * @param element
+     * @param
      * @return
      */
-    public Boolean addElement(Element element){
+    public Boolean addElement(int UN_ID, String NAME){
         // http://www.tutorialspoint.com/android/android_sqlite_database.htm
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.execSQL("CREATE TABLE IF NOT EXISTS table("+COLUMN_NAME_UN_ID+","+COLUMN_NAME_UN_NAME+");");
+        database.execSQL("INSERT INTO table VALUES(UN_ID,NAME);");
+        if(getElement(UN_ID) != null){
+            return true;
+        }
         return false;
     }
 
