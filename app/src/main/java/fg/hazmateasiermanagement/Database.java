@@ -1,4 +1,4 @@
-﻿package fg.hazmateasiermanagement;
+package fg.hazmateasiermanagement;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -41,17 +41,17 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS table");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
 
     /**
      *
-     * @param
+     * @param UN_ID
+     * @param NAME
      * @return
      */
     public Boolean addElement(int UN_ID, String NAME){
-        // http://www.tutorialspoint.com/android/android_sqlite_database.htm
         SQLiteDatabase database = this.getWritableDatabase();
         database.execSQL("CREATE TABLE IF NOT EXISTS table("+COLUMN_NAME_UN_ID+","+COLUMN_NAME_UN_NAME+");");
         database.execSQL("INSERT INTO table VALUES(UN_ID,NAME);");
