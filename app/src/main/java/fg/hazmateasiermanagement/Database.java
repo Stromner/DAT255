@@ -3,6 +3,7 @@ package fg.hazmateasiermanagement;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.Cursor;
 
 import java.util.List;
 import fg.hazmateasiermanagement.Element;
@@ -35,39 +36,50 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
+        sqLiteDatabase.execSQL("create table table" + "("+COLUMN_NAME_UN_ID+" integer primary key, "+COLUMN_NAME_UN_NAME+" text)");
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i2) {
-
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
+        onCreate(sqLiteDatabase);
     }
 
     /**
      *
-     * @param element
+     * @param UN_ID
+     * @param NAME
      * @return
      */
-    public Boolean addElement(Element element){
+    public Boolean addElement(int UN_ID, String NAME){
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.execSQL("CREATE TABLE IF NOT EXISTS table("+COLUMN_NAME_UN_ID+","+COLUMN_NAME_UN_NAME+");");
+        database.execSQL("INSERT INTO table VALUES(UN_ID,NAME);");
+        if(getElement(UN_ID) != null){
+            return true;
+        }
         return false;
     }
 
     /**
      *
-     * @param element
+     * @param element_id
      * @return
      */
-    public Boolean removeElement(Element element){
-        return false;
+    public Boolean removeElement(int element_id){
+        SQLiteDatabase database = this.getWritableDatabase();
+        int result = database.delete("table", COLUMN_NAME_UN_ID + "=" + element_id, null);
+        return result > 0? true:false;
     }
 
     /**
      *
-     * @param position
+     * @param element_id
      * @return
      */
-    public Element getElement(int position){
-        return null;
+    public Cursor getElement(int element_id){
+        SQLiteDatabase database = this.getReadableDatabase();
+        return database.rawQuery("SELECT * FROM table WHERE"+COLUMN_NAME_UN_ID+"="+element_id,null);
     }
 
     /**
