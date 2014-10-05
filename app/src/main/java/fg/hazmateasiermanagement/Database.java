@@ -16,7 +16,7 @@ import fg.hazmateasiermanagement.Element;
  *
  * @author Johansson, Henrik
  * @author Stromner, David
- * @version 2014-10-05
+ * @version 2014-09-30
  */
 
 public class Database extends SQLiteOpenHelper {
@@ -36,8 +36,7 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String onCreate_S = "CREATE TABLE "+TABLE_NAME+"("+COLUMN_NAME_UN_ID+" integer PRIMARY KEY, "+COLUMN_NAME_UN_NAME+" text);";
-        sqLiteDatabase.execSQL(onCreate_S);
+        sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_NAME+"("+COLUMN_NAME_UN_ID+" integer PRIMARY KEY, "+COLUMN_NAME_UN_NAME+" text);");
     }
 
     @Override
@@ -77,6 +76,7 @@ public class Database extends SQLiteOpenHelper {
     public Boolean removeElement(int element_id){
         SQLiteDatabase database = this.getWritableDatabase();
         //int result = database.delete("table", COLUMN_NAME_UN_ID + "=" + element_id, null);
+        //return result > 0? true:false;
         try {
             database.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_UN_ID + " = " + element_id + "");
         }catch (Exception e){
