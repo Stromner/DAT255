@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.Cursor;
 
 import java.util.List;
-import fg.hazmateasiermanagement.Element;
 
 /**
  * Contains all the UN elements that the application knows about and support for modifying the
@@ -26,10 +25,6 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_NAME_UN_ID = "un_id";
     public static final String COLUMN_NAME_UN_NAME = "un_name";
 
-    /**
-     *
-     * @param context
-     */
     public Database(Context context){
         super(context, DATABASE_NAME , null, DATABASE_VERSION);
     }
@@ -46,10 +41,15 @@ public class Database extends SQLiteOpenHelper {
     }
 
     /**
+     * Create a new element and add it to the database. Trying to add duplicate elements to the list
+     * will result in a return value of false. Duplicate in this context means if two elements
+     * have the same UN_ID number.
      *
-     * @param UN_ID
-     * @param NAME
-     * @return
+     * UN_ID which normally looks something like this: 'UN0023' should be added as '0023'
+     *
+     * @param UN_ID the UN identification number for the element.
+     * @param NAME the proper name for the element.
+     * @return true if it succeeded, false otherwise.
      */
     public Boolean addElement(int UN_ID, String NAME){
         try{
@@ -63,37 +63,45 @@ public class Database extends SQLiteOpenHelper {
         return true;
     }
 
+    /**
+     * FOR TESTING PURPOSE ONLY, DO NOT USE IN APPLICATION CODE
+     * Delete the entire table to ease in constructing tests for the database.
+     */
     public void dropDatabase(){
         SQLiteDatabase database = this.getWritableDatabase();
         database.execSQL("DROP TABLE "+TABLE_NAME+"");
     }
 
     /**
+     * Removes an element from the database if elementID exists.
      *
-     * @param element_id
-     * @return
+     * UN_ID which normally looks something like this: 'UN0023' should be removed as '0023'
+     *
+     * @param elementID element to remove.
+     * @return true if the element was removed, false otherwise.
      */
-    public Boolean removeElement(int element_id){
+    public Boolean removeElement(int elementID){
         SQLiteDatabase database = this.getWritableDatabase();
-        //int result = database.delete("table", COLUMN_NAME_UN_ID + "=" + element_id, null);
-        //return result > 0? true:false;
         try {
-            database.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_UN_ID + " = " + element_id + "");
+            database.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_UN_ID + " = " + elementID + "");
         }catch (Exception e){
             e.printStackTrace();
             return false;
         }
-            return true;
+        return true;
     }
 
     /**
+     * Return an element that match elementID.
      *
-     * @param element_id
-     * @return
+     * UN_ID which normally looks something like this: 'UN0023' should be fetched as '0023'
+     *
+     * @param elementID element to fetch.
+     * @return the element if it was found, null otherwise.
      */
-    public Cursor getElement(int element_id){
+    public Cursor getElement(int elementID){
         SQLiteDatabase database = this.getReadableDatabase();
-        return database.rawQuery("SELECT * FROM table WHERE"+COLUMN_NAME_UN_ID+"="+element_id,null);
+        return database.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_UN_ID + "= ?", new String[]{Integer.toString(elementID)});
     }
 
     /**

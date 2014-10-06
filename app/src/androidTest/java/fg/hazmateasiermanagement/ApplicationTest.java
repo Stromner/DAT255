@@ -47,12 +47,10 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         database.dropDatabase();
     }
 
-
-
     @SmallTest
     public void testDatabase_addDuplicateElements(){
         database.addElement(0, "test_element");
-        Boolean result = database.addElement(0, "test_element");
+        Boolean result = database.addElement(0, "test_element2"); // The '2' is on purpose
         assertFalse(result);
     }
 
@@ -70,17 +68,15 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     }
 
     @SmallTest
-     // This case is not properly written
      public void testDatabase_getElement(){
         database.addElement(0,"test_element");
         Cursor cursor = database.getElement(0);
-        assertEquals(0, cursor.getColumnIndex("COLUMN_NAME_UN_ID"));
+        assertTrue(cursor.getString(cursor.getColumnIndex(Database.COLUMN_NAME_UN_ID)).equals(0));
     }
 
     @SmallTest
-    // This case is not properly written
     public void testDatabase_getNonExistingElement(){
         Cursor cursor = database.getElement(0);
-        assertNull(cursor);
+        assertFalse(cursor.getString(cursor.getColumnIndex(Database.COLUMN_NAME_UN_ID)).equals(0));
     }*/
 }
