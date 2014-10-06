@@ -1,3 +1,4 @@
+/*
 package fg.hazmateasiermanagement;
 
 import android.app.Activity;
@@ -10,9 +11,9 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.widget.SearchView;
 import android.widget.TextView;
-/**
- * Created by Benjamin on 2014-10-05.
- */
+
+// * Created by Benjamin on 2014-10-05.
+
 public class SearchDatabase {
     private void initSearchView() {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -42,3 +43,4 @@ public class SearchDatabase {
     }
 
 }
+*/
