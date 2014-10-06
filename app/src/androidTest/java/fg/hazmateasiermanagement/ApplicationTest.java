@@ -20,7 +20,6 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     @Override
     protected void setUp() throws Exception{
         super.setUp();
-
         database = new Database(this.getContext());
     }
 
@@ -37,7 +36,18 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     public void testDatabase_addElement(){
         Boolean result = database.addElement(0, "test_element");
         assertTrue(result);
+        database.dropDatabase();
     }
+/*
+    @SmallTest
+    public void testDatabase_removeElement(){
+        database.addElement(11, "test_element");
+        Boolean result = database.removeElement(11);
+        assertTrue(result);
+        database.dropDatabase();
+    }
+
+
 
     @SmallTest
     public void testDatabase_addDuplicateElements(){
@@ -72,5 +82,5 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     public void testDatabase_getNonExistingElement(){
         Cursor cursor = database.getElement(0);
         assertNull(cursor);
-    }
+    }*/
 }

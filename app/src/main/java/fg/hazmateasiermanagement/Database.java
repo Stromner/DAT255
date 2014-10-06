@@ -22,7 +22,7 @@ import fg.hazmateasiermanagement.Element;
 public class Database extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "hazmat_database.db";
-    public static final String TABLE_NAME = "table";
+    public static final String TABLE_NAME = "tableName";
     public static final String COLUMN_NAME_UN_ID = "un_id";
     public static final String COLUMN_NAME_UN_NAME = "un_name";
 
@@ -36,12 +36,12 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table table" + "("+COLUMN_NAME_UN_ID+" integer primary key, "+COLUMN_NAME_UN_NAME+" text)");
+        sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_NAME+"("+COLUMN_NAME_UN_ID+" integer PRIMARY KEY, "+COLUMN_NAME_UN_NAME+" text);");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME+"");
         onCreate(sqLiteDatabase);
     }
 
@@ -52,13 +52,20 @@ public class Database extends SQLiteOpenHelper {
      * @return
      */
     public Boolean addElement(int UN_ID, String NAME){
-        SQLiteDatabase database = this.getWritableDatabase();
-        database.execSQL("CREATE TABLE IF NOT EXISTS table("+COLUMN_NAME_UN_ID+","+COLUMN_NAME_UN_NAME+");");
-        database.execSQL("INSERT INTO table VALUES(UN_ID,NAME);");
-        if(getElement(UN_ID) != null){
-            return true;
+        try{
+            SQLiteDatabase database = this.getWritableDatabase();
+            database.execSQL("CREATE TABLE IF NOT EXISTS tableName("+COLUMN_NAME_UN_ID+" integer PRIMARY KEY,"+TABLE_NAME+" text);");
+            database.execSQL("INSERT INTO tableName VALUES("+UN_ID+",'stuff');");
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
         }
-        return false;
+        return true;
+    }
+
+    public void dropDatabase(){
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.execSQL("DROP TABLE "+TABLE_NAME+"");
     }
 
     /**
@@ -68,8 +75,15 @@ public class Database extends SQLiteOpenHelper {
      */
     public Boolean removeElement(int element_id){
         SQLiteDatabase database = this.getWritableDatabase();
-        int result = database.delete("table", COLUMN_NAME_UN_ID + "=" + element_id, null);
-        return result > 0? true:false;
+        //int result = database.delete("table", COLUMN_NAME_UN_ID + "=" + element_id, null);
+        //return result > 0? true:false;
+        try {
+            database.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_UN_ID + " = " + element_id + "");
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+            return true;
     }
 
     /**
