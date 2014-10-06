@@ -2,8 +2,11 @@ package fg.hazmateasiermanagement;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+
+import java.util.ArrayList;
 
 public class MainActivity extends Activity {
     /** Called when the activity is first created. */
@@ -15,6 +18,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         addTabs();
+        createSearchAdapter();
     }
     private void addTabs(){
         TabHost tabHost = (TabHost)findViewById(R.id.tabHost);
@@ -36,5 +40,17 @@ public class MainActivity extends Activity {
         tab3.setContent(R.id.tabHistory);
 
         tabHost.addTab(tab3);
+    }
+
+    private void createSearchAdapter(){
+        ArrayList<String> searchList = new ArrayList<String>();
+        searchList.add("Testitem 1");
+        searchList.add("Testitem 2");
+
+        SearchDatabaseAdapter adapter = new SearchDatabaseAdapter(searchList, this);
+        ListView lView = (ListView)findViewById(R.id.searchListView);
+        lView.setAdapter(adapter);
+
+
     }
 }

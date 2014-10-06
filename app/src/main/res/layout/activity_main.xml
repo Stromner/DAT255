@@ -38,6 +38,39 @@
                     layout="@layout/activity_checkout" />
 
             </FrameLayout>
+
+
+
         </LinearLayout>
     </TabHost>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="#FFFFFF"
+        />
+       <!--
+       android:hint="Search here (enter name of item):"
+       android:inputType="text"
+       -->
+
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchListView">
+        </ListView>
+
+
+
+
+  <!--
+    <AutoCompleteTextView
+        android:id="@+id/DatabaseSearch"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:completionHint="Search here (Name or UN-number)"
+
+        />
+  -->
+
 </LinearLayout>
