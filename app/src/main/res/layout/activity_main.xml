@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear_main"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -44,33 +45,13 @@
         </LinearLayout>
     </TabHost>
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:background="#FFFFFF"
-        />
-       <!--
-       android:hint="Search here (enter name of item):"
-       android:inputType="text"
-       -->
-
-    <ListView
+    <SearchView
+        android:label="@string/search_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/searchListView">
-        </ListView>
+        ></SearchView>
 
 
 
-
-  <!--
-    <AutoCompleteTextView
-        android:id="@+id/DatabaseSearch"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:completionHint="Search here (Name or UN-number)"
-
-        />
-  -->
 
 </LinearLayout>

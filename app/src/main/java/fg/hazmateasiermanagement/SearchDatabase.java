@@ -1,46 +1,90 @@
-/*
 package fg.hazmateasiermanagement;
 
-import android.app.Activity;
+import android.annotation.TargetApi;
 import android.app.SearchManager;
-import android.app.SearchableInfo;
 import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.os.Bundle;
-import android.provider.ContactsContract;
+import android.database.MatrixCursor;
+import android.os.Build;
+import android.view.Menu;
 import android.widget.SearchView;
-import android.widget.TextView;
 
-// * Created by Benjamin on 2014-10-05.
+import java.util.List;
+
+import fg.hazmateasiermanagement.R;
 
 public class SearchDatabase {
-    private void initSearchView() {
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        final SearchView searchView = (SearchView) findViewById(R.id.searchView);
-        SearchableInfo searchableInfo = searchManager.getSearchableInfo(getComponentName());
-        searchView.setSearchableInfo(searchableInfo);
-    }
+
+    private List<String> items;
+
+    private Menu menu;
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        if (ContactsContract.Intents.SEARCH_SUGGESTION_CLICKED.equals(intent.getAction())) {
-            String displayName = getContactName(intent);
-            displayText.setText(displayName);
-        } else if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            displayText.setText("search for: '" + query + "'...");
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.example, menu);
+
+        this.menu = menu;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+
+            SearchManager manager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+
+            SearchView search = (SearchView) menu.findItem(R.id.search).getActionView();
+
+            search.setSearchableInfo(manager.getSearchableInfo(getComponentName()));
+
+            search.setOnQueryTextListener(new OnQueryTextListener() {
+
+                @Override
+                public boolean onQueryTextChange(String query) {
+
+                    loadHistory(query);
+
+                    return true;
+
+                }
+
+            });
+
         }
+
+        return true;
+
     }
 
-    private String getContactName(Intent intent) {
-        Cursor phoneCursor = getContentResolver().query(intent.getData(), null, null, null, null);
-        phoneCursor.moveToFirst();
-        int colNameIndex = phoneCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);
-        String contactName = phoneCursor.getString(colNameIndex);
-        phoneCursor.close();
-        return contactName;
+    // History
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    private void loadHistory(String query) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+
+            // Cursor
+            String[] columns = new String[]{"_id", "text"};
+            Object[] temp = new Object[]{0, "default"};
+
+            MatrixCursor cursor = new MatrixCursor(columns);
+
+            for (int i = 0; i < items.size(); i++) {
+
+                temp[0] = i;
+                temp[1] = items.get(s);
+
+                cursor.addRow(temp);
+
+            }
+
+            // SearchView
+            SearchManager manager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+
+            final SearchView search = (SearchView) menu.findItem(R.id.search).getActionView();
+
+            search.setSearchableInfo(manager.getSearchableInfo(getComponentName()));
+
+            search.setSuggestionsAdapter(new ExampleAdapter(this, cursor, items));
+
+        }
+
     }
 
 }
-*/
