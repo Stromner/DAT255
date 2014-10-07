@@ -19,7 +19,7 @@ public class Element {
     private String packingGroup;    //Packing Group I II or III
     private String label;          //labels used to show what material that can be shipped together.
     private int weight;             //The weight of the material
-    //private Image hazmatImage;    //TODO fix the image
+    //private String hazmatImage;    //TODO fix the image
 
     /**
      * Constructor with all necessary fields included.
