@@ -1,5 +1,6 @@
 package fg.hazmateasiermanagement;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -31,7 +32,7 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_NAME+"("+COLUMN_NAME_UN_ID+" integer PRIMARY KEY, "+COLUMN_NAME_UN_NAME+" text);");
+        sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_NAME+"("+COLUMN_NAME_UN_ID+" INTEGER PRIMARY KEY, "+COLUMN_NAME_UN_NAME+" TEXT);");
     }
 
     @Override
@@ -54,8 +55,8 @@ public class Database extends SQLiteOpenHelper {
     public Boolean addElement(int UN_ID, String NAME){
         try{
             SQLiteDatabase database = this.getWritableDatabase();
-            database.execSQL("CREATE TABLE IF NOT EXISTS tableName("+COLUMN_NAME_UN_ID+" integer PRIMARY KEY,"+TABLE_NAME+" text);");
-            database.execSQL("INSERT INTO tableName VALUES("+UN_ID+",'stuff');");
+            database.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME+" ("+COLUMN_NAME_UN_ID+" integer PRIMARY KEY,"+TABLE_NAME+" text);");
+            database.execSQL("INSERT INTO "+TABLE_NAME+" VALUES("+UN_ID+",'+NAME+');");
         }catch(Exception e){
             e.printStackTrace();
             return false;
