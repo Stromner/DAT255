@@ -103,9 +103,10 @@ public class Database extends SQLiteOpenHelper {
      */
     public Cursor getElement(int elementID){
         SQLiteDatabase database = this.getReadableDatabase();
-        //Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_UN_ID + " = ?", new String[]{Integer.toString(elementID)});
         Cursor cursor = database.query(TABLE_NAME, new String[]{COLUMN_NAME_UN_ID, COLUMN_NAME_UN_NAME}, COLUMN_NAME_UN_ID + "=?", new String[]{String.valueOf(elementID)}, null, null, null, null);
-        cursor.moveToFirst();
+        if(cursor != null) {
+            cursor.moveToFirst();
+        }
         return cursor;
     }
 
