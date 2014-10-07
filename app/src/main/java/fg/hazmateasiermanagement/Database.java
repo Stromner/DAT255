@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.Cursor;
+import android.util.Log;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ import java.util.List;
  */
 
 public class Database extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "hazmat_database.db";
     public static final String TABLE_NAME = "tableName";
     public static final String COLUMN_NAME_UN_ID = "un_id";
@@ -55,8 +56,7 @@ public class Database extends SQLiteOpenHelper {
     public Boolean addElement(int UN_ID, String NAME){
         try{
             SQLiteDatabase database = this.getWritableDatabase();
-            database.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME+" ("+COLUMN_NAME_UN_ID+" integer PRIMARY KEY,"+TABLE_NAME+" text);");
-            database.execSQL("INSERT INTO "+TABLE_NAME+" VALUES("+UN_ID+",'+NAME+');");
+            database.execSQL("INSERT INTO "+TABLE_NAME+" VALUES("+UN_ID+",'"+NAME+"');");
         }catch(Exception e){
             e.printStackTrace();
             return false;
@@ -68,9 +68,10 @@ public class Database extends SQLiteOpenHelper {
      * FOR TESTING PURPOSE ONLY, DO NOT USE IN APPLICATION CODE
      * Delete the entire table to ease in constructing tests for the database.
      */
-    public void dropDatabase(){
+    public void deleteTable(){
         SQLiteDatabase database = this.getWritableDatabase();
-        database.execSQL("DROP TABLE "+TABLE_NAME+"");
+        database.execSQL("DELETE FROM "+TABLE_NAME);
+        database.execSQL("VACUUM");
     }
 
     /**
@@ -84,7 +85,7 @@ public class Database extends SQLiteOpenHelper {
     public Boolean removeElement(int elementID){
         SQLiteDatabase database = this.getWritableDatabase();
         try {
-            database.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_UN_ID + " = " + elementID + "");
+            database.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_UN_ID + " = " + elementID);
         }catch (Exception e){
             e.printStackTrace();
             return false;
@@ -102,7 +103,10 @@ public class Database extends SQLiteOpenHelper {
      */
     public Cursor getElement(int elementID){
         SQLiteDatabase database = this.getReadableDatabase();
-        return database.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_UN_ID + "= ?", new String[]{Integer.toString(elementID)});
+        //Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_UN_ID + " = ?", new String[]{Integer.toString(elementID)});
+        Cursor cursor = database.query(TABLE_NAME, new String[]{COLUMN_NAME_UN_ID, COLUMN_NAME_UN_NAME}, COLUMN_NAME_UN_ID + "=?", new String[]{String.valueOf(elementID)}, null, null, null, null);
+        cursor.moveToFirst();
+        return cursor;
     }
 
     /**
