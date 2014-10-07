@@ -1,14 +1,16 @@
 package fg.hazmateasiermanagement;
 
-import android.app.Activity;
+import android.app.TabActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
-public class MainActivity extends Activity {
-    /** Called when the activity is first created. */
+public class MainActivity extends TabActivity {
 
-    //SWIPEBBAAAY
+    private TabHost tabHost;
+    private TabSpec tab1, tab2, tab3;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -16,25 +18,28 @@ public class MainActivity extends Activity {
 
         addTabs();
     }
+
     private void addTabs(){
-        TabHost tabHost = (TabHost)findViewById(R.id.tabHost);
+        //(TabHost)findViewById(R.id.tabHost);
+        tabHost = getTabHost();
         tabHost.setup();
 
-        TabSpec tab1 = tabHost.newTabSpec("First Tab");
-        TabSpec tab2 = tabHost.newTabSpec("Second Tab");
-        TabSpec tab3 = tabHost.newTabSpec("Third tab");
-
+        tab1 = tabHost.newTabSpec("First Tab");
         tab1.setIndicator("Search");
-        tab1.setContent(R.id.tabSearch);
+        //tab1.setContent(R.id.tabSearch);
+        tab1.setContent(new Intent(this, SearchTab.class));
         tabHost.addTab(tab1);
 
+        tab2 = tabHost.newTabSpec("Second Tab");
         tab2.setIndicator("Current");
-        tab2.setContent(R.id.tabCurrent);
+        //tab2.setContent(R.id.tabCurrent);
+        tab2.setContent(new Intent(this, CurrentTab.class));
         tabHost.addTab(tab2);
 
+        tab3 = tabHost.newTabSpec("Third tab");
         tab3.setIndicator("History");
-        tab3.setContent(R.id.tabHistory);
-
+        //tab3.setContent(R.id.tabHistory);
+        tab3.setContent(new Intent(this, HistoryTab.class));
         tabHost.addTab(tab3);
     }
 }
