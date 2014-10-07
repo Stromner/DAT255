@@ -104,8 +104,8 @@ public class Database extends SQLiteOpenHelper {
     public Cursor getElement(int elementID){
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.query(TABLE_NAME, new String[]{COLUMN_NAME_UN_ID, COLUMN_NAME_UN_NAME}, COLUMN_NAME_UN_ID + "=?", new String[]{String.valueOf(elementID)}, null, null, null, null);
-        if(cursor != null) {
-            cursor.moveToFirst();
+        if(!cursor.moveToFirst()) {
+            return null;
         }
         return cursor;
     }
