@@ -1,8 +1,18 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+    <style name="AppTheme" parent="android:Theme.Black.NoTitleBar">
         <!-- Customize your theme here. -->
     </style>
+
+    <color name="gray">#DEDEDE</color>
+    <color name="black">#000000</color>
+    <color name="red">#FF0000</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="blue">#0000FF</color>
+    <color name="purple">#9900CC</color>
+    <color name="dark_gray">#333333</color>
+
+
 
 </resources>
