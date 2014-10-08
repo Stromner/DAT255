@@ -10,15 +10,19 @@ import android.widget.TextView;
  */
 public class ElementInformationActivity extends Activity {
 
+    public static final String ID_KEY = "fg.hazmateasiermanagement.hazmatID";
     private TextView informationText;
+    private int elementId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
 
+        elementId = getIntent().getIntExtra(ID_KEY, 0);
+
         informationText = (TextView) findViewById(R.id.informationText);
-        //informationText = database.getInformation();
+        //informationText = database.getElementInformation(elementId);
 
     }
 

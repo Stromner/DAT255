@@ -6,6 +6,11 @@ import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
+/**
+ * Created by Magnus on 2014-10-01.
+ * The "Main" class, basically just contains the tabs.
+ */
+
 public class MainActivity extends TabActivity {
 
     private TabHost tabHost;
