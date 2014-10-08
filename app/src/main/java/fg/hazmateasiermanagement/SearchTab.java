@@ -13,9 +13,9 @@ import java.util.HashMap;
 
 /**
  * Created by Magnus on 2014-10-01.
- * Currently useless, just leaving it here incase things change.
  */
 public class SearchTab extends Activity {
+
     /*
     private LinearLayout searchLayout;
     private ScrollView scrollView;
@@ -30,10 +30,12 @@ public class SearchTab extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+
+        /*
         HashMap<String, ImageView> map;
 
-        ImageView image = (ImageView) findViewById(R.drawable.alert);
-        /*
+        ImageView image = (ImageView) findViewById(R.id.elementSign);
+
         //Used for testing of GUI
 
         searchLayout = (LinearLayout) findViewById(R.id.search_layout);
