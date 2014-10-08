@@ -8,7 +8,7 @@ import android.media.Image;
  * doesn't contain any weight but if you were to transport it you need to provide a weight param)
  *
  * @author Johansson, Henrik
- * @author Strömner, David
+ * @author Stromner, David
  * @version 2014-10-07
  */
 
