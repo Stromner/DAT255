@@ -1,19 +1,19 @@
-package fg.hazmateasiermanagement;
+package fg.hazmateasiermanagement.database;
 
 import android.app.Application;
 import android.database.Cursor;
 import android.test.ApplicationTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
 
-import dalvik.annotation.TestTargetClass;
+import fg.hazmateasiermanagement.database.Database;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
  */
-public class ApplicationTest extends ApplicationTestCase<Application> {
+public class DatabaseTest extends ApplicationTestCase<Application> {
     private Database database;
 
-    public ApplicationTest() {
+    public DatabaseTest() {
         super(Application.class);
     }
 

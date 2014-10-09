@@ -1,11 +1,9 @@
-package fg.hazmateasiermanagement;
+package fg.hazmateasiermanagement.database;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.Cursor;
-import android.util.Log;
 
 import java.util.List;
 
@@ -17,7 +15,7 @@ import java.util.List;
  *
  * @author Johansson, Henrik
  * @author Stromner, David
- * @version 2014-09-30
+ * @version 2014-10-09
  */
 
 public class Database extends SQLiteOpenHelper {
@@ -53,7 +51,7 @@ public class Database extends SQLiteOpenHelper {
      * @param NAME the proper name for the element.
      * @return true if it succeeded, false otherwise.
      */
-    public Boolean addElement(int UN_ID, String NAME){
+    Boolean addElement(int UN_ID, String NAME){
         try{
             SQLiteDatabase database = this.getWritableDatabase();
             database.execSQL("INSERT INTO "+TABLE_NAME+" VALUES("+UN_ID+",'"+NAME+"');");
@@ -68,7 +66,7 @@ public class Database extends SQLiteOpenHelper {
      * FOR TESTING PURPOSE ONLY, DO NOT USE IN APPLICATION CODE
      * Delete the entire table to ease in constructing tests for the database.
      */
-    public void deleteTable(){
+    void deleteTable(){
         SQLiteDatabase database = this.getWritableDatabase();
         database.execSQL("DELETE FROM "+TABLE_NAME);
         database.execSQL("VACUUM");
@@ -82,7 +80,7 @@ public class Database extends SQLiteOpenHelper {
      * @param elementID element to remove.
      * @return true if the element was removed, false otherwise.
      */
-    public Boolean removeElement(int elementID){
+    Boolean removeElement(int elementID){
         SQLiteDatabase database = this.getWritableDatabase();
         try {
             database.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_UN_ID + " = " + elementID);
@@ -101,29 +99,12 @@ public class Database extends SQLiteOpenHelper {
      * @param elementID element to fetch.
      * @return the element if it was found, null otherwise.
      */
-    public Cursor getElement(int elementID){
+    Cursor getElement(int elementID){
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.query(TABLE_NAME, new String[]{COLUMN_NAME_UN_ID, COLUMN_NAME_UN_NAME}, COLUMN_NAME_UN_ID + "=?", new String[]{String.valueOf(elementID)}, null, null, null, null);
         if(!cursor.moveToFirst()) {
             return null;
         }
         return cursor;
-    }
-
-    /**
-     *
-     * @param database
-     * @return
-     */
-    public Boolean checkList(Database database){
-        return false;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public List getList(){
-        return null;
     }
 }

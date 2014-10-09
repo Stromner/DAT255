@@ -9,7 +9,7 @@ import android.media.Image;
  *
  * @author Johansson, Henrik
  * @author Stromner, David
- * @version 2014-10-08
+ * @version 2014-10-09
  */
 
 public class Element {
@@ -185,5 +185,17 @@ public class Element {
     public boolean setHazmatImage(String hazmatImage){
         this.hazmatImage = hazmatImage;
         return this.hazmatImage == hazmatImage ? true:false;
+    }
+
+    @Override
+    public Object clone(){
+        //Left it empty so you would notice when compiling.
+        return null;
+    }
+
+    @Override
+    public int hashCode(){
+       // This one to!
+        return 0;
     }
 }
