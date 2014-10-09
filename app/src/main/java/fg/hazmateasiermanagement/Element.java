@@ -189,13 +189,11 @@ public class Element {
 
     @Override
     public Object clone(){
-        //Left it empty so you would notice when compiling.
-        return null;
+        Left it empty so you would notice when compiling.
     }
 
     @Override
     public int hashCode(){
-       // This one to!
-        return 0;
+       This one to!
     }
 }
