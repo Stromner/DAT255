@@ -15,6 +15,7 @@ import fg.hazmateasiermanagement.database.Database;
 
 public class AccessDatabase {
     private Database db;
+    private List<Element> fullDatabase;
 
     public AccessDatabase(Database db){
         this.db = db;
@@ -26,7 +27,10 @@ public class AccessDatabase {
      * @return database in element format.
      */
     public List<Element> getCompleteDatabase(){
-        return null;
+        if(fullDatabase == null){
+
+        }
+        return fullDatabase;
     }
 
     /**
@@ -77,8 +81,8 @@ public class AccessDatabase {
      * Calls on the database.getElement method, convert the cursor that it returns to an element
      * class for easier access.
      *
-     * @param elementID element to be fetched
-     * @return the constructed element if it existed, otherwise null.
+     * @param elementID
+     * @return
      */
     public Element getElement(int elementID){
         return null;
