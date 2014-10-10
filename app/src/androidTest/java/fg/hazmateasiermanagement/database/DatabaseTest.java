@@ -7,9 +7,6 @@ import android.test.suitebuilder.annotation.SmallTest;
 
 import fg.hazmateasiermanagement.database.Database;
 
-/**
- * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
- */
 public class DatabaseTest extends ApplicationTestCase<Application> {
     private Database database;
 

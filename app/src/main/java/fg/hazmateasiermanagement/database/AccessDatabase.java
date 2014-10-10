@@ -55,12 +55,12 @@ public class AccessDatabase {
     /**
      * Calls on the database.addElement method.
      *
-     * @param UN_ID the UN identification number for the element.
-     * @param NAME the proper name for the element.
+     * @param unID the UN identification number for the element.
+     * @param name the proper name for the element.
      * @return true if it succeeded, false otherwise.
      */
-    public Boolean addElement(int UN_ID, String NAME){
-        return db.addElement(UN_ID, NAME);
+    public Boolean addElement(int unID, String name){
+        return db.addElement(unID, name);
     }
 
     /**
@@ -71,5 +71,16 @@ public class AccessDatabase {
      */
     public Boolean removeElement(int elementID){
         return db.removeElement(elementID);
+    }
+
+    /**
+     * Calls on the database.getElement method, convert the cursor that it returns to an element
+     * class for easier access.
+     *
+     * @param elementID element to be fetched
+     * @return the constructed element if it existed, otherwise null.
+     */
+    public Element getElement(int elementID){
+        return null;
     }
 }
