@@ -32,7 +32,15 @@ public class AccessDatabase {
      */
     public List<Element> getCompleteDatabase(){
         if(fullDatabase == null){
-
+            Cursor cursor = db.getCompleteDatabase();
+            String s[] = new String[cursor.getCount()];
+            int i = 0;
+            while(!cursor.isAfterLast()){
+                s[i] = "S"+cursor.getString(0)+"W0";
+                cursor.moveToNext();
+                i++;
+            }
+            fullDatabase = stringToList(s);
         }
         return fullDatabase;
     }
@@ -78,7 +86,8 @@ public class AccessDatabase {
      *
      * @param list to be converted.
      * @return Converted list, null if the list in is null.
-     * @throws IllegalArgumentException if format exception occurs.
+     * @throws IllegalArgumentException if format exception occurs. Or if the list contains
+     * a non-existing element.
      */
     private List<Element> stringToList(String[] list) throws IllegalArgumentException{
         if(list == null){

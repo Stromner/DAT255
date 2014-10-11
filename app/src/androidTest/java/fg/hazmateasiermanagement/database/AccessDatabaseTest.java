@@ -76,32 +76,28 @@ public class AccessDatabaseTest extends ApplicationTestCase<Application> {
     }
 
     @SmallTest
-    public void testGetCompleteDatabase() {
-        assertNotNull(null);
+    public void testGetCompleteDatabaseNotEmpty() {
+        accessDatabase.addElement(0, "test_element");
+        assertNotNull(accessDatabase.getCompleteDatabase());
     }
 
     @SmallTest
-    public void testNullList(){
-        assertNotNull(null);
-    }
-
-    @SmallTest
-    public void testGoodFormatList(){
-        assertNotNull(null);
-    }
-
-    @SmallTest
-    public void testBadFormatList(){
-        assertNotNull(null);
+    public void testGetCompleteDatabaseEmpty(){
+        assertNull(accessDatabase.getCompleteDatabase());
     }
 
     @SmallTest
     public void testGoodTransportList(){
-        assertNotNull(null);
+        String s[] = {"S1W1", "S2W2", "S4W1", "S100W100"};
+        assertTrue(accessDatabase.checkCargoList(s));
     }
 
     @SmallTest
     public void testBadTransportList(){
-        assertNotNull(null);
+        String s[] = {"S1W1", "S2W2wwww", "S4W1"};
+        assertFalse(accessDatabase.checkCargoList(s));
+
+        String s2[] = {"S1W1", "S2W-2", "S4W1"};
+        assertFalse(accessDatabase.checkCargoList(s2));
     }
 }

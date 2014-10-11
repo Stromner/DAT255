@@ -107,4 +107,16 @@ public class Database extends SQLiteOpenHelper {
         }
         return cursor;
     }
+
+    /**
+     * @return Iterable cursor pointing to the first row in the database.
+     * null if error occurs.
+     */
+    Cursor getCompleteDatabase(){
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME ,null);
+        if(!cursor.moveToFirst()){
+            return null;
+        }
+        return cursor;
+    }
 }

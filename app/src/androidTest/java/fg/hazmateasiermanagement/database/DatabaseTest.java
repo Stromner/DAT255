@@ -68,4 +68,10 @@ public class DatabaseTest extends ApplicationTestCase<Application> {
         Cursor cursor = database.getElement(0);
         assertNull(cursor);
     }
+
+    @SmallTest
+    public void testGetCompleteDatabase(){
+        Cursor cursor = database.getCompleteDatabase();
+        assertNotNull(cursor);
+    }
 }
