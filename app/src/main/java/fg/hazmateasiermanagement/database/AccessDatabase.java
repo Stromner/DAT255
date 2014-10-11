@@ -77,8 +77,8 @@ public class AccessDatabase {
      * stands for Element and W for Weight.
      *
      * @param list to be converted.
-     * @return Converted list, null if the list in is null//format exception occurs.
-     * @throws IllegalArgumentException if the list contain any weird format.
+     * @return Converted list, null if the list in is null.
+     * @throws IllegalArgumentException if format exception occurs.
      */
     private List<Element> stringToList(String[] list) throws IllegalArgumentException{
         if(list == null){
@@ -97,6 +97,11 @@ public class AccessDatabase {
             int elementID = Integer.parseInt(list[i].substring(e+1, w));
             int weight = Integer.parseInt(list[i].substring(w+1));
             Element element = getElement(elementID);
+            if(element == null){
+                // TODO change exception type
+                throw new IllegalArgumentException("Contains non-existing element");
+            }
+
             element.setWeight(weight);
             linkedList.add(element);
         }
