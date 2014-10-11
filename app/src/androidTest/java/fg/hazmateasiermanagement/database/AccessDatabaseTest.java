@@ -81,6 +81,21 @@ public class AccessDatabaseTest extends ApplicationTestCase<Application> {
     }
 
     @SmallTest
+    public void testNullList(){
+        assertNotNull(null);
+    }
+
+    @SmallTest
+    public void testGoodFormatList(){
+        assertNotNull(null);
+    }
+
+    @SmallTest
+    public void testBadFormatList(){
+        assertNotNull(null);
+    }
+
+    @SmallTest
     public void testGoodTransportList(){
         assertNotNull(null);
     }

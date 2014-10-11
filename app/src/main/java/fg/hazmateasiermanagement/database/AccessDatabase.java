@@ -1,5 +1,9 @@
 package fg.hazmateasiermanagement.database;
 
+import android.database.Cursor;
+
+import java.util.IllegalFormatException;
+import java.util.LinkedList;
 import java.util.List;
 
 import fg.hazmateasiermanagement.Element;
@@ -45,15 +49,59 @@ public class AccessDatabase {
     }
 
     /**
+     * Calls on the database.getElement method, convert the cursor that it returns to an element
+     * class for easier access.
+     *
+     * @param elementID element to be fetched.
+     * @return the Element version of the cursor if 'elementID' exist, null otherwise.
+     */
+    public Element getElement(int elementID){
+        // TODO Extend this method once the database is complete so it can make use of the full constructor of element
+        Cursor cursor = db.getElement(elementID);
+        if(cursor == null){
+            return null;
+        }
+
+        String arr[] = new String[cursor.getColumnCount()];
+        int pos = 0;
+        while(!cursor.isAfterLast()){
+            arr[pos] = cursor.getString(pos);
+            pos++;
+        }
+        return new Element(Integer.parseInt(arr[0]));
+    }
+
+    /**
      * Converts a String array to a list of elements. The format on the string array must be
      * as following: "{E_W_,E_W_}" where the empty spaces must represent an integer number and E
      * stands for Element and W for Weight.
      *
      * @param list to be converted.
-     * @return Converted list, null if format exception occurs.
-    */
-    private List<Element> stringToList(String[] list){
-        return null;
+     * @return Converted list, null if the list in is null//format exception occurs.
+     * @throws IllegalArgumentException if the list contain any weird format.
+     */
+    private List<Element> stringToList(String[] list) throws IllegalArgumentException{
+        if(list == null){
+            return null;
+        }
+        LinkedList<Element> linkedList = new LinkedList<Element>();
+
+        for(int i=0;i<list.length;i++){
+            int e = list[i].indexOf('E');
+            int w = list[i].indexOf('W');
+            if(e == -1 || w == -1){
+                // TODO change exception type
+                throw new IllegalArgumentException("Couldn't find both 'E' and 'W'");
+            }
+
+            int elementID = Integer.parseInt(list[i].substring(e+1, w));
+            int weight = Integer.parseInt(list[i].substring(w+1));
+            Element element = getElement(elementID);
+            element.setWeight(weight);
+            linkedList.add(element);
+        }
+
+        return linkedList;
     }
 
     /**
@@ -75,16 +123,5 @@ public class AccessDatabase {
      */
     public Boolean removeElement(int elementID){
         return db.removeElement(elementID);
-    }
-
-    /**
-     * Calls on the database.getElement method, convert the cursor that it returns to an element
-     * class for easier access.
-     *
-     * @param elementID
-     * @return
-     */
-    public Element getElement(int elementID){
-        return null;
     }
 }
