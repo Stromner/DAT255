@@ -8,34 +8,40 @@ import android.media.Image;
  * doesn't contain any weight but if you were to transport it you need to provide a weight param)
  *
  * @author Johansson, Henrik
- * @author Strömner, David
- * @version 2014-10-07
+ * @author Stromner, David
+ * @version 2014-10-09
  */
 
 public class Element {
     private int unNumber;           //UN number
-    private String nameDesc;        //Name and description
+    private String name;            //Name of the element
+    private String description;     //Describing the Element in detail
     private int classNumber;        //Class number that covers dangerous substance or article
     private String packingGroup;    //Packing Group I II or III
-    private String label;          //labels used to show what material that can be shipped together.
+    private String label;           //labels used to show what material that can be shipped together.
     private int weight;             //The weight of the material
-    //private String hazmatImage;    //TODO fix the image
+    private String hazmatImage;     //String that contains the name of the image
 
     /**
      * Constructor with all necessary fields included.
      * @param unNumber
-     * @param nameDesc
+     * @param name
+     * @param description
      * @param classNumber
      * @param packingGroup
      * @param label
+     * @param weight;
+     * @param hazmatImage;
      */
-    public Element(int unNumber, String nameDesc, int classNumber, String packingGroup, String label, int weight){         //Full constructor
+    public Element(int unNumber, String name, String description, int classNumber, String packingGroup, String label, int weight, String hazmatImage){         //Full constructor
         this.unNumber = unNumber;
-        this.nameDesc = nameDesc;
+        this.name = name;
+        this.description = description;
         this.classNumber = classNumber;
         this.packingGroup = packingGroup;
         this.label = label;
         this.weight = weight;
+        this.hazmatImage = hazmatImage;
     }
 
     /**
@@ -46,6 +52,11 @@ public class Element {
         this.unNumber = unNumber;
     }
 
+    /**
+     *
+     * @param unNumber
+     * @return true if unNumber has been set to new value, null ow
+     */
     public boolean setUNNumber(int unNumber){
         this.unNumber = unNumber;
         return this.unNumber == unNumber ? true:false;
@@ -59,19 +70,44 @@ public class Element {
         return unNumber;
     }
 
-    public boolean setNameDesc(String getNameDesc){
-        this.nameDesc = nameDesc;
-        return this.nameDesc == nameDesc ? true:false;
+    /**
+     *
+     * @param name
+     * @return true if name has been set to new value, null ow
+     */
+    public boolean setName(String name){
+        this.name = name;
+        return this.name == name ? true:false;
+    }
+    /**
+     *
+     * @return name if exist, null ow.
+     */
+    public String getName(){
+        return name;
     }
 
     /**
      *
-     * @return nameDesc if exist, null ow.
+     * @param description
+     * @return true if description has been set to new value, null ow
      */
-    public String getNameDesc(){
-        return nameDesc;
+    public boolean setDescription(String description){
+        this.description = description;
+        return this.description == description ? true:false;
     }
 
+    /**
+     *
+     * @return description if exist, null ow
+     */
+    public String getDescription(){ return description;}
+
+    /**
+     *
+     * @param classNumber
+     * @return true if classNumber has been set to new value, false ow
+     */
     public boolean setClassNumber(int classNumber){
         this.classNumber = classNumber;
         return this.classNumber == classNumber ? true:false;
@@ -85,6 +121,10 @@ public class Element {
        return classNumber;
     }
 
+    /**
+     *
+     * @return true if packinggroup has been set to new value, flase ow
+     */
     public boolean setPackingGroup(){
         this.packingGroup = packingGroup;
         return this.packingGroup == packingGroup ? true:false;
@@ -98,6 +138,11 @@ public class Element {
         return packingGroup;
     }
 
+    /**
+     *
+     * @param label
+     * @return true if label has been set to new, false ow
+     */
     public boolean setLabel(String label){
         this.label = label;
         return this.label == label ? true:false;
@@ -122,5 +167,33 @@ public class Element {
         this.weight = weight;
 
         return this.weight == weight ? true:false;
+    }
+
+    /**
+     *
+     * @return hazmatImage if exist, null ow
+     */
+    public String getHazmatImage(){
+        return hazmatImage;
+    }
+
+    /**
+     *
+     * @param hazmatImage
+     * @return true if created, false ow
+     */
+    public boolean setHazmatImage(String hazmatImage){
+        this.hazmatImage = hazmatImage;
+        return this.hazmatImage == hazmatImage ? true:false;
+    }
+
+    @Override
+    public Object clone(){
+        return null;
+    }
+
+    @Override
+    public int hashCode(){
+       return 0;
     }
 }
