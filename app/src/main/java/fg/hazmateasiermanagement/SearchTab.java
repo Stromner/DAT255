@@ -23,14 +23,10 @@ import java.util.LinkedList;
  */
 public class SearchTab extends Activity {
 
-    LinearLayout searchListContainer;
-    private LinearLayout searchLayout;
-    private int elementPanel = R.layout.element_panel;
     EditText searchBar;
-
+    LinearLayout searchListContainer;
     LinkedList<String> searchList;
     LinkedList<String> searchListDisplay;
-    LinkedList<String> searchListDisplayRemoval;
 
 
     @Override
@@ -39,9 +35,6 @@ public class SearchTab extends Activity {
         setContentView(R.layout.activity_search);
         searchListContainer = (LinearLayout) findViewById(R.id.search_list);
 
-
-
-        searchLayout = (LinearLayout) findViewById(R.id.search_layout);
         searchList = new LinkedList<String>();
         searchListDisplay = new LinkedList<String>();
 
@@ -55,19 +48,21 @@ public class SearchTab extends Activity {
 
         setupSearch();
 
-
     }
 
+    /**
+     * Initializes searchBar.
+     */
     private void setupSearch(){
         searchBar = (EditText) findViewById(R.id.search_text);
 
+        //Calls updateDisplay() whenever searchBar is changed and matches which items should be displayed.
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 searchListDisplay.clear();
                 if (s.toString().isEmpty() == false) {
                 String search = ".*" + s.toString().toLowerCase() + ".*";
-
                     for (String temp : searchList) {
                         if (temp.toLowerCase().matches(search)) {
                             searchListDisplay.add(temp);
@@ -85,12 +80,19 @@ public class SearchTab extends Activity {
 
     }
 
-
+    /**
+     * (Pointless) test function that will be removed.
+     */
     private void addUNItems(String itemName){
         searchList.add(itemName);
     }
 
-    private void addListDisplayItem(String s, int counter){
+    /**
+     * Adds the item with various info to the search Display.
+     * @param itemName name of item
+     * @param counter placeholder for UN-number.
+     */
+    private void addListDisplayItem(String itemName, int counter){
         TextView displayItemText;
         TextView displayUNText;
         TextView displayButton;
@@ -100,7 +102,7 @@ public class SearchTab extends Activity {
         displayUNText = (TextView) displayItem.findViewById(R.id.search_item_UN);
         displayButton = (Button) displayItem.findViewById(R.id.button_add_search_item);
 
-        displayItemText.setText(s);
+        displayItemText.setText(itemName);
         displayUNText.setText("Temp nr: " + counter);
       /*  displayButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +114,10 @@ public class SearchTab extends Activity {
         searchListContainer.addView(displayItem,0);
     }
 
-
+    /**
+     * Updates the search_list view
+     * Variable tempCounter will be removed, currently there to see how in which order items appear.
+     */
     private void updateDisplay(){
         searchListContainer.removeAllViews();
         int tempCounter = 0;
