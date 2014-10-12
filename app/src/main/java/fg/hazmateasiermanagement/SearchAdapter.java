@@ -1,4 +1,4 @@
-package fg.hazmateasiermanagement;
+/*package fg.hazmateasiermanagement;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -11,9 +11,9 @@ import android.widget.TextView;
 import java.util.List;
 
 
-/**
- * Created by Beni on 2014-10-06.
- */
+
+// * Created by Beni on 2014-10-06.
+
 public class SearchAdapter extends CursorAdapter {
 
     private List<String> items;
@@ -42,7 +42,7 @@ public class SearchAdapter extends CursorAdapter {
 
         View view = inflater.inflate(R.layout.item, parent, false);
 
-        text = (TextView) view.findViewById(R.id.text);
+        //text = (TextView) view.findViewById(R.id.text);
 
         return view;
 
@@ -53,3 +53,4 @@ public class SearchAdapter extends CursorAdapter {
 
 
 }
+*/

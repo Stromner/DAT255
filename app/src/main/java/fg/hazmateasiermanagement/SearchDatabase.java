@@ -1,3 +1,5 @@
+/*
+
 package fg.hazmateasiermanagement;
 
 import android.annotation.TargetApi;
@@ -88,3 +90,5 @@ public class SearchDatabase {
     }
 
 }
+
+*/
