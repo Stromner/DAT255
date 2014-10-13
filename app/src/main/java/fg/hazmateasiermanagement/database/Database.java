@@ -53,6 +53,10 @@ public class Database extends SQLiteOpenHelper {
      *
      * @param UN_ID the UN identification number for the element.
      * @param NAME the proper name for the element.
+     * @param DESCRIPTION describe the Element in detail.
+     * @param LABEL used to show what material that can be shipped together.
+     * @param HAZMAT_IMAGE file name of what image(if any) applies to this element).
+     * @param NOT_COMPATIBLE shows which labels this element cannot be shipped with.
      * @return true if it succeeded, false otherwise.
      */
     boolean addElement(int UN_ID, String NAME, String DESCRIPTION, String LABEL, String HAZMAT_IMAGE, List<String> NOT_COMPATIBLE){
