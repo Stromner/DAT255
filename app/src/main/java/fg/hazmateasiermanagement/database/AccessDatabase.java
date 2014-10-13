@@ -138,7 +138,7 @@ public class AccessDatabase {
      * @param name the proper name for the element.
      * @return true if it succeeded, false otherwise.
      */
-    public Boolean addElement(int unID, String name){
+    public boolean addElement(int unID, String name){
         return db.addElement(unID, name);
     }
 
@@ -148,7 +148,7 @@ public class AccessDatabase {
      * @param elementID element to remove.
      * @return true if the element was removed, false otherwise.
      */
-    public Boolean removeElement(int elementID){
+    public boolean removeElement(int elementID){
         return db.removeElement(elementID);
     }
 }

@@ -51,7 +51,7 @@ public class Database extends SQLiteOpenHelper {
      * @param NAME the proper name for the element.
      * @return true if it succeeded, false otherwise.
      */
-    Boolean addElement(int UN_ID, String NAME){
+    boolean addElement(int UN_ID, String NAME){
         try{
             SQLiteDatabase database = this.getWritableDatabase();
             database.execSQL("INSERT INTO "+TABLE_NAME+" VALUES("+UN_ID+",'"+NAME+"');");
@@ -80,7 +80,7 @@ public class Database extends SQLiteOpenHelper {
      * @param elementID element to remove.
      * @return true if the element was removed, false otherwise.
      */
-    Boolean removeElement(int elementID){
+    boolean removeElement(int elementID){
         SQLiteDatabase database = this.getWritableDatabase();
         try {
             database.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_UN_ID + " = " + elementID);
