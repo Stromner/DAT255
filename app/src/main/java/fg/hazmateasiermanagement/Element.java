@@ -93,5 +93,6 @@ public class Element implements Cloneable{
     public Object clone() throws CloneNotSupportedException{
         // Since strings are immutable and any other variable in this class is of simple format calling super is enough.
         return super.clone();
+
     }
 }

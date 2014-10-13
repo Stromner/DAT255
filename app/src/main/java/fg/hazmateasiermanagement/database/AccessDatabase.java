@@ -33,14 +33,11 @@ public class AccessDatabase {
     public List<Element> getCompleteDatabase(){
         if(fullDatabase == null){
             Cursor cursor = db.getCompleteDatabase();
-            String s[] = new String[cursor.getCount()];
-            int i = 0;
+            LinkedList<Element> list= new LinkedList<Element>();
             while(!cursor.isAfterLast()){
-                s[i] = "S"+cursor.getString(0)+"W0";
-                cursor.moveToNext();
-                i++;
+                list.add(getElement(cursor.getInt(0)));
             }
-            //fullDatabase = stringToList(s);
+            fullDatabase = list;
         }
         return fullDatabase;
     }
@@ -53,7 +50,6 @@ public class AccessDatabase {
      * @return the Element version of the cursor if 'elementID' exist, null otherwise.
      */
     public Element getElement(int elementID){
-        // TODO Extend this method once the database is complete so it can make use of the full constructor of element
         Cursor cursor = db.getElement(elementID);
         if(cursor == null){
             return null;
@@ -65,7 +61,7 @@ public class AccessDatabase {
             arr[pos] = cursor.getString(pos);
             pos++;
         }
-        return new Element(Integer.parseInt(arr[0]));
+        return new Element(Integer.parseInt(arr[0]), arr[1], arr[2], arr[3], arr[4], arr[5]);
     }
 
     /**
