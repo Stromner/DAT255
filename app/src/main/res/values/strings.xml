@@ -8,5 +8,7 @@
     <string name="getChecklist">Get Checklist</string>
     <string name="information">Information</string>
     <string name="remove">Remove</string>
+    <string name="weightHintText">Weight of load (Kilograms)</string>
+
 
 </resources>

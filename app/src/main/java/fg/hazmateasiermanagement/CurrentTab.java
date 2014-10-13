@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -18,16 +21,19 @@ import android.widget.TextView;
 public class CurrentTab extends Activity {
 
     private LinearLayout elementContainerLayout;
+    private RelativeLayout outerLayout;
     private TextView textViewElementId;
     private TextView textViewElementName;
     private ImageView imageViewElementSign;
     private ImageButton removeButton;
+    private Button getChecklistButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current);
-        elementContainerLayout = (LinearLayout) findViewById(R.id.current_layout);
+        elementContainerLayout = (LinearLayout) findViewById(R.id.currentLayout);
+        outerLayout = (RelativeLayout) findViewById(R.id.currentOuterLayout);
 
         //Example values
         addElementPanel(1234, "Diväveoxid", "alert");
@@ -68,6 +74,11 @@ public class CurrentTab extends Activity {
         textViewElementName.setText(name);
         
         elementPanel.setBackgroundColor(getResources().getColor(R.color.dark_gray));
+
+        //Self explanatory, this is added so the button isn't there when there is no elements in the list
+        if(elementContainerLayout.getChildCount() == 0)
+            addGetChecklistButton();
+
         elementContainerLayout.addView(elementPanel, 0);
     }
 
@@ -81,11 +92,55 @@ public class CurrentTab extends Activity {
         elementContainerLayout.removeView(removeTable);
 
     }
-    
-    //Send in format: String[] list = {E12345W95, E12345W67, E12345W54}
-    //E(lement)12345(id)W(eight)95(in kg)
+
+    /**
+     * Adds a button to the elementContainerLayout that will take you to the checklist for the selected elements.
+     */
+    private void addGetChecklistButton(){
+        getChecklistButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                //goToChecklistTab(view);
+            }
+        });
+
+        outerLayout.addView(getChecklistButton);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        getChecklistButton.setLayoutParams(layoutParams);
+        getChecklistButton.setText(R.string.getChecklist);
+    }
+
+    /**
+     *
+     */
     private void generateCheckList(){
-        int i = elementContainerLayout.getChildCount();
+        int noElements;
+        String id;
+        String weight;
+        TableRow row;
+        String[] elementList;
+        EditText weightEditText;
+        TextView elementIdTextView;
+        TableLayout elementPanel;
+
+        //Gets the number of elements from the layout, - 1 because of the get checklist button.
+        noElements = elementContainerLayout.getChildCount() - 1;
+        elementList = new String[noElements];
+
+        for(int i = 0; i<= noElements; i++){
+            elementPanel = (TableLayout) elementContainerLayout.getChildAt(i);
+
+            row = (TableRow) elementPanel.getChildAt(0);
+            elementIdTextView = (TextView) row.getChildAt(1);
+            id = elementIdTextView.getText().toString();
+
+            row = (TableRow) elementPanel.getChildAt(2);
+            weightEditText = (EditText) row.getChildAt(0);
+            weight = weightEditText.getText().toString().trim();
+
+            //Send in format: String[] list = {E12345W95, E12345W67, E12345W54}
+            //E(lement)12345(id)W(eight)95(in kg)
+            elementList[i] = ("E" + id + "W" + weight);
+        }
         //Intent to go to check list
 
     }
