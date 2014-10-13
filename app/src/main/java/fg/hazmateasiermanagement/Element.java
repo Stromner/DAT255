@@ -9,18 +9,18 @@ import android.media.Image;
  *
  * @author Johansson, Henrik
  * @author Stromner, David
- * @version 2014-10-09
+ * @version 2014-10-13
  */
 
 public class Element implements Cloneable{
-    private int unNumber;       //UN number
-    private String name;        //Name of the element
-    private String description; //Describing the Element in detail
-    private int classNumber;    //Class number that covers dangerous substance or article
-    private String packingGroup;//Packing Group I II or III
-    private String label;       //labels used to show what material that can be shipped together.
-    private float weight;       //The weight of the material
-    private String hazmatImage; //String that contains the name of the image
+    private int unNumber;       // UN number
+    private String name;        // Name of the element
+    private String description; // Describing the Element in detail
+    private int classNumber;    // Class number that covers dangerous substance or article
+    private String packingGroup;// Packing Group I II or III
+    private String label;       // Labels used to show what material that can be shipped together.
+    private float weight;       // The weight of the material
+    private String hazmatImage; // String that contains the name of the image
 
     public Element(int unNumber, String name, String description, int classNumber, String packingGroup, String label, int weight, String hazmatImage){
         this.unNumber = unNumber;

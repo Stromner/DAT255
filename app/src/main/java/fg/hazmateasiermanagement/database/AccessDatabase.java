@@ -132,45 +132,6 @@ public class AccessDatabase {
     }
 
     /**
-     * Converts a String array to a list of elements. The format on the string array must be
-     * as following: "{E_W_,E_W_}" where the empty spaces must represent an integer number and E
-     * stands for Element and W for Weight.
-     *
-     * @param list to be converted.
-     * @return Converted list, null if the list in is null.
-     * @throws IllegalArgumentException if format exception occurs. Or if the list contains
-     * a non-existing element.
-     */
-    private List<Element> stringToList(String[] list) throws IllegalArgumentException{
-        if(list == null){
-            return null;
-        }
-        LinkedList<Element> linkedList = new LinkedList<Element>();
-
-        for(int i=0;i<list.length;i++){
-            int e = list[i].indexOf('E');
-            int w = list[i].indexOf('W');
-            if(e == -1 || w == -1){
-                // TODO change exception type
-                throw new IllegalArgumentException("Couldn't find both 'E' and 'W'");
-            }
-
-            int elementID = Integer.parseInt(list[i].substring(e+1, w));
-            int weight = Integer.parseInt(list[i].substring(w+1));
-            Element element = getElement(elementID);
-            if(element == null){
-                // TODO change exception type
-                throw new IllegalArgumentException("Contains non-existing element");
-            }
-
-            element.setWeight(weight);
-            linkedList.add(element);
-        }
-
-        return linkedList;
-    }
-
-    /**
      * Calls on the database.addElement method.
      *
      * @param unID the UN identification number for the element.
