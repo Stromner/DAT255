@@ -24,6 +24,10 @@ public class Database extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "tableName";
     public static final String COLUMN_NAME_UN_ID = "un_id";
     public static final String COLUMN_NAME_UN_NAME = "un_name";
+    public static final String COLUMN_DESCRIPTION = "description";
+    public static final String COLUMN_LABEL = "label";
+    public static final String COLUMN_HAZMAT_IMAGE = "hazmat_image";
+    public static final String COLUMN_NOT_COMPATIBLE = "not_compatible";
 
     public Database(Context context){
         super(context, DATABASE_NAME , null, DATABASE_VERSION);
@@ -31,8 +35,8 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_NAME+"("+COLUMN_NAME_UN_ID+" INTEGER PRIMARY KEY, "+COLUMN_NAME_UN_NAME+" TEXT);");
-    }
+        sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_NAME+"("+COLUMN_NAME_UN_ID+" INTEGER PRIMARY KEY,"+COLUMN_NAME_UN_NAME+" TEXT,"+COLUMN_DESCRIPTION+ " TEXT,"+COLUMN_LABEL+" TEXT,"+COLUMN_HAZMAT_IMAGE+" TEXT," +COLUMN_NOT_COMPATIBLE+ "TEXT );");
+    }//int unNumber, String name, String description, String label, String hazmatImage, String notCompatible
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
@@ -51,10 +55,15 @@ public class Database extends SQLiteOpenHelper {
      * @param NAME the proper name for the element.
      * @return true if it succeeded, false otherwise.
      */
-    boolean addElement(int UN_ID, String NAME){
+    boolean addElement(int UN_ID, String NAME, String DESCRIPTION, String LABEL, String HAZMAT_IMAGE, List<String> NOT_COMPATIBLE){
         try{
+            String notCompatible = "";
+            for (String s : NOT_COMPATIBLE) {
+                notCompatible += s + ";";
+            }
+            notCompatible = notCompatible.substring(0, notCompatible.length() - 1);
             SQLiteDatabase database = this.getWritableDatabase();
-            database.execSQL("INSERT INTO "+TABLE_NAME+" VALUES("+UN_ID+",'"+NAME+"');");
+            database.execSQL("INSERT INTO "+TABLE_NAME+" VALUES("+UN_ID+",'"+NAME+"','"+DESCRIPTION+"','"+LABEL+"','"+HAZMAT_IMAGE+"','"+notCompatible+"');");
         }catch(Exception e){
             e.printStackTrace();
             return false;
