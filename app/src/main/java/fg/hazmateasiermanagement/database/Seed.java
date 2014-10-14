@@ -7,9 +7,17 @@ import java.util.Arrays;
  * Created by Henrik on 2014-10-14.
  */
 public class Seed {
+    private static Seed seed;
 
     private Seed(){
 
+    }
+
+    public static Seed getInstance(){
+        if(seed == null){
+            seed = new Seed();
+        }
+        return seed;
     }
 
 // un_id name description label hazzmat list<String>
