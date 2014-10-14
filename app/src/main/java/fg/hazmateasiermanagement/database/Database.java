@@ -19,11 +19,15 @@ import java.util.List;
  */
 
 public class Database extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 9;
     public static final String DATABASE_NAME = "hazmat_database.db";
     public static final String TABLE_NAME = "tableName";
     public static final String COLUMN_NAME_UN_ID = "un_id";
     public static final String COLUMN_NAME_UN_NAME = "un_name";
+    public static final String COLUMN_DESCRIPTION = "description";
+    public static final String COLUMN_LABEL = "label";
+    public static final String COLUMN_HAZMAT_IMAGE = "hazmat_image";
+    public static final String COLUMN_NOT_COMPATIBLE = "not_compatible";
 
     public Database(Context context){
         super(context, DATABASE_NAME , null, DATABASE_VERSION);
@@ -31,8 +35,8 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_NAME+"("+COLUMN_NAME_UN_ID+" INTEGER PRIMARY KEY, "+COLUMN_NAME_UN_NAME+" TEXT);");
-    }
+        sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_NAME+"("+COLUMN_NAME_UN_ID+" INTEGER PRIMARY KEY,"+COLUMN_NAME_UN_NAME+" TEXT,"+COLUMN_DESCRIPTION+ " TEXT,"+COLUMN_LABEL+" TEXT,"+COLUMN_HAZMAT_IMAGE+" TEXT," +COLUMN_NOT_COMPATIBLE+ "TEXT );");
+    }//int unNumber, String name, String description, String label, String hazmatImage, String notCompatible
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
@@ -49,12 +53,21 @@ public class Database extends SQLiteOpenHelper {
      *
      * @param UN_ID the UN identification number for the element.
      * @param NAME the proper name for the element.
+     * @param DESCRIPTION describe the Element in detail.
+     * @param LABEL used to show what material that can be shipped together.
+     * @param HAZMAT_IMAGE file name of what image(if any) applies to this element).
+     * @param NOT_COMPATIBLE shows which labels this element cannot be shipped with.
      * @return true if it succeeded, false otherwise.
      */
-    Boolean addElement(int UN_ID, String NAME){
+    boolean addElement(int UN_ID, String NAME, String DESCRIPTION, String LABEL, String HAZMAT_IMAGE, List<String> NOT_COMPATIBLE){
         try{
+            String notCompatible = "";
+            for (String s : NOT_COMPATIBLE) {
+                notCompatible += s + ";";
+            }
+            notCompatible = notCompatible.substring(0, notCompatible.length() - 1);
             SQLiteDatabase database = this.getWritableDatabase();
-            database.execSQL("INSERT INTO "+TABLE_NAME+" VALUES("+UN_ID+",'"+NAME+"');");
+            database.execSQL("INSERT INTO "+TABLE_NAME+" VALUES("+UN_ID+",'"+NAME+"','"+DESCRIPTION+"','"+LABEL+"','"+HAZMAT_IMAGE+"','"+notCompatible+"');");
         }catch(Exception e){
             e.printStackTrace();
             return false;
@@ -80,7 +93,7 @@ public class Database extends SQLiteOpenHelper {
      * @param elementID element to remove.
      * @return true if the element was removed, false otherwise.
      */
-    Boolean removeElement(int elementID){
+    boolean removeElement(int elementID){
         SQLiteDatabase database = this.getWritableDatabase();
         try {
             database.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_UN_ID + " = " + elementID);
@@ -101,8 +114,9 @@ public class Database extends SQLiteOpenHelper {
      */
     Cursor getElement(int elementID){
         SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.query(TABLE_NAME, new String[]{COLUMN_NAME_UN_ID, COLUMN_NAME_UN_NAME}, COLUMN_NAME_UN_ID + "=?", new String[]{String.valueOf(elementID)}, null, null, null, null);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_UN_ID + " =?", new String[]{String.valueOf(elementID)});
         if(!cursor.moveToFirst()) {
+            cursor.close();
             return null;
         }
         return cursor;
@@ -115,6 +129,7 @@ public class Database extends SQLiteOpenHelper {
     Cursor getCompleteDatabase(){
         Cursor cursor = this.getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME ,null);
         if(!cursor.moveToFirst()){
+            cursor.close();
             return null;
         }
         return cursor;
