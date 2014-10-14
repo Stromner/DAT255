@@ -89,7 +89,7 @@ public class DatabaseTest extends ApplicationTestCase<Application> {
     }
 
     @SmallTest
-    public void testGetNonexistingCompleteDatabase(){
+    public void testGetNonExistingCompleteDatabase(){
         assertNull(database.getCompleteDatabase());
     }
 }

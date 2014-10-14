@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 public class Database extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 6;
+    public static final int DATABASE_VERSION = 9;
     public static final String DATABASE_NAME = "hazmat_database.db";
     public static final String TABLE_NAME = "tableName";
     public static final String COLUMN_NAME_UN_ID = "un_id";
@@ -114,8 +114,9 @@ public class Database extends SQLiteOpenHelper {
      */
     Cursor getElement(int elementID){
         SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.query(TABLE_NAME, null, COLUMN_NAME_UN_ID + "=?", new String[]{String.valueOf(elementID)}, null, null, null, null);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_UN_ID + " =?", new String[]{String.valueOf(elementID)});
         if(!cursor.moveToFirst()) {
+            cursor.close();
             return null;
         }
         return cursor;
@@ -128,6 +129,7 @@ public class Database extends SQLiteOpenHelper {
     Cursor getCompleteDatabase(){
         Cursor cursor = this.getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME ,null);
         if(!cursor.moveToFirst()){
+            cursor.close();
             return null;
         }
         return cursor;

@@ -34,13 +34,15 @@ public class AccessDatabase {
         if(fullDatabase == null){
             Cursor cursor = db.getCompleteDatabase();
             if(cursor == null){
-                return fullDatabase;
+                return null;
             }
 
             LinkedList<Element> list= new LinkedList<Element>();
             while(!cursor.isAfterLast()){
                 list.add(getElement(cursor.getInt(0)));
+                cursor.moveToNext();
             }
+            cursor.close();
             fullDatabase = list;
         }
         return fullDatabase;
@@ -65,6 +67,7 @@ public class AccessDatabase {
             arr[pos] = cursor.getString(pos);
             pos++;
         }
+        cursor.close();
         return new Element(Integer.parseInt(arr[0]), arr[1], arr[2], arr[3], arr[4], arr[5]);
     }
 
@@ -90,11 +93,6 @@ public class AccessDatabase {
      * @return true if the element was removed, false otherwise.
      */
     public Boolean removeElement(int elementID){
-        if(fullDatabase != null && db.removeElement(elementID)){
-            fullDatabase.remove(elementID);
-            return true;
-        }
-        return false;
-        //return db.removeElement(elementID);
+        return db.removeElement(elementID);
     }
 }
