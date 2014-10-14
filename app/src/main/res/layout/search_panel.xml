@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/dark_gray"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@color/dark_gray"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left">
+
+        <TextView
+            android:layout_gravity="top"
+            android:padding="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/search_item_UN"
+            android:textSize="18sp"
+            />
+
+        <TextView
+            android:layout_gravity="bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/search_item_name"
+            android:padding="1dp"
+            android:textSize="14sp"
+
+            />
+
+        </LinearLayout>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="right">
+
+        <Button
+            android:id="@+id/button_add_search_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="0"
+            android:text="Add item (N/A yet)"/>
+        </LinearLayout>
+
+
+
+</LinearLayout>

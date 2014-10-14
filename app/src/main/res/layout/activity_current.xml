@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:id="@+id/currentOuterLayout">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/currentScrollView">
 
-    <ScrollView
+    <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/currentScrollView">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/currentLayout">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/currentLayout">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="@string/getChecklist"
+            android:id="@+id/getChecklistButton"/>
 
-        </LinearLayout>
-
-    </ScrollView>
-</RelativeLayout>
+    </LinearLayout>
+</ScrollView>

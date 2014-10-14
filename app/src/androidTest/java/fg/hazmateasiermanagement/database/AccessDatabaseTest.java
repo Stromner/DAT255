@@ -6,6 +6,9 @@ import android.test.ApplicationTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
 import android.test.suitebuilder.annotation.SmallTest;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import fg.hazmateasiermanagement.database.Database;
 import fg.hazmateasiermanagement.database.AccessDatabase;
 import fg.hazmateasiermanagement.Element;
@@ -37,47 +40,57 @@ public class AccessDatabaseTest extends ApplicationTestCase<Application> {
     }
 
     @SmallTest
-    public void testAccessDatabase_addElement(){
-        Boolean result = accessDatabase.addElement(0, "test_element");
+    public void testAddElement(){
+        List<String> list = new LinkedList<String>();
+        list.add("test_not_compatible");
+        Boolean result = accessDatabase.addElement(0, "test_element", "test_description", "test_label", "test_image_path", list);
         assertTrue(result);
     }
 
     @SmallTest
-    public void testAccessDatabase_addDuplicateElements(){
-        accessDatabase.addElement(0, "test_element");
-        Boolean result = accessDatabase.addElement(0, "test_element2"); // The '2' is on purpose
+    public void testAddDuplicateElements(){
+        List<String> list = new LinkedList<String>();
+        list.add("test_not_compatible");
+        accessDatabase.addElement(0, "test_element", "test_description", "test_label", "test_image_path", list);
+        Boolean result = accessDatabase.addElement(0, "test_element2", "test_description", "test_label", "test_image_path", list); // The '2' is on purpose
         assertFalse(result);
     }
 
     @SmallTest
-    public void testAccessDatabase_removeElement(){
-        accessDatabase.addElement(0, "test_element");
+    public void testRemoveElement(){
+        List<String> list = new LinkedList<String>();
+        list.add("test_not_compatible");
+        accessDatabase.addElement(0, "test_element", "test_description", "test_label", "test_image_path", list);
         Boolean result = accessDatabase.removeElement(0);
         assertTrue(result);
     }
 
     @SmallTest
-    public void testAccessDatabase_removeNonExistingElement(){
+    public void testRemoveNonExistingElement(){
         Boolean result = accessDatabase.removeElement(0);
         assertTrue(result);
     }
 
     @SmallTest
-    public void testAccessDatabase_getElement(){
-        accessDatabase.addElement(0,"test_element");
+    public void testGetElement(){
+        List<String> list = new LinkedList<String>();
+        list.add("test_not_compatible");
+        accessDatabase.addElement(0, "test_element", "test_description", "test_label", "test_image_path", list);
         Element element = accessDatabase.getElement(0);
         assertEquals(element.getUNNumber(), 0);
     }
 
     @SmallTest
-    public void testAccessDatabase_getNonExistingElement(){
+    public void testGetNonExistingElement(){
         Element element = accessDatabase.getElement(0);
         assertNull(element);
     }
 
     @SmallTest
     public void testGetCompleteDatabaseNotEmpty() {
-        accessDatabase.addElement(0, "test_element");
+        List<String> list = new LinkedList<String>();
+        list.add("test_not_compatible");
+        accessDatabase.addElement(0, "test_element", "test_description", "test_label", "test_image_path", list);
         assertNotNull(accessDatabase.getCompleteDatabase());
     }
 

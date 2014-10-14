@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Johansson, Henrik
  * @author Stromner, David
- * @version 2014-10-13
+ * @version 2014-10-14
  */
 
 public class Element implements Cloneable{
@@ -79,17 +79,26 @@ public class Element implements Cloneable{
         this.hazmatImage = hazmatImage;
     }
 
-    public List<String> getCompatible() {
+    public List<String> getNotCompatible() {
         return notCompatible;
     }
 
+    public void setNotCompatible(String notCompatible){
+        this.notCompatible = Arrays.asList(notCompatible.split(";"));
+    }
+
     public boolean isCompatible(Element other) {
-        return !other.getCompatible().contains(label) && !notCompatible.contains(other.label);
+        return !other.getNotCompatible().contains(label) && !notCompatible.contains(other.label);
     }
 
     @Override
     public Object clone() throws CloneNotSupportedException{
         // Since strings are immutable and any other variable in this class is of simple format calling super is enough.
-        return super.clone();
+        Element clone = (Element)super.clone();
+        for(String s:notCompatible){
+            clone.notCompatible.add(s);
+        }
+
+        return clone;
     }
 }

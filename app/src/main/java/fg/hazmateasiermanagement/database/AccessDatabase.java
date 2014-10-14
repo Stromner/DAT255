@@ -14,7 +14,7 @@ import fg.hazmateasiermanagement.database.Database;
  *
  * @author Johansson, Henrik
  * @author Stromner, David
- * @version 2014-10-11
+ * @version 2014-10-14
  */
 
 public class AccessDatabase {
@@ -28,19 +28,22 @@ public class AccessDatabase {
     /**
      * Returns the entire database in a list consisting of elements.
      *
-     * @return database in element format.
+     * @return database in element format. null if the database contains no elements.
      */
     public List<Element> getCompleteDatabase(){
         if(fullDatabase == null){
             Cursor cursor = db.getCompleteDatabase();
-            String s[] = new String[cursor.getCount()];
-            int i = 0;
-            while(!cursor.isAfterLast()){
-                s[i] = "S"+cursor.getString(0)+"W0";
-                cursor.moveToNext();
-                i++;
+            if(cursor == null){
+                return null;
             }
-            //fullDatabase = stringToList(s);
+
+            LinkedList<Element> list= new LinkedList<Element>();
+            while(!cursor.isAfterLast()){
+                list.add(getElement(cursor.getInt(0)));
+                cursor.moveToNext();
+            }
+            cursor.close();
+            fullDatabase = list;
         }
         return fullDatabase;
     }
@@ -53,7 +56,6 @@ public class AccessDatabase {
      * @return the Element version of the cursor if 'elementID' exist, null otherwise.
      */
     public Element getElement(int elementID){
-        // TODO Extend this method once the database is complete so it can make use of the full constructor of element
         Cursor cursor = db.getElement(elementID);
         if(cursor == null){
             return null;
@@ -61,11 +63,12 @@ public class AccessDatabase {
 
         String arr[] = new String[cursor.getColumnCount()];
         int pos = 0;
-        while(!cursor.isAfterLast()){
+        while(pos<cursor.getColumnCount()){
             arr[pos] = cursor.getString(pos);
             pos++;
         }
-        return new Element(Integer.parseInt(arr[0]));
+        cursor.close();
+        return new Element(Integer.parseInt(arr[0]), arr[1], arr[2], arr[3], arr[4], arr[5]);
     }
 
     /**
