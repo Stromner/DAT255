@@ -40,7 +40,7 @@ public class AccessDatabaseTest extends ApplicationTestCase<Application> {
     }
 
     @SmallTest
-    public void testAccessDatabase_addElement(){
+    public void testAddElement(){
         List<String> list = new LinkedList<String>();
         list.add("test_not_compatible");
         Boolean result = accessDatabase.addElement(0, "test_element", "test_description", "test_label", "test_image_path", list);
@@ -48,7 +48,7 @@ public class AccessDatabaseTest extends ApplicationTestCase<Application> {
     }
 
     @SmallTest
-    public void testAccessDatabase_addDuplicateElements(){
+    public void testAddDuplicateElements(){
         List<String> list = new LinkedList<String>();
         list.add("test_not_compatible");
         accessDatabase.addElement(0, "test_element", "test_description", "test_label", "test_image_path", list);
@@ -57,7 +57,7 @@ public class AccessDatabaseTest extends ApplicationTestCase<Application> {
     }
 
     @SmallTest
-    public void testAccessDatabase_removeElement(){
+    public void testRemoveElement(){
         List<String> list = new LinkedList<String>();
         list.add("test_not_compatible");
         accessDatabase.addElement(0, "test_element", "test_description", "test_label", "test_image_path", list);
@@ -66,13 +66,13 @@ public class AccessDatabaseTest extends ApplicationTestCase<Application> {
     }
 
     @SmallTest
-    public void testAccessDatabase_removeNonExistingElement(){
+    public void testRemoveNonExistingElement(){
         Boolean result = accessDatabase.removeElement(0);
         assertTrue(result);
     }
 
     @SmallTest
-    public void testAccessDatabase_getElement(){
+    public void testGetElement(){
         List<String> list = new LinkedList<String>();
         list.add("test_not_compatible");
         accessDatabase.addElement(0, "test_element", "test_description", "test_label", "test_image_path", list);
@@ -81,7 +81,7 @@ public class AccessDatabaseTest extends ApplicationTestCase<Application> {
     }
 
     @SmallTest
-    public void testAccessDatabase_getNonExistingElement(){
+    public void testGetNonExistingElement(){
         Element element = accessDatabase.getElement(0);
         assertNull(element);
     }

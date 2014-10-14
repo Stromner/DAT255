@@ -14,7 +14,7 @@ import fg.hazmateasiermanagement.database.Database;
  *
  * @author Johansson, Henrik
  * @author Stromner, David
- * @version 2014-10-11
+ * @version 2014-10-14
  */
 
 public class AccessDatabase {
@@ -28,11 +28,15 @@ public class AccessDatabase {
     /**
      * Returns the entire database in a list consisting of elements.
      *
-     * @return database in element format.
+     * @return database in element format. null if the database contains no elements.
      */
     public List<Element> getCompleteDatabase(){
         if(fullDatabase == null){
             Cursor cursor = db.getCompleteDatabase();
+            if(cursor == null){
+                return fullDatabase;
+            }
+
             LinkedList<Element> list= new LinkedList<Element>();
             while(!cursor.isAfterLast()){
                 list.add(getElement(cursor.getInt(0)));
@@ -57,7 +61,7 @@ public class AccessDatabase {
 
         String arr[] = new String[cursor.getColumnCount()];
         int pos = 0;
-        while(!cursor.isAfterLast()){
+        while(pos<cursor.getColumnCount()){
             arr[pos] = cursor.getString(pos);
             pos++;
         }
@@ -86,6 +90,11 @@ public class AccessDatabase {
      * @return true if the element was removed, false otherwise.
      */
     public Boolean removeElement(int elementID){
-        return db.removeElement(elementID);
+        if(fullDatabase != null && db.removeElement(elementID)){
+            fullDatabase.remove(elementID);
+            return true;
+        }
+        return false;
+        //return db.removeElement(elementID);
     }
 }

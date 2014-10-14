@@ -96,7 +96,11 @@ public class Element implements Cloneable{
     @Override
     public Object clone() throws CloneNotSupportedException{
         // Since strings are immutable and any other variable in this class is of simple format calling super is enough.
-        return super.clone();
+        Element clone = (Element)super.clone();
+        for(String s:notCompatible){
+            clone.notCompatible.add(s);
+        }
 
+        return clone;
     }
 }

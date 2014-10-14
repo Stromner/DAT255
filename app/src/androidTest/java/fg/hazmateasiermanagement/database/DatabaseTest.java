@@ -77,13 +77,19 @@ public class DatabaseTest extends ApplicationTestCase<Application> {
 
     @SmallTest
     public void testGetNonExistingElement(){
-        Cursor cursor = database.getElement(0);
-        assertNull(cursor);
+        assertNull(database.getElement(0));
     }
 
     @SmallTest
     public void testGetCompleteDatabase(){
-        Cursor cursor = database.getCompleteDatabase();
-        assertNotNull(cursor);
+        List<String> list = new LinkedList<String>();
+        list.add("test_not_compatible");
+        database.addElement(0, "test_element", "test_description", "test_label", "test_image_path", list);
+        assertNotNull(database.getCompleteDatabase());
+    }
+
+    @SmallTest
+    public void testGetNonexistingCompleteDatabase(){
+        assertNull(database.getCompleteDatabase());
     }
 }
