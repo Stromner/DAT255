@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -25,15 +26,11 @@ import fg.hazmateasiermanagement.database.Database;
  */
 public class SearchTab extends Activity {
 
+    AccessDatabase accessDatabase;
     EditText searchBar;
     LinearLayout searchListContainer;
-   // ArrayList<String> searchList;
     List<Element> elementList;
     TreeMap<Integer, String> searchMapDisplay;
-    TreeMap<Integer, String> elementsMap;
-
-  //  AccessDatabase database;
-   // Database db;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,39 +39,9 @@ public class SearchTab extends Activity {
         setContentView(R.layout.activity_search);
         searchListContainer = (LinearLayout) findViewById(R.id.search_list);
         searchBar = (EditText) findViewById(R.id.search_text);
+        searchMapDisplay = new TreeMap<Integer, String>(Collections.reverseOrder());
+        //elementList = accessDatabase.getCompleteDatabase();
 
-        searchMapDisplay = new TreeMap<Integer, String>();
-        elementsMap = new TreeMap<Integer, String>();
-        //searchList = new ArrayList<String>();
-
-        //Extracting relevant information from the database to filter
-
-       // elementList = database.getCompleteDatabase();
-       // for(Element element: elementList)
-         //   elementsMap.put(element.getUNNumber(), element.getLabel());
-        addUNItem(1,"abob");
-        addUNItem(2,"bobba");
-        addUNItem(3,"abo");
-        addUNItem(4,"aka");
-        addUNItem(5,"akall");
-        addUNItem(6,"akal");
-        addUNItem(7,"amarta1");
-        addUNItem(8,"amissile");
-        addUNItem(9,"abomb");
-        addUNItem(10,"ahej");
-        addUNItem(11,"apa");
-        addUNItem(12,"adig");
-        addUNItem(13,"aquick");
-        addUNItem(14,"acat");
-        addUNItem(15,"araven");
-        addUNItem(16,"asled");
-        addUNItem(17,"mia");
-        addUNItem(57,"kia");
-       // for(int i=58; i<3000; i++)
-         //   addUNItem(i,"a");
-
-        //EXAMPLES
-     //   database = new AccessDatabase(db);
 
         setupSearch();
 
@@ -85,7 +52,6 @@ public class SearchTab extends Activity {
      */
     private void setupSearch(){
 
-
         //Calls updateDisplay() whenever searchBar is changed and matches which items should be displayed.
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -95,10 +61,13 @@ public class SearchTab extends Activity {
                 //Test if string matches a UN-number (UN doesn't exceed 4 digits)
                 if(s.toString().length() <= 4) {
                     try {
-                       int UN = Integer.parseInt(s.toString());
-                       searchMapDisplay.put(UN, elementsMap.get(UN));
+                       int uN = Integer.parseInt(s.toString());
+                       String label = accessDatabase.getElement(uN).getLabel();
+                       if(label != null)
+                        searchMapDisplay.put(uN, label);
                        updateDisplay();
-                    } catch (NumberFormatException e) {
+                    }
+                    catch (NumberFormatException e) {
                         search(s);
                         updateDisplay();
                     }
@@ -109,20 +78,6 @@ public class SearchTab extends Activity {
                 }
             }
 
-          /*  @Override
-            public void afterTextChanged(Editable s) {
-                searchMapDisplay.clear();
-                if (! s.toString().isEmpty() ){
-                    String search = ".*" + s.toString().toLowerCase() + ".*";
-                    for (String temp : searchList) {
-                        if (temp.toLowerCase().matches(search)) {
-                            searchMapDisplay.add(temp);
-                        }
-                    }
-
-                }
-                updateDisplay();
-            }*/
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after){}
             @Override
@@ -133,19 +88,12 @@ public class SearchTab extends Activity {
     private void search (Editable s){
         if (! s.toString().isEmpty() ){
             String search = ".*" + s.toString().toLowerCase() + ".*";
-            for (Map.Entry<Integer, String> entry : elementsMap.entrySet()) {
-                if (entry.getValue().toLowerCase().matches(search)) {
-                    searchMapDisplay.put(entry.getKey(), entry.getValue());
+            for (Element element: elementList) {
+                if (element.getLabel().toLowerCase().matches(search)) {
+                    searchMapDisplay.put(element.getUNNumber(), element.getLabel());
                 }
             }
         }
-    }
-
-    /**
-     * (Pointless) test function that will be removed.
-     */
-    private void addUNItem(int UN, String itemName){
-        elementsMap.put(UN, itemName);
     }
 
     /**
@@ -154,9 +102,7 @@ public class SearchTab extends Activity {
      */
     private void updateDisplay(){
         searchListContainer.removeAllViews();
-
         for(Map.Entry<Integer, String> entry: searchMapDisplay.entrySet()) {
-
             addListDisplayItem(entry.getValue(), entry.getKey());
         }
     }

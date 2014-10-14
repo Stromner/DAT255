@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
+import fg.hazmateasiermanagement.database.AccessDatabase;
+import fg.hazmateasiermanagement.database.Database;
+
 /**
  * Created by Magnus on 2014-10-01.
  * The "Main" class, basically just contains the tabs.
@@ -13,6 +16,8 @@ import android.widget.TabHost.TabSpec;
 
 public class MainActivity extends TabActivity {
 
+    private Database db;
+    private AccessDatabase accessDatabase;
     private TabHost tabHost;
     private TabSpec tab1, tab2, tab3;
 
@@ -20,6 +25,9 @@ public class MainActivity extends TabActivity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        db = new Database(this);
+        accessDatabase = new AccessDatabase(db);
 
         addTabs();
     }
@@ -46,5 +54,9 @@ public class MainActivity extends TabActivity {
         //tab3.setContent(R.id.tabHistory);
         tab3.setContent(new Intent(this, HistoryTab.class));
         tabHost.addTab(tab3);
+    }
+
+    public AccessDatabase getAccessDatabase(){
+        return accessDatabase;
     }
 }
