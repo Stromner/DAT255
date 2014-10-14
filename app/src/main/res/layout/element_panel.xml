@@ -63,7 +63,7 @@
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="3"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:hint="@string/weightHintText"/>
 
         <ImageButton

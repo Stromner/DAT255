@@ -6,15 +6,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -28,7 +24,6 @@ import java.util.List;
 public class CurrentTab extends Activity {
 
     private LinearLayout elementContainerLayout;
-    private ScrollView outerLayout;
     private Button getChecklistButton;
     private List<Element> elementList = new ArrayList<Element>();
 
@@ -37,7 +32,6 @@ public class CurrentTab extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current);
         elementContainerLayout = (LinearLayout) findViewById(R.id.currentLayout);
-        outerLayout = (ScrollView) findViewById(R.id.currentScrollView);
         getChecklistButton = (Button) findViewById(R.id.getChecklistButton);
         getChecklistButton.setVisibility(View.INVISIBLE);
 
@@ -58,7 +52,6 @@ public class CurrentTab extends Activity {
      */
     private void addElementPanel(Element element) {
         //Makes sure there aren't more than one element of the same typ in the lists.
-
         for(Element el : elementList){
             if(el.getUNNumber() == element.getUNNumber()){
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -99,8 +92,6 @@ public class CurrentTab extends Activity {
 
         textViewElementId.setText(String.valueOf(element.getUNNumber()));
         textViewElementName.setText(element.getName());
-
-        //elementPanel.setBackgroundColor(getResources().getColor(R.color.dark_gray));
 
         //Makes the getChecklistButton visable when there is a element or more in the list
         if(elementList.size() == 1) {
@@ -143,72 +134,19 @@ public class CurrentTab extends Activity {
     }
 
     /**
-     * Adds a button to the elementContainerLayout that will take you to the checklist for the selected elements.
-     */
-
-    // FIX: button is in a relativelayout outside scrolllayout now
-    private void addGetChecklistButton(){
-        Button getChecklistButton = new Button(this);
-        getChecklistButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                //generateChecklist();
-                //goToChecklistTab(view);
-            }
-        });
-
-        outerLayout.addView(getChecklistButton);
-        //LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        RelativeLayout.LayoutParams relPar = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-        relPar.addRule(Gravity.BOTTOM);
-        getChecklistButton.setLayoutParams(relPar);
-        getChecklistButton.setText(R.string.getChecklist);
-    }
-
-    /**
      *
      */
-    private void generateChecklist(){
-        int noElements;
-        String id;
-        String weight;
-        TableRow row;
-        String[] elementList;
-        EditText weightEditText;
-        TextView elementIdTextView;
-        TableLayout elementPanel;
+    //Add alertdialog that prompts input name for save
+    //Send saved name and date/time
+    private void sendElementList(){
+        String saveName;
 
-        //Gets the number of elements from the layout, - 1 because of the get checklist button.
-        noElements = elementContainerLayout.getChildCount() - 1;
-        elementList = new String[noElements];
-
-        for(int i = 0; i<= noElements; i++){
-            elementPanel = (TableLayout) elementContainerLayout.getChildAt(i);
-
-            row = (TableRow) elementPanel.getChildAt(0);
-            elementIdTextView = (TextView) row.getChildAt(1);
-            id = elementIdTextView.getText().toString();
-
-            row = (TableRow) elementPanel.getChildAt(2);
-            weightEditText = (EditText) row.getChildAt(0);
-            weight = weightEditText.getText().toString().trim();
-
-            //Send in format: String[] list = {E12345W95, E12345W67, E12345W54}
-            //E(lement)12345(id)W(eight)95(in kg)
-            elementList[i] = ("E" + id + "W" + weight);
-        }
-        //Intent to go to check list
-    }
-
-    private void generateChecklist2(){
-        int noElements = elementContainerLayout.getChildCount() - 1;
-        List<String> tempElementList = new ArrayList<String>();
-        for(Element element : elementList){
-            //Vill dom fortfarande ha en lista?
-            tempElementList.add("E" + element.getUNNumber() + "W" + element.getWeight());
-        }
+        Intent intent = new Intent(this, CheckOutTab.class);
+        intent.putExtra("currentElementList", (ArrayList<Element>) elementList);
 
     }
 
+    //Finish this and its respective activity
     private void goTolementInformation(int id){
         Intent intent = new Intent(this, ElementInformationActivity.class);
         intent.putExtra(ElementInformationActivity.ID_KEY, id);
