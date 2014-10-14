@@ -40,6 +40,11 @@ public class AccessDatabaseTest extends ApplicationTestCase<Application> {
     }
 
     @SmallTest
+    public void testDatabaseSeed(){
+
+    }
+
+    @SmallTest
     public void testAddElement(){
         List<String> list = new LinkedList<String>();
         list.add("test_not_compatible");
