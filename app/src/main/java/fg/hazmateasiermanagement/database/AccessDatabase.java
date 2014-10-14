@@ -32,12 +32,13 @@ public class AccessDatabase {
      */
     public List<Element> getCompleteDatabase(){
         if(fullDatabase == null){
+            LinkedList<Element> list= new LinkedList<Element>();
             Cursor cursor = db.getCompleteDatabase();
             if(cursor == null){
+                fullDatabase = list;
                 return null;
             }
 
-            LinkedList<Element> list= new LinkedList<Element>();
             while(!cursor.isAfterLast()){
                 list.add(getElement(cursor.getInt(0)));
                 cursor.moveToNext();
@@ -52,11 +53,11 @@ public class AccessDatabase {
      * Calls on the database.getElement method, convert the cursor that it returns to an element
      * class for easier access.
      *
-     * @param elementID element to be fetched.
+     * @param unID element to be fetched.
      * @return the Element version of the cursor if 'elementID' exist, null otherwise.
      */
-    public Element getElement(int elementID){
-        Cursor cursor = db.getElement(elementID);
+    public Element getElement(int unID){
+        Cursor cursor = db.getElement(unID);
         if(cursor == null){
             return null;
         }
@@ -83,16 +84,32 @@ public class AccessDatabase {
      * @return true if it succeeded, false otherwise.
      */
     public Boolean addElement(int unID, String name, String description, String label, String hazmat_image, List<String> not_compatible){
-        return db.addElement(unID, name, description, label, hazmat_image, not_compatible);
+        if(fullDatabase == null){
+            getCompleteDatabase();
+        }
+        boolean result = db.addElement(unID, name, description, label, hazmat_image, not_compatible);
+        if(result) {
+            fullDatabase.add(getElement(unID));
+        }
+        return result;
     }
 
     /**
      * Calls on the database.removeElement method.
      *
-     * @param elementID element to remove.
+     * @param unID element to remove.
      * @return true if the element was removed, false otherwise.
      */
-    public Boolean removeElement(int elementID){
-        return db.removeElement(elementID);
+    public Boolean removeElement(int unID){
+        if(fullDatabase == null) {
+            getCompleteDatabase();
+        }
+        boolean result = db.removeElement(unID);
+        for(Element e : fullDatabase){
+            if(e.getUNNumber() == unID){
+                fullDatabase.remove(e);
+            }
+        }
+        return result;
     }
 }
