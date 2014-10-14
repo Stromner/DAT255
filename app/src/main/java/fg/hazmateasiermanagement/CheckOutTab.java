@@ -44,7 +44,7 @@ public class CheckOutTab extends Activity {
         String s[] = new String[list.size()];
         int pos = 0;
         for(Element e: list){
-            s[pos] = e.checkCompatibility(list);
+            s[pos] = e.isCompatible(list);
             pos++;
         }
         return s;
