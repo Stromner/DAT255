@@ -1,7 +1,5 @@
 package fg.hazmateasiermanagement;
 
-import android.media.Image;
-
 import java.util.Arrays;
 import java.util.List;
 
