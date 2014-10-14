@@ -51,7 +51,7 @@ public class ElementTest extends ApplicationTestCase<Application> {
 
             // Testing that there has been a deep copy of the array notCompatible
             assertEquals(element.getNotCompatible(), clonedElement.getNotCompatible());
-            element.setNotCompatible("B;C");
+            element.setNotCompatible("G;C");
             assertNotSame(element.getNotCompatible(), clonedElement.getNotCompatible());
             element.setNotCompatible("B;C;D");
             assertEquals(element.getNotCompatible(), clonedElement.getNotCompatible());
