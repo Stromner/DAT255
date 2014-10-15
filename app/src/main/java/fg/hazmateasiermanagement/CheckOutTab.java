@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,5 +56,15 @@ public class CheckOutTab extends Activity {
 
     private void emptyCheckoutList(){
         checkoutLayout.removeAllViews();
+    }
+
+    private String[] createChecklist(List<Element> list){
+        String s[] = new String[list.size()];
+        int pos = 0;
+        for(Element e: list){
+            s[pos] = e.isCompatible(list);
+            pos++;
+        }
+        return s;
     }
 }
