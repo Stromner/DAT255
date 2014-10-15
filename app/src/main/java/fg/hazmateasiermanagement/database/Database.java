@@ -36,6 +36,7 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_NAME+"("+COLUMN_NAME_UN_ID+" INTEGER PRIMARY KEY,"+COLUMN_NAME_UN_NAME+" TEXT,"+COLUMN_DESCRIPTION+ " TEXT,"+COLUMN_LABEL+" TEXT,"+COLUMN_HAZMAT_IMAGE+" TEXT," +COLUMN_NOT_COMPATIBLE+ "TEXT );");
+        Seed.getInstance().seedElements(this);
     }
 
     @Override
