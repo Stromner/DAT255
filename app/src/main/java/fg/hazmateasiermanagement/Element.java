@@ -91,6 +91,17 @@ public class Element implements Cloneable{
         return !other.getNotCompatible().contains(label) && !notCompatible.contains(other.label);
     }
 
+    public String isCompatible(List<Element> list){
+        String s = unNumber+"("+name+") is incompatible with\n";
+        for(Element e: list){
+            if(isCompatible(e)){
+                s += e.unNumber+"("+e.name+")\n";
+            }
+        }
+
+        return s;
+    }
+
     @Override
     public Object clone() throws CloneNotSupportedException{
         // Since strings are immutable and any other variable in this class is of simple format calling super is enough.

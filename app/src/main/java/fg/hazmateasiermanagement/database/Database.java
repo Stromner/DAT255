@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 public class Database extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 9;
+    public static final int DATABASE_VERSION = 10;
     public static final String DATABASE_NAME = "hazmat_database.db";
     public static final String TABLE_NAME = "tableName";
     public static final String COLUMN_NAME_UN_ID = "un_id";
@@ -36,7 +36,8 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_NAME+"("+COLUMN_NAME_UN_ID+" INTEGER PRIMARY KEY,"+COLUMN_NAME_UN_NAME+" TEXT,"+COLUMN_DESCRIPTION+ " TEXT,"+COLUMN_LABEL+" TEXT,"+COLUMN_HAZMAT_IMAGE+" TEXT," +COLUMN_NOT_COMPATIBLE+ "TEXT );");
-    }//int unNumber, String name, String description, String label, String hazmatImage, String notCompatible
+        Seed.getInstance().seedElements(this);
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
@@ -90,13 +91,13 @@ public class Database extends SQLiteOpenHelper {
      *
      * UN_ID which normally looks something like this: 'UN0023' should be removed as '0023'
      *
-     * @param elementID element to remove.
+     * @param unID element to remove.
      * @return true if the element was removed, false otherwise.
      */
-    boolean removeElement(int elementID){
+    boolean removeElement(int unID){
         SQLiteDatabase database = this.getWritableDatabase();
         try {
-            database.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_UN_ID + " = " + elementID);
+            database.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_UN_ID + " = " + unID);
         }catch (Exception e){
             e.printStackTrace();
             return false;
@@ -109,12 +110,12 @@ public class Database extends SQLiteOpenHelper {
      *
      * UN_ID which normally looks something like this: 'UN0023' should be fetched as '0023'
      *
-     * @param elementID element to fetch.
+     * @param unID element to fetch.
      * @return the element if it was found, null otherwise.
      */
-    Cursor getElement(int elementID){
+    Cursor getElement(int unID){
         SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_UN_ID + " =?", new String[]{String.valueOf(elementID)});
+        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_UN_ID + " =?", new String[]{String.valueOf(unID)});
         if(!cursor.moveToFirst()) {
             cursor.close();
             return null;
@@ -127,7 +128,7 @@ public class Database extends SQLiteOpenHelper {
      * null if error occurs.
      */
     Cursor getCompleteDatabase(){
-        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME ,null);
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY " + COLUMN_NAME_UN_ID,null);
         if(!cursor.moveToFirst()){
             cursor.close();
             return null;
