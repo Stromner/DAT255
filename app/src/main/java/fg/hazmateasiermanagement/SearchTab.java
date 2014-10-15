@@ -39,10 +39,11 @@ public class SearchTab extends Activity {
         searchListContainer = (LinearLayout) findViewById(R.id.search_list);
         searchBar = (EditText) findViewById(R.id.search_text);
 
+        accessDatabase = (AccessDatabase) getIntent().getSerializableExtra("db");
 
         searchMapDisplay = new TreeMap<Integer, String>(Collections.reverseOrder());
         db = new Database(this.getApplicationContext());
-        accessDatabase = new AccessDatabase(db);
+        //accessDatabase = new AccessDatabase(db);
         elementList = accessDatabase.getCompleteDatabase();
         setupSearch();
 
