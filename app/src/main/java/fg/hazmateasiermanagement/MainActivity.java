@@ -44,7 +44,9 @@ public class MainActivity extends TabActivity {
         tab1 = tabHost.newTabSpec("First Tab");
         tab1.setIndicator("Search");
         //tab1.setContent(R.id.tabSearch);
-        tab1.setContent(new Intent(this, SearchTab.class));
+        Intent intTab1 = new Intent(this, SearchTab.class);
+        intTab1.putExtra("db", accessDatabase);
+        tab1.setContent(intTab1);
         tabHost.addTab(tab1);
 
         tab2 = tabHost.newTabSpec("Second Tab");
@@ -58,9 +60,6 @@ public class MainActivity extends TabActivity {
         //tab3.setContent(R.id.tabHistory);
         tab3.setContent(new Intent(this, HistoryTab.class));
         tabHost.addTab(tab3);
-
-        Intent dbIntent = new Intent(this, SearchTab.class);
-        dbIntent.putExtra("dataBaseIntent", accessDatabase);
     }
 
     public AccessDatabase getAccessDatabase(){
