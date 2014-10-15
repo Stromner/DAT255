@@ -25,7 +25,8 @@ public class CurrentTab extends Activity {
 
     private LinearLayout elementContainerLayout;
     private Button getChecklistButton;
-    private List<Element> elementList = new ArrayList<Element>();
+    private ArrayList<Element> elementList = new ArrayList<Element>();
+    public static final String INTENT_INFORMATION_ID = "elementInfoID";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -139,17 +140,19 @@ public class CurrentTab extends Activity {
     //Add alertdialog that prompts input name for save
     //Send saved name and date/time
     private void sendElementList(){
-        String saveName;
+        //String saveName;
+
+        //AlertDialog to save a name for the trip
 
         Intent intent = new Intent(this, CheckOutTab.class);
-        intent.putExtra("currentElementList", (ArrayList<Element>) elementList);
-
+        intent.putExtra("elementListWrapper", new ListWrapper(elementList));
+        startActivity(intent);
     }
 
     //Finish this and its respective activity
     private void goTolementInformation(int id){
         Intent intent = new Intent(this, ElementInformationActivity.class);
-        intent.putExtra(ElementInformationActivity.ID_KEY, id);
+        intent.putExtra(INTENT_INFORMATION_ID, id);
         startActivity(intent);
     }
 

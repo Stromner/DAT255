@@ -1,15 +1,26 @@
 package fg.hazmateasiermanagement;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import fg.hazmateasiermanagement.database.AccessDatabase;
+import fg.hazmateasiermanagement.database.Database;
 
 /**
  * Created by Magnus on 2014-10-01.
  */
 public class CheckOutTab extends Activity {
     private LinearLayout checkoutLayout;
+    private ArrayList<Element> elementList = new ArrayList<Element>();
+    private TextView tv = new TextView(this);
+    private Database db = new Database(this);
+    private AccessDatabase accessDatabase = new AccessDatabase(db);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -17,6 +28,16 @@ public class CheckOutTab extends Activity {
         setContentView(R.layout.activity_checkout);
 
         checkoutLayout = (LinearLayout) findViewById(R.id.checkoutLayout);
+        ListWrapper wrapper = (ListWrapper) getIntent().getSerializableExtra("elementListWrapper");
+        elementList = wrapper.getElementList();
+
+        printCheckout(elementList);
+    }
+
+    private void printCheckout(List<Element> elementList){
+        for(Element e : elementList){
+
+        }
     }
 
     /**
