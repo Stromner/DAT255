@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.test.ApplicationTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class DatabaseTest extends ApplicationTestCase<Application> {
     public void testAddElement(){
         List<String> list = new LinkedList<String>();
         list.add("test_not_compatible");
-        boolean result = database.addElement(0, "test_element", "test_description", "test_label", "test_image_path", list);
+        boolean result = database.addElement(0, "test_element", "test_description",3500, "test_label", "test_image_path", list);
         assertTrue(result);
     }
 
@@ -46,8 +47,8 @@ public class DatabaseTest extends ApplicationTestCase<Application> {
     public void testAddDuplicateElements(){
         List<String> list = new LinkedList<String>();
         list.add("test_not_compatible");
-        database.addElement(0, "test_element", "test_description", "test_label", "test_image_path", list);
-        boolean result = database.addElement(0, "test_element2", "test_description", "test_label", "test_image_path", list); // The '2' is on purpose
+        database.addElement(0, "test_element", "test_description",3500, "test_label", "test_image_path", list);
+        boolean result = database.addElement(0, "test_element2", "test_description",3500, "test_label", "test_image_path", list); // The '2' is on purpose
         assertFalse(result);
     }
 
@@ -55,7 +56,7 @@ public class DatabaseTest extends ApplicationTestCase<Application> {
     public void testRemoveElement(){
         List<String> list = new LinkedList<String>();
         list.add("test_not_compatible");
-        database.addElement(0, "test_element", "test_description", "test_label", "test_image_path", list);
+        database.addElement(0, "test_element", "test_description",3500, "test_label", "test_image_path", list);
         Boolean result = database.removeElement(0);
         assertTrue(result);
     }
@@ -70,7 +71,7 @@ public class DatabaseTest extends ApplicationTestCase<Application> {
      public void testGetElement(){
         List<String> list = new LinkedList<String>();
         list.add("test_not_compatible");
-        database.addElement(0, "test_element", "test_description", "test_label", "test_image_path", list);
+        database.addElement(0, "test_element", "test_description", 3500, "test_label", "test_image_path", list);
         Cursor cursor = database.getElement(0);
         assertEquals(cursor.getInt(0), 0);
     }
@@ -84,7 +85,7 @@ public class DatabaseTest extends ApplicationTestCase<Application> {
     public void testGetCompleteDatabase(){
         List<String> list = new LinkedList<String>();
         list.add("test_not_compatible");
-        database.addElement(0, "test_element", "test_description", "test_label", "test_image_path", list);
+        database.addElement(0, "test_element", "test_description",3500, "test_label", "test_image_path", list);
         assertNotNull(database.getCompleteDatabase());
     }
 
