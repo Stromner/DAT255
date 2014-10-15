@@ -14,7 +14,7 @@ import fg.hazmateasiermanagement.database.Database;
  *
  * @author Johansson, Henrik
  * @author Stromner, David
- * @version 2014-10-14
+ * @version 2014-10-15
  */
 
 public class AccessDatabase {
@@ -69,7 +69,7 @@ public class AccessDatabase {
             pos++;
         }
         cursor.close();
-        return new Element(Integer.parseInt(arr[0]), arr[1], arr[2], arr[3], arr[4], arr[5]);
+        return new Element(Integer.parseInt(arr[0]), arr[1], arr[2], Float.parseFloat(arr[3]), arr[4], arr[5], arr[6]);
     }
 
     /**
@@ -78,16 +78,17 @@ public class AccessDatabase {
      * @param unID the UN identification number for the element.
      * @param name the proper name for the element.
      * @param description describe the Element in detail.
+     * @param maxWeight maximum allowed total weight of element.
      * @param label used to show what material that can be shipped together.
      * @param hazmat_image file name of what image(if any) applies to this element).
      * @param not_compatible shows which labels this element cannot be shipped with.
      * @return true if it succeeded, false otherwise.
      */
-    public Boolean addElement(int unID, String name, String description, String label, String hazmat_image, List<String> not_compatible){
+    public Boolean addElement(int unID, String name, String description,float maxWeight, String label, String hazmat_image, List<String> not_compatible){
         if(fullDatabase == null){
             getCompleteDatabase();
         }
-        boolean result = db.addElement(unID, name, description, label, hazmat_image, not_compatible);
+        boolean result = db.addElement(unID, name, description, maxWeight, label, hazmat_image, not_compatible);
         if(result) {
             fullDatabase.add(getElement(unID));
         }
