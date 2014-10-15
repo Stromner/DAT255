@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -23,7 +24,7 @@ import fg.hazmateasiermanagement.database.Database;
  * The search tab, enables you to search or filter through the entire list of UN items and add them to your current route tab.
  */
 public class SearchTab extends Activity {
-
+    Database db;
     AccessDatabase accessDatabase;
     EditText searchBar;
     LinearLayout searchListContainer;
@@ -37,8 +38,12 @@ public class SearchTab extends Activity {
         setContentView(R.layout.activity_search);
         searchListContainer = (LinearLayout) findViewById(R.id.search_list);
         searchBar = (EditText) findViewById(R.id.search_text);
+
+
         searchMapDisplay = new TreeMap<Integer, String>(Collections.reverseOrder());
-        //elementList = accessDatabase.getCompleteDatabase();
+        db = new Database(this.getApplicationContext());
+        accessDatabase = new AccessDatabase(db);
+        elementList = accessDatabase.getCompleteDatabase();
         setupSearch();
 
     }
@@ -58,10 +63,13 @@ public class SearchTab extends Activity {
                 if(s.toString().length() <= 4) {
                     try {
                        int uN = Integer.parseInt(s.toString());
-                       String label = accessDatabase.getElement(uN).getLabel();
-                       if(label != null)
-                        searchMapDisplay.put(uN, label);
+                       Element temp;
+                       temp = accessDatabase.getElement(uN);
+                       if(temp != null){
+                       String name = accessDatabase.getElement(uN).getName();
+                       searchMapDisplay.put(uN, name);
                        updateDisplay();
+                       }
                     }
                     catch (NumberFormatException e) {
                         search(s);
@@ -85,8 +93,8 @@ public class SearchTab extends Activity {
         if (! s.toString().isEmpty() ){
             String search = ".*" + s.toString().toLowerCase() + ".*";
             for (Element element: elementList) {
-                if (element.getLabel().toLowerCase().matches(search)) {
-                    searchMapDisplay.put(element.getUNNumber(), element.getLabel());
+                if (element.getName().toLowerCase().matches(search)) {
+                    searchMapDisplay.put(element.getUNNumber(), element.getName());
                 }
             }
         }

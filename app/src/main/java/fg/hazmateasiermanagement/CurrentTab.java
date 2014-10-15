@@ -39,10 +39,10 @@ public class CurrentTab extends Activity {
         //Need to load elements if there are any active here.
 
         //Example values
-        addElementPanel(new Element(1234, "Diväveoxid", "Diväteoxid beskrivning", "label", "ic_launcher", "comp"));
-        addElementPanel(new Element(2345, "Vatten", "Diväteoxid beskrivning", "label", "ic_launcher", "comp"));
-        addElementPanel(new Element(3456, "H2O", "Diväteoxid beskrivning", "label", "ic_launcher", "comp"));
-        addElementPanel(new Element(4567, "Fiskvatten", "Diväteoxid beskrivning", "label", "ic_launcher", "comp"));
+        addElementPanel(new Element(1234, "Diväveoxid", "Diväteoxid beskrivning",4, "label", "ic_launcher", "comp"));
+        addElementPanel(new Element(2345, "Vatten", "Diväteoxid beskrivning",2, "label", "ic_launcher", "comp"));
+        addElementPanel(new Element(3456, "H2O", "Diväteoxid beskrivning",1, "label", "ic_launcher", "comp"));
+        addElementPanel(new Element(4567, "Fiskvatten", "Diväteoxid beskrivning",6, "label", "ic_launcher", "comp"));
     }
 
     /**
