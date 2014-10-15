@@ -43,9 +43,9 @@ public class AccessDatabaseTest extends ApplicationTestCase<Application> {
 
     @SmallTest
     public void testDatabaseSeed(){
-        Seed seed = Seed.getInstance();
+        //Seed seed = Seed.getInstance();
         assertNull(database.getElement(4));
-        seed.seedElements(database);
+        //seed.seedElements(database);
         assertNotNull(database.getElement(4));
 
         AccessDatabase aDB = new AccessDatabase(database);

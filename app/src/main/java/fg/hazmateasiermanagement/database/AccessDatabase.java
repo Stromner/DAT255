@@ -1,6 +1,8 @@
 package fg.hazmateasiermanagement.database;
 
 import android.database.Cursor;
+
+import java.io.Serializable;
 import java.util.IllegalFormatException;
 import java.util.LinkedList;
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ import fg.hazmateasiermanagement.database.Database;
  * @version 2014-10-15
  */
 
-public class AccessDatabase {
+public class AccessDatabase implements Serializable {
     private Database db;
     private List<Element> fullDatabase;
 

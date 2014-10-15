@@ -8,6 +8,7 @@ import android.widget.TabHost.TabSpec;
 
 import fg.hazmateasiermanagement.database.AccessDatabase;
 import fg.hazmateasiermanagement.database.Database;
+import fg.hazmateasiermanagement.database.Seed;
 
 /**
  * Created by Magnus on 2014-10-01.
@@ -26,9 +27,12 @@ public class MainActivity extends TabActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        db = new Database(this);
+        db = new Database(this.getApplicationContext());
+        Seed seed = Seed.getInstance();
+        seed.seedElements(db);
         accessDatabase = new AccessDatabase(db);
-
+        Element e = accessDatabase.getElement(4);
+        System.out.println(e.getName());
         addTabs();
     }
 
@@ -54,6 +58,9 @@ public class MainActivity extends TabActivity {
         //tab3.setContent(R.id.tabHistory);
         tab3.setContent(new Intent(this, HistoryTab.class));
         tabHost.addTab(tab3);
+
+        Intent dbIntent = new Intent(this, SearchTab.class);
+        dbIntent.putExtra("dataBaseIntent", accessDatabase);
     }
 
     public AccessDatabase getAccessDatabase(){
