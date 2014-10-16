@@ -18,6 +18,7 @@ public class Element implements Cloneable, Serializable{
     private int unNumber;       // UN number
     private String name;        // Name of the element
     private String description; // Describing the Element in detail
+    private float maxWeight;
     // private int classNumber;    // Class number that covers dangerous substance or article
     // private String packingGroup;// Packing Group I II or III
     private String label;       // Labels used to show what material that can be shipped together.
@@ -25,10 +26,11 @@ public class Element implements Cloneable, Serializable{
     private String hazmatImage; // String that contains the name of the image
     private List<String> notCompatible;  // String that shows which labels this element cannot be shipped with.
 
-    public Element(int unNumber, String name, String description, String label, String hazmatImage, String notCompatible){
+    public Element(int unNumber, String name, String description, float maxWeight, String label, String hazmatImage, String notCompatible){
         this.unNumber = unNumber;
         this.name = name;
         this.description = description;
+        this.maxWeight = maxWeight;
         this.label = label;
         this.hazmatImage = hazmatImage;
         this.notCompatible = Arrays.asList(notCompatible.split(";"));
@@ -52,7 +54,9 @@ public class Element implements Cloneable, Serializable{
 
     public String getDescription(){ return description;}
 
-   /* public int getClassNumber(){
+    public float getMaxWeight() { return maxWeight; }
+
+    /* public int getClassNumber(){
        return classNumber;
     }
 

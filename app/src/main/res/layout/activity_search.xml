@@ -10,9 +10,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:id="@+id/scrollView">
-
 
         <LinearLayout
             android:orientation="vertical"
@@ -24,17 +22,15 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:hint="Search here! (UN or name of item)"
-                android:id="@+id/search_text"
-                />
+                android:id="@+id/search_text" />
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:id="@+id/search_list">
+
             </LinearLayout>
-
-
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
