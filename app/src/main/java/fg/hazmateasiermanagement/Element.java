@@ -1,5 +1,6 @@
 package fg.hazmateasiermanagement;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * @version 2014-10-14
  */
 
-public class Element implements Cloneable{
+public class Element implements Cloneable, Serializable{
     private int unNumber;       // UN number
     private String name;        // Name of the element
     private String description; // Describing the Element in detail
@@ -92,10 +93,10 @@ public class Element implements Cloneable{
     }
 
     public String isCompatible(List<Element> list){
-        String s = unNumber+"("+name+") is incompatible with\n";
+        String s = "• " + unNumber+"("+name+") is incompatible with\n";
         for(Element e: list){
             if(isCompatible(e)){
-                s += e.unNumber+"("+e.name+")\n";
+                s += "\t- " + e.unNumber+"("+e.name+")\n";
             }
         }
 

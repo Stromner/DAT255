@@ -2,10 +2,9 @@ package fg.hazmateasiermanagement;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-
-import fg.hazmateasiermanagement.database.AccessDatabase;
-import fg.hazmateasiermanagement.database.Database;
 
 /**
  * Created by Magnus on 2014-10-01.
@@ -14,28 +13,41 @@ import fg.hazmateasiermanagement.database.Database;
 public class ElementInformationActivity extends Activity {
 
     public static final String INTENT_INFORMATION_ID = "elementInfoID";
-    private TextView informationText;
-    private int elementId;
-    private Database db = new Database(this);
-    private AccessDatabase accessDatabase = new AccessDatabase(db);
+    private TextView tvInformationText;
+    private TextView tvInformationTitle;
+    private Element element;
+    private Button backButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
 
-        elementId = getIntent().getIntExtra(INTENT_INFORMATION_ID, 0);
-
-        if(elementId == 0)
-            onDestroy();
-
-        String elementInformation = (String) accessDatabase.getElement(elementId).getDescription();
-
-        informationText = (TextView) findViewById(R.id.informationText);
-
-        informationText.setText(elementInformation);
-        //informationText = database.getElementInformation(elementId);
-
+        setupElementInformation();
     }
 
+    /**
+     *
+     */
+    private void setupElementInformation(){
+        tvInformationText = (TextView) findViewById(R.id.tvInformationText);
+        tvInformationTitle = (TextView) findViewById(R.id.tvInformationTitle);
+        backButton = (Button) findViewById(R.id.backButton);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        element = (Element) getIntent().getSerializableExtra(INTENT_INFORMATION_ID);
+
+        String elementInformationTitle = element.getUNNumber() + " : " + element.getName();
+        String elementInformation = element.getDescription();
+
+        tvInformationTitle.setText(elementInformationTitle);
+        tvInformationText = (TextView) findViewById(R.id.tvInformationText);
+
+        tvInformationText.setText(elementInformation);
+    }
 }
