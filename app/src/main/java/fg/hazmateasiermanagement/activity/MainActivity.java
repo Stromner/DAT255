@@ -2,6 +2,7 @@ package fg.hazmateasiermanagement.activity;
 
 import android.app.TabActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
@@ -24,15 +25,29 @@ import fg.hazmateasiermanagement.activity.tab.SearchTab;
 
 public class MainActivity extends TabActivity {
 
+    private final String SHARED_PREF = "fg.hazmateasiermanagment.firstRun";
     private Database db;
     private AccessDatabase accessDatabase;
     private TabHost tabHost;
     private TabSpec tab1, tab2, tab3;
+    private SharedPreferences sharedPreferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*
+        sharedPreferences = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
+
+        if (sharedPreferences.getBoolean("firstRun", true)) {
+            //Seed
+            sharedPreferences.edit().putBoolean("firstRun", false).commit();
+        }
+        else{
+            //Nothing?
+        }
+        */
 
         db = new Database(this.getApplicationContext());
         Seed seed = Seed.getInstance();
@@ -62,11 +77,13 @@ public class MainActivity extends TabActivity {
         tab2.setContent(new Intent(this, CurrentTab.class));
         tabHost.addTab(tab2);
 
+        /*
         tab3 = tabHost.newTabSpec("Third tab");
-        tab3.setIndicator("History");
+        tab3.setIndicator("Checkout");
         //tab3.setContent(R.id.tabHistory);
-        tab3.setContent(new Intent(this, HistoryTab.class));
+        tab3.setContent(new Intent(this, CheckOutTab.class));
         tabHost.addTab(tab3);
+        */
     }
 
     public AccessDatabase getAccessDatabase(){
