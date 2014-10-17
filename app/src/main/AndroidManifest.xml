@@ -9,6 +9,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activity.MainActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +29,14 @@
             android:name=".activity.tab.HistoryTab"
             android:label="@string/app_name" >
             </activity>
+        <activity
+            android:name=".activity.ElementInformationActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="activity.tab.CheckOutTab"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>
