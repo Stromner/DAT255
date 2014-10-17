@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 public class Database extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 11;
+    public static final int DATABASE_VERSION = 12;
     public static final String DATABASE_NAME = "hazmat_database.db";
     public static final String TABLE_NAME = "tableName";
     public static final String COLUMN_NAME_UN_ID = "un_id";
