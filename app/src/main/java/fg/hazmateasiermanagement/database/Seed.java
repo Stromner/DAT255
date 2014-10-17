@@ -6,7 +6,9 @@ import java.util.Arrays;
 
 /**
  * Used to setup the database for the first time
- * Created by Henrik on 2014-10-14.
+ *
+ * @author Johansson, Henrik
+ * @version 2014-10-14
  */
 public class Seed {
     private static Seed seed;
@@ -23,8 +25,9 @@ public class Seed {
     }
 
     /**
-     * Adds elements to the database.
-     * @param db the database that is to be filled with new data
+     * Spawns new elements and put them into the database, this method is only ran once when the database is created.
+     *
+     * @param db database to create the elements inside.
      */
     public void seedElements(Database db){
         String list = "1;1.4;1.5;1.6;4.1;5.2"; // 2.1

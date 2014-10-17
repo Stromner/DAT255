@@ -5,12 +5,8 @@ import android.database.Cursor;
 import android.test.ApplicationTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-import fg.hazmateasiermanagement.Element;
-import fg.hazmateasiermanagement.database.Database;
 
 public class DatabaseTest extends ApplicationTestCase<Application> {
     private Database database;
