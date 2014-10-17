@@ -19,12 +19,13 @@ import java.util.List;
  */
 
 public class Database extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 10;
+    public static final int DATABASE_VERSION = 11;
     public static final String DATABASE_NAME = "hazmat_database.db";
     public static final String TABLE_NAME = "tableName";
     public static final String COLUMN_NAME_UN_ID = "un_id";
     public static final String COLUMN_NAME_UN_NAME = "un_name";
     public static final String COLUMN_DESCRIPTION = "description";
+    public static final String COLUMN_MAXWEIGHT = "maxWeight";
     public static final String COLUMN_LABEL = "label";
     public static final String COLUMN_HAZMAT_IMAGE = "hazmat_image";
     public static final String COLUMN_NOT_COMPATIBLE = "not_compatible";
@@ -35,7 +36,7 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_NAME+"("+COLUMN_NAME_UN_ID+" INTEGER PRIMARY KEY,"+COLUMN_NAME_UN_NAME+" TEXT,"+COLUMN_DESCRIPTION+ " TEXT,"+COLUMN_LABEL+" TEXT,"+COLUMN_HAZMAT_IMAGE+" TEXT," +COLUMN_NOT_COMPATIBLE+ "TEXT );");
+        sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_NAME+"("+COLUMN_NAME_UN_ID+" INTEGER PRIMARY KEY,"+COLUMN_NAME_UN_NAME+" TEXT,"+COLUMN_DESCRIPTION+" TEXT,"+COLUMN_MAXWEIGHT+" REAL,"+COLUMN_LABEL+" TEXT,"+COLUMN_HAZMAT_IMAGE+" TEXT," +COLUMN_NOT_COMPATIBLE+ "TEXT );");
         Seed.getInstance().seedElements(this);
     }
 
@@ -55,12 +56,13 @@ public class Database extends SQLiteOpenHelper {
      * @param UN_ID the UN identification number for the element.
      * @param NAME the proper name for the element.
      * @param DESCRIPTION describe the Element in detail.
+     * @param MAX_WEIGHT maximum amount in kg of this material that can be transported.
      * @param LABEL used to show what material that can be shipped together.
      * @param HAZMAT_IMAGE file name of what image(if any) applies to this element).
      * @param NOT_COMPATIBLE shows which labels this element cannot be shipped with.
      * @return true if it succeeded, false otherwise.
      */
-    boolean addElement(int UN_ID, String NAME, String DESCRIPTION, String LABEL, String HAZMAT_IMAGE, List<String> NOT_COMPATIBLE){
+    boolean addElement(int UN_ID, String NAME, String DESCRIPTION, float MAX_WEIGHT, String LABEL, String HAZMAT_IMAGE, List<String> NOT_COMPATIBLE){
         try{
             String notCompatible = "";
             for (String s : NOT_COMPATIBLE) {
@@ -68,7 +70,7 @@ public class Database extends SQLiteOpenHelper {
             }
             notCompatible = notCompatible.substring(0, notCompatible.length() - 1);
             SQLiteDatabase database = this.getWritableDatabase();
-            database.execSQL("INSERT INTO "+TABLE_NAME+" VALUES("+UN_ID+",'"+NAME+"','"+DESCRIPTION+"','"+LABEL+"','"+HAZMAT_IMAGE+"','"+notCompatible+"');");
+            database.execSQL("INSERT INTO "+TABLE_NAME+" VALUES("+UN_ID+",'"+NAME+"','"+DESCRIPTION+"',"+MAX_WEIGHT+",'"+LABEL+"','"+HAZMAT_IMAGE+"','"+notCompatible+"');");
         }catch(Exception e){
             e.printStackTrace();
             return false;

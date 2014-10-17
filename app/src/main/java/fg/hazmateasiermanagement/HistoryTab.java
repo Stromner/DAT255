@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 /**
  * Created by Magnus on 2014-10-01.
- * Currently useless, just leaving it here incase things change.
+ * Currently not used, just leaving it here incase things change.
  */
 public class HistoryTab extends Activity {
     @Override
@@ -16,11 +16,15 @@ public class HistoryTab extends Activity {
 
         setContentView(R.layout.activity_history);
 
+        /*
+        Element element = (Element) getIntent().getSerializableExtra("fisk");
+
         TextView tv = new TextView(this);
         tv.setTextSize(25);
         tv.setGravity(Gravity.CENTER_VERTICAL);
         tv.setText("This Is History Activity");
 
         setContentView(tv);
+        */
     }
 }
