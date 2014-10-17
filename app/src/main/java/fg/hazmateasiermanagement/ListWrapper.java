@@ -3,6 +3,8 @@ package fg.hazmateasiermanagement;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import fg.hazmateasiermanagement.database.Element;
+
 /**
  * Created by Magnus on 2014-10-15.
  */

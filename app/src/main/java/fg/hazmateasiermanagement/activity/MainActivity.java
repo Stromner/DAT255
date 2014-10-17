@@ -1,4 +1,4 @@
-package fg.hazmateasiermanagement;
+package fg.hazmateasiermanagement.activity;
 
 import android.app.TabActivity;
 import android.content.Intent;
@@ -7,13 +7,20 @@ import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
+import fg.hazmateasiermanagement.R;
 import fg.hazmateasiermanagement.database.AccessDatabase;
 import fg.hazmateasiermanagement.database.Database;
+import fg.hazmateasiermanagement.database.Element;
 import fg.hazmateasiermanagement.database.Seed;
+import fg.hazmateasiermanagement.activity.tab.CurrentTab;
+import fg.hazmateasiermanagement.activity.tab.HistoryTab;
+import fg.hazmateasiermanagement.activity.tab.SearchTab;
 
 /**
- * Created by Magnus on 2014-10-01.
  * The "Main" class, basically just contains the tabs.
+ *
+ * @author Kallten, Magnus
+ * @version 2014-10-17
  */
 
 public class MainActivity extends TabActivity {

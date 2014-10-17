@@ -4,7 +4,9 @@ import java.util.Arrays;
 
 /**
  * Used to setup the database for the first time
- * Created by Henrik on 2014-10-14.
+ *
+ * @author Johansson, Henrik
+ * @version 2014-10-14
  */
 public class Seed {
     private static Seed seed;
@@ -20,7 +22,11 @@ public class Seed {
         return seed;
     }
 
-// un_id name description label hazzmat list<String>
+    /**
+     * Spawns new elements and put them into the database, this method is only ran once when the database is created.
+     *
+     * @param db database to create the elements inside.
+     */
     public void seedElements(Database db){
         String list = "1;1.4;1.5;1.6;4.1;5.2"; // 2.1
         db.addElement(4, "AMMONIUM PICTRATE", "Dry or wetted with less than 10% water, by mass",3500, "2.1", "default", Arrays.asList(list.split(";")));

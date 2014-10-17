@@ -1,19 +1,11 @@
 package fg.hazmateasiermanagement.database;
 
 import android.app.Application;
-import android.database.Cursor;
 import android.test.ApplicationTestCase;
-import android.test.suitebuilder.annotation.MediumTest;
 import android.test.suitebuilder.annotation.SmallTest;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-
-import fg.hazmateasiermanagement.database.Database;
-import fg.hazmateasiermanagement.database.AccessDatabase;
-import fg.hazmateasiermanagement.Element;
 
 public class AccessDatabaseTest extends ApplicationTestCase<Application> {
     private Database database;

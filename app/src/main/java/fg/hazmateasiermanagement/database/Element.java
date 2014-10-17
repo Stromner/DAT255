@@ -1,4 +1,4 @@
-package fg.hazmateasiermanagement;
+package fg.hazmateasiermanagement.database;
 
 import java.io.Serializable;
 import java.util.Arrays;
