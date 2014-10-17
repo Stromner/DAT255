@@ -7,8 +7,10 @@ import android.widget.TextView;
 import fg.hazmateasiermanagement.R;
 
 /**
- * Created by Magnus on 2014-10-01.
- * Currently useless, just leaving it here incase things change.
+ * Currently useless, just leaving it here in case things change.
+ *
+ * @author Kallten, Magnus
+ * @version 2014-10-17
  */
 public class ElementInformationActivity extends Activity {
 

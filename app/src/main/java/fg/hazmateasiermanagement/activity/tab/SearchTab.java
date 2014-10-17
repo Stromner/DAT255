@@ -20,8 +20,10 @@ import fg.hazmateasiermanagement.database.Database;
 import fg.hazmateasiermanagement.database.Element;
 
 /**
- * Created by Benjamin on 2014-10-01.
  * The search tab, enables you to search or filter through the entire list of UN items and add them to your current route tab.
+ *
+ * @author  Wijk, Benjamin
+ * @version 2014-10-17
  */
 public class SearchTab extends Activity {
     Database db;

@@ -8,8 +8,10 @@ import android.widget.TextView;
 import fg.hazmateasiermanagement.R;
 
 /**
- * Created by Magnus on 2014-10-01.
  * Currently useless, just leaving it here incase things change.
+ *
+ * @author Kallten, Magnus
+ * @version 2014-10-17
  */
 public class HistoryTab extends Activity {
     @Override

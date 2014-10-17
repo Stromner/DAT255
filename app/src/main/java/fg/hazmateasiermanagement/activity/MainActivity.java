@@ -16,8 +16,10 @@ import fg.hazmateasiermanagement.activity.tab.HistoryTab;
 import fg.hazmateasiermanagement.activity.tab.SearchTab;
 
 /**
- * Created by Magnus on 2014-10-01.
  * The "Main" class, basically just contains the tabs.
+ *
+ * @author Kallten, Magnus
+ * @version 2014-10-17
  */
 
 public class MainActivity extends TabActivity {

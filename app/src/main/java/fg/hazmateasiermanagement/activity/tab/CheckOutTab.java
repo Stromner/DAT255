@@ -11,7 +11,8 @@ import fg.hazmateasiermanagement.database.Element;
 import fg.hazmateasiermanagement.R;
 
 /**
- * Created by Magnus on 2014-10-01.
+ * @author Kallten, Magnus
+ * @version 2014-10-17
  */
 public class CheckOutTab extends Activity {
     private LinearLayout checkoutLayout;
