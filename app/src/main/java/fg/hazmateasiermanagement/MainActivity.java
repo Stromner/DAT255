@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
+import fg.hazmateasiermanagement.database.AccessDatabase;
+import fg.hazmateasiermanagement.database.Database;
+import fg.hazmateasiermanagement.database.Seed;
+
 /**
  * Created by Magnus on 2014-10-01.
  * The "Main" class, basically just contains the tabs.
@@ -13,6 +17,8 @@ import android.widget.TabHost.TabSpec;
 
 public class MainActivity extends TabActivity {
 
+    private Database db;
+    private AccessDatabase accessDatabase;
     private TabHost tabHost;
     private TabSpec tab1, tab2, tab3;
 
@@ -21,6 +27,12 @@ public class MainActivity extends TabActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        db = new Database(this.getApplicationContext());
+        Seed seed = Seed.getInstance();
+        seed.seedElements(db);
+        accessDatabase = new AccessDatabase(db);
+        Element e = accessDatabase.getElement(4);
+        System.out.println(e.getName());
         addTabs();
     }
 
@@ -32,7 +44,9 @@ public class MainActivity extends TabActivity {
         tab1 = tabHost.newTabSpec("First Tab");
         tab1.setIndicator("Search");
         //tab1.setContent(R.id.tabSearch);
-        tab1.setContent(new Intent(this, SearchTab.class));
+        Intent intTab1 = new Intent(this, SearchTab.class);
+        intTab1.putExtra("db", accessDatabase);
+        tab1.setContent(intTab1);
         tabHost.addTab(tab1);
 
         tab2 = tabHost.newTabSpec("Second Tab");
@@ -46,5 +60,9 @@ public class MainActivity extends TabActivity {
         //tab3.setContent(R.id.tabHistory);
         tab3.setContent(new Intent(this, HistoryTab.class));
         tabHost.addTab(tab3);
+    }
+
+    public AccessDatabase getAccessDatabase(){
+        return accessDatabase;
     }
 }

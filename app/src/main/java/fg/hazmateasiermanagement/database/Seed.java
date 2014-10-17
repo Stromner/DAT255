@@ -22,6 +22,10 @@ public class Seed {
         return seed;
     }
 
+    /**
+     * Adds elements to the database.
+     * @param db the database that is to be filled with new data
+     */
     public void seedElements(Database db){
         String list = "1;1.4;1.5;1.6;4.1;5.2"; // 2.1
         db.addElement(4, "AMMONIUM PICTRATE", "Dry or wetted with less than 10% water, by mass",3500f, "2.1", "default", Arrays.asList(list.split(";")));
@@ -56,5 +60,6 @@ public class Seed {
         list = "1;1.4;1.5;1.6;4.1;5.2"; // 8
         db.addElement(3077, "ENVIRONMENTALLY HAZARDOUS", "ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID, N.O.S.",3500, "8", "environmentally", Arrays.asList(list.split(";")));
 
+        
     }
 }
