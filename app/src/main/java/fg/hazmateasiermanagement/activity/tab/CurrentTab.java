@@ -1,4 +1,4 @@
-package fg.hazmateasiermanagement;
+package fg.hazmateasiermanagement.activity.tab;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,6 +17,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import fg.hazmateasiermanagement.activity.ElementInformationActivity;
+import fg.hazmateasiermanagement.database.Element;
+import fg.hazmateasiermanagement.R;
 
 /**
  * Created by Magnus on 2014-10-01.

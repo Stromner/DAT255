@@ -1,4 +1,4 @@
-package fg.hazmateasiermanagement;
+package fg.hazmateasiermanagement.activity.tab;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,15 +9,15 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import fg.hazmateasiermanagement.R;
 import fg.hazmateasiermanagement.database.AccessDatabase;
 import fg.hazmateasiermanagement.database.Database;
+import fg.hazmateasiermanagement.database.Element;
 
 /**
  * Created by Benjamin on 2014-10-01.

@@ -1,9 +1,11 @@
-package fg.hazmateasiermanagement;
+package fg.hazmateasiermanagement.activity.tab;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.widget.TextView;
+
+import fg.hazmateasiermanagement.R;
 
 /**
  * Created by Magnus on 2014-10-01.
