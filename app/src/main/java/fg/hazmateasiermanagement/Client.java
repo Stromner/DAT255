@@ -6,5 +6,6 @@ package fg.hazmateasiermanagement;
  * @version 2014-09-24
  */
 
-public class Client {
+public class
+        Client {
 }
