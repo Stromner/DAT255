@@ -7,10 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 import fg.hazmateasiermanagement.ListWrapper;
+import fg.hazmateasiermanagement.Utility;
 import fg.hazmateasiermanagement.database.Element;
 import fg.hazmateasiermanagement.R;
 
@@ -52,19 +55,36 @@ public class CheckOutTab extends Activity {
     }
 
     /**
+     * Create a checklist to be displayed in the checkout tab. The method takes care of all the
+     * processing so at return it can just be displayed.
      *
-     * @param list
-     * @return
+     * @param list to create a checkout list from.
+     * @return checkout list to be displayed.
      */
     private String[] createChecklist(List<Element> list){
-        String[] s = new String[list.size()];
+        String[] stringArray = new String[]{"ok"};
+        String[] stringListSigns = new String[]{"To transport the list you need the following signs:"};
         int pos = 0;
         for(Element e : list){
-            s[pos] = e.isCompatible(list);
+            String s = e.isCompatible(list);
+            if(s.compareTo("ok") == 0){
+                stringListSigns = Utility.extendArray(stringListSigns, String.class);
+                stringListSigns[stringListSigns.length-1] = "\t - " + e.getHazmatImage();
+            }
+            else{
+                if(stringArray[0].compareTo("ok") == 0){
+                    stringArray[0] = s;
+                }
+                stringArray = Utility.extendArray(stringArray, String.class);
+                stringArray[stringArray.length-1] = s;
+            }
             pos++;
         }
-        return s;
+
+        return stringArray[0].compareTo("ok") == 0 ? stringListSigns:stringArray;
     }
+
+
 
     /**
      * Generates a point list with what you need to do based on selected elements.
