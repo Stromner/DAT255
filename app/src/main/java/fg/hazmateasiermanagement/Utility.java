@@ -3,8 +3,12 @@ package fg.hazmateasiermanagement;
 import java.lang.reflect.Array;
 
 /**
- * Created by David on 2014-10-19.
+ * Utility class to hold static methods that doesn't belong to a specific part of the program.
+ *
+ * @author Stromner, David
+ * @version 2014-10-19
  */
+
 public class Utility {
     /**
      * Generic method to extends an array with one extra space.
