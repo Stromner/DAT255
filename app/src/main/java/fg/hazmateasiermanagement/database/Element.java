@@ -136,9 +136,16 @@ public class Element implements Cloneable, Serializable{
     public String isCompatible(List<Element> list){
         String s = "• " + unNumber+"("+name+") is incompatible with\n";
         for(Element e: list){
-            if(isCompatible(e)){
+            if(!isCompatible(e)){
                 s += "\t- " + e.unNumber+"("+e.name+")\n";
             }
+        }
+        if(weight > maxWeight){
+            s+="\nCan't transport more than " + maxWeight + "kg of this material, you're trying to transport " + weight + " kg";
+        }
+
+        if(s.compareTo("• " + unNumber+"("+name+") is incompatible with\n") == 0){
+            return "ok";
         }
 
         return s;
