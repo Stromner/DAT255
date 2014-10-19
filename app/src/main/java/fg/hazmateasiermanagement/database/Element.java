@@ -140,6 +140,9 @@ public class Element implements Cloneable, Serializable{
                 s += "\t- " + e.unNumber+"("+e.name+")\n";
             }
         }
+        if(weight > maxWeight){
+            s+="\nCan't transport more than " + maxWeight + "kg of this material, you're trying to transport " + weight + " kg";
+        }
 
         if(s.compareTo("• " + unNumber+"("+name+") is incompatible with\n") == 0){
             return "ok";
