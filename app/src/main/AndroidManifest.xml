@@ -17,24 +17,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.tab.SearchTab"
+            android:name="fg.hazmateasiermanagement.activity.tab.SearchTab"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".activity.tab.CurrentTab"
+            android:name="fg.hazmateasiermanagement.activity.tab.CurrentTab"
             android:label="@string/app_name" >
             </activity>
 
         <activity
-            android:name=".activity.tab.HistoryTab"
+            android:name="fg.hazmateasiermanagement.activity.tab.HistoryTab"
             android:label="@string/app_name" >
             </activity>
         <activity
-            android:name=".activity.ElementInformationActivity"
+            android:name="fg.hazmateasiermanagement.activity.ElementInformationActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="activity.tab.CheckOutTab"
+            android:name="fg.hazmateasiermanagement.activity.tab.CheckOutTab"
             android:label="@string/app_name" >
         </activity>
     </application>
