@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import fg.hazmateasiermanagement.R;
 import fg.hazmateasiermanagement.database.AccessDatabase;
 import fg.hazmateasiermanagement.database.Database;
@@ -31,6 +34,7 @@ public class MainActivity extends TabActivity {
     private TabHost tabHost;
     private TabSpec tab1, tab2, tab3;
     private SharedPreferences sharedPreferences;
+    private List<Element> addedElements;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -53,8 +57,7 @@ public class MainActivity extends TabActivity {
         Seed seed = Seed.getInstance();
         seed.seedElements(db);
         accessDatabase = new AccessDatabase(db);
-        Element e = accessDatabase.getElement(4);
-        System.out.println(e.getName());
+        addedElements = new LinkedList<Element>();
         addTabs();
     }
 
@@ -68,11 +71,14 @@ public class MainActivity extends TabActivity {
         //tab1.setContent(R.id.tabSearch);
         Intent intTab1 = new Intent(this, SearchTab.class);
         intTab1.putExtra("db", accessDatabase);
+        intTab1.putExtra("addedElements",(LinkedList) addedElements);
         tab1.setContent(intTab1);
         tabHost.addTab(tab1);
 
         tab2 = tabHost.newTabSpec("Second Tab");
         tab2.setIndicator("Current");
+        Intent intTab2 = new Intent(this, CurrentTab.class);
+        intTab2.putExtra("addedElements",(LinkedList) addedElements);
         //tab2.setContent(R.id.tabCurrent);
         tab2.setContent(new Intent(this, CurrentTab.class));
         tabHost.addTab(tab2);
@@ -86,7 +92,4 @@ public class MainActivity extends TabActivity {
         */
     }
 
-    public AccessDatabase getAccessDatabase(){
-        return accessDatabase;
-    }
 }
