@@ -28,8 +28,6 @@ public class CheckOutTab extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
 
-        Log.i("fisk","onCreate checkout activity");
-
         setupCheckout();
     }
 
