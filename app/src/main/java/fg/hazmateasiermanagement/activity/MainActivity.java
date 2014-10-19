@@ -34,7 +34,7 @@ public class MainActivity extends TabActivity {
     private TabHost tabHost;
     private TabSpec tab1, tab2, tab3;
     private SharedPreferences sharedPreferences;
-    private static List<Element> addedElements;
+    private List<Element> addedElements;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
