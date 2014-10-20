@@ -28,7 +28,6 @@ import fg.hazmateasiermanagement.database.Element;
  * @version 2014-10-19
  */
 public class SearchTab extends Activity {
-    Database db;
     AccessDatabase accessDatabase;
     EditText searchBar;
     LinearLayout searchListContainer;
@@ -47,8 +46,6 @@ public class SearchTab extends Activity {
         accessDatabase = (AccessDatabase) getIntent().getSerializableExtra("db");
 
         searchMapDisplay = new TreeMap<Integer, String>(Collections.reverseOrder());
-        db = new Database(this.getApplicationContext());
-        //accessDatabase = new AccessDatabase(db);
         elementList = accessDatabase.getCompleteDatabase();
         addedElements = (LinkedList) getIntent().getSerializableExtra("addedElements");
         setupSearch();
@@ -105,7 +102,6 @@ public class SearchTab extends Activity {
      * Searches through existing elements and puts matching elements in the map that will be displayed.
      * @param s text being searched.
      */
-
     private void search (Editable s){
         String search = ".*" + s.toString().toLowerCase() + ".*";
         for (Element element: elementList) {
