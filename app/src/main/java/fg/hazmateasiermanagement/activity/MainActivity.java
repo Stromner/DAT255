@@ -20,10 +20,11 @@ import fg.hazmateasiermanagement.activity.tab.HistoryTab;
 import fg.hazmateasiermanagement.activity.tab.SearchTab;
 
 /**
- * The "Main" class, basically just contains the tabs.
+ * The "Main" class, contains the tabs and some shared resources.
  *
  * @author Kallten, Magnus
- * @version 2014-10-17
+ * @author Wijk, Benjamin
+ * @version 2014-10-19
  */
 
 public class MainActivity extends TabActivity {
@@ -77,8 +78,8 @@ public class MainActivity extends TabActivity {
 
         tab2 = tabHost.newTabSpec("Second Tab");
         tab2.setIndicator("Current");
-        Intent intTab2 = new Intent(this, CurrentTab.class);
-        intTab2.putExtra("addedElements",(LinkedList) addedElements);
+       // Intent intTab2 = new Intent(this, CurrentTab.class);
+       // intTab2.putExtra("addedElements",(LinkedList) addedElements);
         //tab2.setContent(R.id.tabCurrent);
         tab2.setContent(new Intent(this, CurrentTab.class));
         tabHost.addTab(tab2);

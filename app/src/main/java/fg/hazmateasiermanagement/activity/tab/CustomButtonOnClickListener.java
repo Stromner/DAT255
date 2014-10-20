@@ -5,7 +5,8 @@ import android.view.View;
 import android.widget.Button;
 
 /**
- * Created by Beni on 2014-10-19.
+ * @author Benjamin Wijk
+ * @version 2014-10-19
  */
 public class CustomButtonOnClickListener implements View.OnClickListener {
     int uN;

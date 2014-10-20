@@ -11,11 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 
 import fg.hazmateasiermanagement.R;
@@ -27,7 +25,7 @@ import fg.hazmateasiermanagement.database.Element;
  * The search tab, enables you to search or filter through the entire list of UN items and add them to your current route tab.
  *
  * @author  Wijk, Benjamin
- * @version 2014-10-17
+ * @version 2014-10-19
  */
 public class SearchTab extends Activity {
     Database db;
@@ -58,7 +56,7 @@ public class SearchTab extends Activity {
     }
 
     /**
-     * Initializes searchBar and its listener
+     * Initializes searchBar and its listener that runs every time the searchBar text changes.
      */
     private void setupSearch(){
         //Calls updateDisplay() whenever searchBar is changed and matches which items should be displayed.
@@ -68,7 +66,7 @@ public class SearchTab extends Activity {
                 searchMapDisplay.clear();
 
 
-                //Test if string matches a UN-number (UN doesn't exceed 4 digits)
+                //Test if string matches a UN-number (UN doesn't exceed 4 digits), otherwise search through list.
                 if(s.toString().length() <= 4) {
                     try {
                        int uN = Integer.parseInt(s.toString());
@@ -99,9 +97,14 @@ public class SearchTab extends Activity {
             public void onTextChanged(CharSequence s, int start, int before, int count){}
         });
 
-        //Forces afterTextchanged() to activate on app start.
+        //Forces afterTextChanged() to activate on app start.
         searchBar.setText("");
     }
+
+    /**
+     * Searches through existing elements and puts matching elements in the map that will be displayed.
+     * @param s text being searched.
+     */
 
     private void search (Editable s){
         String search = ".*" + s.toString().toLowerCase() + ".*";
@@ -114,7 +117,6 @@ public class SearchTab extends Activity {
 
     /**
      * Updates the search_list view
-     *
      */
     private void updateDisplay(){
         searchListContainer.removeAllViews();
@@ -124,7 +126,7 @@ public class SearchTab extends Activity {
     }
 
     /**
-     * Adds the item with various info to the search Display.
+     * Adds matched items to the search view.
      * @param itemName name of item
      * @param uN UN-number for item
      */
