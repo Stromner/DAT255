@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import fg.hazmateasiermanagement.ListWrapper;
 import fg.hazmateasiermanagement.Utility;
@@ -57,7 +56,8 @@ public class CheckOutTab extends Activity {
 
     /**
      * Create a checklist to be displayed in the checkout tab. The method takes care of all the
-     * processing so at return it can just be displayed.
+     * logic so at return from this method the result can just be displayed without having to worry
+     * about taking care of any extra logic.
      *
      * @param list to create a checkout list from.
      * @return checkout list to be displayed.
