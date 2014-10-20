@@ -8,7 +8,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,7 +37,7 @@ public class CurrentTab extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current);
-        elementContainerLayout = (LinearLayout) findViewById(R.id.elementContainerLayout);
+        elementContainerLayout = (LinearLayout) findViewById(R.id.currentLayout);
         getChecklistButton = (Button) findViewById(R.id.getChecklistButton);
         getChecklistButton.setVisibility(View.INVISIBLE);
 
@@ -51,10 +50,10 @@ public class CurrentTab extends Activity {
         //Need to load elements if there are any active here.
 
         //Example values copied from Seed
-        addElementPanel(new Element(2909, "URANIUM", "RADIOACTIVE MATERIAL", 1f, "5.2", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;3;4.1;4:2;4.3;5.2;6.1;6.2;7;8;9"));
-        addElementPanel(new Element(1541, "ACETONE CYANOHYDRIN", "(STABILIZED)", 2f, "6.1", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;4.1;5.2"));
-        addElementPanel(new Element(1474, "MAGNESIUM NITRATE", "SALT", 3f, "5.1", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;3;4.1;4:2;4.3;5.2;6.1;6.2;7;8;9"));
-        addElementPanel(new Element(4, "AMMONIUM PICTRATE", "Dry or wetted with less than 10% water, by mass", 4f, "2.1", "ic_launcher", "1;1.4;1.5;1.6;4.1;5.2"));
+        addElementPanel(new Element(2909, "URANIUM", "RADIOACTIVE MATERIAL", 5, "label", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;3;4.1;4:2;4.3;5.2;6.1;6.2;7;8;9"));
+        addElementPanel(new Element(1541, "ACETONE CYANOHYDRIN", "(STABILIZED)", 6, "label", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;4.1;5.2"));
+        addElementPanel(new Element(1474, "MAGNESIUM NITRATE", "SALT", 5, "label", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;3;4.1;4:2;4.3;5.2;6.1;6.2;7;8;9"));
+        addElementPanel(new Element(4, "AMMONIUM PICTRATE", "Dry or wetted with less than 10% water, by mass", 2, "label", "ic_launcher", "1;1.4;1.5;1.6;4.1;5.2"));
 
     }
 
@@ -152,32 +151,14 @@ public class CurrentTab extends Activity {
     }
 
     /**
-     * Will add the weights from the editable text input to the
+     *
      */
     private void checkout(){
-        //Don't really need this check since the button is invisible when there are no elements in the list.
-        if(elementContainerLayout.getChildCount() == 0)
-            return;
+        //String saveName;
 
-        int noElementPanels = elementContainerLayout.getChildCount();
-        TableLayout elementPanel;
-        TableRow row;
-        EditText et;
-        float weight;
+        //AlertDialog to save a name for the trip, save date/time
 
-        for(int i = 0; i < noElementPanels; i++){
-            elementPanel = (TableLayout) elementContainerLayout.getChildAt(i);
-            row = (TableRow) elementPanel.getChildAt(2);
-            et = (EditText) row.getChildAt(0);
-            try {
-                weight = Float.valueOf(et.getText().toString());
-            }
-            catch (NumberFormatException e){
-                weight = 0;
-            }
-            elementList.get(i).setWeight(weight);
-        }
-
+        //Needs to add the weights to the elements in the elementList
 
         Intent intent = new Intent(this, CheckOutTab.class);
         intent.putExtra("elementListWrapper", new ListWrapper(elementList));
