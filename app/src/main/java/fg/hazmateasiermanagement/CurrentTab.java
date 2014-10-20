@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,7 +32,7 @@ public class CurrentTab extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current);
-        elementContainerLayout = (LinearLayout) findViewById(R.id.currentLayout);
+        elementContainerLayout = (LinearLayout) findViewById(R.id.elementContainerLayout);
         getChecklistButton = (Button) findViewById(R.id.getChecklistButton);
         getChecklistButton.setVisibility(View.INVISIBLE);
 
@@ -145,14 +146,32 @@ public class CurrentTab extends Activity {
     }
 
     /**
-     *
+     * Will add the weights from the editable text input to the
      */
     private void checkout(){
-        //String saveName;
+        //Don't really need this check since the button is invisible when there are no elements in the list.
+        if(elementContainerLayout.getChildCount() == 0)
+            return;
 
-        //AlertDialog to save a name for the trip, save date/time
+        int noElementPanels = elementContainerLayout.getChildCount();
+        TableLayout elementPanel;
+        TableRow row;
+        EditText et;
+        float weight;
 
-        //Needs to add the weights to the elements in the elementList
+        for(int i = 0; i < noElementPanels; i++){
+            elementPanel = (TableLayout) elementContainerLayout.getChildAt(i);
+            row = (TableRow) elementPanel.getChildAt(2);
+            et = (EditText) row.getChildAt(0);
+            try {
+                weight = Float.valueOf(et.getText().toString());
+            }
+            catch (NumberFormatException e){
+                weight = 0;
+            }
+            elementList.get(i).setWeight(weight);
+        }
+
 
         Intent intent = new Intent(this, CheckOutTab.class);
         intent.putExtra("elementListWrapper", new ListWrapper(elementList));
