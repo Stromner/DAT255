@@ -2,15 +2,16 @@ package fg.hazmateasiermanagement.activity.tab;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import fg.hazmateasiermanagement.ListWrapper;
 import fg.hazmateasiermanagement.Utility;
@@ -63,13 +64,14 @@ public class CheckOutTab extends Activity {
      */
     private String[] createChecklist(List<Element> list){
         String[] stringArray = new String[]{"ok"};
-        String[] stringListSigns = new String[]{"To transport the list you need the following signs:"};
+        Set<String> set = new LinkedHashSet<String>();
+        set.add("To transport the list you need the following signs:");
+
         int pos = 0;
         for(Element e : list){
             String s = e.isCompatible(list);
             if(s.compareTo("ok") == 0){
-                stringListSigns = Utility.extendArray(stringListSigns, String.class);
-                stringListSigns[stringListSigns.length-1] = "\t - " + e.getHazmatImage();
+                set.add("\t - " + e.getHazmatImage());
             }
             else{
                 if(stringArray[0].compareTo("ok") == 0){
@@ -81,7 +83,7 @@ public class CheckOutTab extends Activity {
             pos++;
         }
 
-        return stringArray[0].compareTo("ok") == 0 ? stringListSigns:stringArray;
+        return stringArray[0].compareTo("ok") == 0 ? set.toArray(new String[set.size()]):stringArray;
     }
 
 
