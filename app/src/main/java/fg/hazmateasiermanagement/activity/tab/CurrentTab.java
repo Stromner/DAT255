@@ -51,10 +51,10 @@ public class CurrentTab extends Activity {
         //Need to load elements if there are any active here.
 
         //Example values copied from Seed
-        addElementPanel(new Element(2909, "URANIUM", "RADIOACTIVE MATERIAL", 5, "label", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;3;4.1;4:2;4.3;5.2;6.1;6.2;7;8;9"));
-        addElementPanel(new Element(1541, "ACETONE CYANOHYDRIN", "(STABILIZED)", 6, "label", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;4.1;5.2"));
-        addElementPanel(new Element(1474, "MAGNESIUM NITRATE", "SALT", 5, "label", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;3;4.1;4:2;4.3;5.2;6.1;6.2;7;8;9"));
-        addElementPanel(new Element(4, "AMMONIUM PICTRATE", "Dry or wetted with less than 10% water, by mass", 2, "label", "ic_launcher", "1;1.4;1.5;1.6;4.1;5.2"));
+        addElementPanel(new Element(2909, "URANIUM", "RADIOACTIVE MATERIAL", 1f, "5.2", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;3;4.1;4:2;4.3;5.2;6.1;6.2;7;8;9"));
+        addElementPanel(new Element(1541, "ACETONE CYANOHYDRIN", "(STABILIZED)", 2f, "6.1", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;4.1;5.2"));
+        addElementPanel(new Element(1474, "MAGNESIUM NITRATE", "SALT", 3f, "5.1", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;3;4.1;4:2;4.3;5.2;6.1;6.2;7;8;9"));
+        addElementPanel(new Element(4, "AMMONIUM PICTRATE", "Dry or wetted with less than 10% water, by mass", 4f, "2.1", "ic_launcher", "1;1.4;1.5;1.6;4.1;5.2"));
 
     }
 
