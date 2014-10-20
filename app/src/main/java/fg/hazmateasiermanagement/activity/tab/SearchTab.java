@@ -1,34 +1,38 @@
-package fg.hazmateasiermanagement;
+package fg.hazmateasiermanagement.activity.tab;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import fg.hazmateasiermanagement.R;
 import fg.hazmateasiermanagement.database.AccessDatabase;
 import fg.hazmateasiermanagement.database.Database;
+import fg.hazmateasiermanagement.database.Element;
 
 /**
- * Created by Benjamin on 2014-10-01.
  * The search tab, enables you to search or filter through the entire list of UN items and add them to your current route tab.
+ *
+ * @author  Wijk, Benjamin
+ * @version 2014-10-19
  */
 public class SearchTab extends Activity {
-    Database db;
     AccessDatabase accessDatabase;
     EditText searchBar;
     LinearLayout searchListContainer;
     List<Element> elementList;
+    List<Element> addedElements;
     TreeMap<Integer, String> searchMapDisplay;
 
     @Override
@@ -42,35 +46,35 @@ public class SearchTab extends Activity {
         accessDatabase = (AccessDatabase) getIntent().getSerializableExtra("db");
 
         searchMapDisplay = new TreeMap<Integer, String>(Collections.reverseOrder());
-        db = new Database(this.getApplicationContext());
-        //accessDatabase = new AccessDatabase(db);
         elementList = accessDatabase.getCompleteDatabase();
+        addedElements = (LinkedList) getIntent().getSerializableExtra("addedElements");
         setupSearch();
 
     }
 
     /**
-     * Initializes searchBar and its listener
+     * Initializes searchBar and its listener that runs every time the searchBar text changes.
      */
     private void setupSearch(){
-
         //Calls updateDisplay() whenever searchBar is changed and matches which items should be displayed.
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 searchMapDisplay.clear();
 
-                //Test if string matches a UN-number (UN doesn't exceed 4 digits)
+
+                //Test if string matches a UN-number (UN doesn't exceed 4 digits), otherwise search through list.
                 if(s.toString().length() <= 4) {
                     try {
                        int uN = Integer.parseInt(s.toString());
                        Element temp;
                        temp = accessDatabase.getElement(uN);
                        if(temp != null){
-                       String name = accessDatabase.getElement(uN).getName();
-                       searchMapDisplay.put(uN, name);
-                       updateDisplay();
+                            String name = accessDatabase.getElement(uN).getName();
+                            searchMapDisplay.put(uN, name);
                        }
+                       updateDisplay();
+
                     }
                     catch (NumberFormatException e) {
                         search(s);
@@ -84,26 +88,31 @@ public class SearchTab extends Activity {
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after){}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after){
+            }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count){}
         });
+
+        //Forces afterTextChanged() to activate on app start.
+        searchBar.setText("");
     }
 
+    /**
+     * Searches through existing elements and puts matching elements in the map that will be displayed.
+     * @param s text being searched.
+     */
     private void search (Editable s){
-        if (! s.toString().isEmpty() ){
-            String search = ".*" + s.toString().toLowerCase() + ".*";
-            for (Element element: elementList) {
-                if (element.getName().toLowerCase().matches(search)) {
-                    searchMapDisplay.put(element.getUNNumber(), element.getName());
+        String search = ".*" + s.toString().toLowerCase() + ".*";
+        for (Element element: elementList) {
+            if (s.toString().isEmpty() || element.getName().toLowerCase().matches(search)) {
+                searchMapDisplay.put(element.getUNNumber(), element.getName());
                 }
             }
-        }
     }
 
     /**
      * Updates the search_list view
-     *
      */
     private void updateDisplay(){
         searchListContainer.removeAllViews();
@@ -113,14 +122,14 @@ public class SearchTab extends Activity {
     }
 
     /**
-     * Adds the item with various info to the search Display.
+     * Adds matched items to the search view.
      * @param itemName name of item
-     * @param UN UN-number for item
+     * @param uN UN-number for item
      */
-    private void addListDisplayItem(String itemName, int UN){
+    private void addListDisplayItem(String itemName, int uN){
         TextView displayItemText;
-        TextView displayUNText;
-        TextView displayButton;
+        final TextView displayUNText;
+        final Button displayButton;
 
         LinearLayout displayItem = (LinearLayout) getLayoutInflater().inflate(R.layout.search_panel,null);
         displayItemText = (TextView) displayItem.findViewById(R.id.search_item_name);
@@ -128,13 +137,28 @@ public class SearchTab extends Activity {
         displayButton = (Button) displayItem.findViewById(R.id.button_add_search_item);
 
         displayItemText.setText(itemName);
-        displayUNText.setText("UN: " + UN);
-      /*  displayButton.setOnClickListener(new View.OnClickListener() {
+        displayUNText.setText("UN: " + uN);
+        for(Element element: addedElements)
+            if(element.getUNNumber() == uN)
+                displayButton.setText("Remove Item");
+            else
+                displayButton.setText("Add Item");
+
+        displayButton.setOnClickListener(new CustomButtonOnClickListener(uN, displayButton) {
             @Override
             public void onClick(View v) {
-
+                if(added == true){
+                    addedElements.remove(accessDatabase.getElement(uN));
+                    displayButton.setText("Add Item");
+                    added = false;
+                }
+                else{
+                    addedElements.add(accessDatabase.getElement(uN));
+                    displayButton.setText("Remove Item");
+                    added = true;
+                }
             }
-        });*/
+        });
 
         searchListContainer.addView(displayItem,0);
     }

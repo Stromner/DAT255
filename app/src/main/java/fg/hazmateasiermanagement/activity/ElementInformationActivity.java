@@ -1,4 +1,4 @@
-package fg.hazmateasiermanagement;
+package fg.hazmateasiermanagement.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,9 +6,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import fg.hazmateasiermanagement.R;
+import fg.hazmateasiermanagement.database.Element;
+
 /**
- * Created by Magnus on 2014-10-01.
- * Simple activity that shows information(text) about selected element.
+ * Currently useless, just leaving it here in case things change.
+ *
+ * @author Kallten, Magnus
+ * @version 2014-10-17
  */
 public class ElementInformationActivity extends Activity {
 

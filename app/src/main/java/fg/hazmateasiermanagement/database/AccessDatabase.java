@@ -3,13 +3,8 @@ package fg.hazmateasiermanagement.database;
 import android.database.Cursor;
 
 import java.io.Serializable;
-import java.util.IllegalFormatException;
 import java.util.LinkedList;
-import java.util.ArrayList;
 import java.util.List;
-
-import fg.hazmateasiermanagement.Element;
-import fg.hazmateasiermanagement.database.Database;
 
 /**
  * Factory class for Database, contains methods to modify and access the database in an easy way.

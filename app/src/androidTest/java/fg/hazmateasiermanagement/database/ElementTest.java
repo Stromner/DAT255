@@ -4,8 +4,6 @@ import android.app.Application;
 import android.test.ApplicationTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
 
-import fg.hazmateasiermanagement.Element;
-
 /**
  * Created by Henrik on 2014-10-14.
  */

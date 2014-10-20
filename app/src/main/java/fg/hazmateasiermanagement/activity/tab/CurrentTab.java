@@ -1,4 +1,4 @@
-package fg.hazmateasiermanagement;
+package fg.hazmateasiermanagement.activity.tab;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,8 +18,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import fg.hazmateasiermanagement.ListWrapper;
+import fg.hazmateasiermanagement.activity.ElementInformationActivity;
+import fg.hazmateasiermanagement.database.Element;
+import fg.hazmateasiermanagement.R;
+
 /**
- * Created by Magnus on 2014-10-01.
+ * @author Kallten, Magnus
+ * @version 2014-10-17
  */
 public class CurrentTab extends Activity {
 

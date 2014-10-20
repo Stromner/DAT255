@@ -1,17 +1,25 @@
-package fg.hazmateasiermanagement;
+package fg.hazmateasiermanagement.activity.tab;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
+
+import fg.hazmateasiermanagement.ListWrapper;
+import fg.hazmateasiermanagement.Utility;
+import fg.hazmateasiermanagement.database.Element;
+import fg.hazmateasiermanagement.R;
 
 /**
- * Created by Magnus on 2014-10-01.
+ * @author Kallten, Magnus
+ * @version 2014-10-17
  */
 public class CheckOutTab extends Activity {
     private LinearLayout checkoutLayout;
@@ -22,8 +30,6 @@ public class CheckOutTab extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
-
-        Log.i("fisk","onCreate checkout activity");
 
         setupCheckout();
     }
@@ -49,19 +55,38 @@ public class CheckOutTab extends Activity {
     }
 
     /**
+     * Create a checklist to be displayed in the checkout tab. The method takes care of all the
+     * logic so at return from this method the result can just be displayed without having to worry
+     * about taking care of any extra logic.
      *
-     * @param list
-     * @return
+     * @param list to create a checkout list from.
+     * @return checkout list to be displayed.
      */
     private String[] createChecklist(List<Element> list){
-        String[] s = new String[list.size()];
+        String[] stringArray = new String[]{"ok"};
+        Set<String> set = new LinkedHashSet<String>();
+        set.add("To transport the list you need the following signs:");
+
         int pos = 0;
         for(Element e : list){
-            s[pos] = e.isCompatible(list);
+            String s = e.isCompatible(list);
+            if(s.compareTo("ok") == 0){
+                set.add("\t - " + e.getHazmatImage());
+            }
+            else{
+                if(stringArray[0].compareTo("ok") == 0){
+                    stringArray[0] = s;
+                }
+                stringArray = Utility.extendArray(stringArray, String.class);
+                stringArray[stringArray.length-1] = s;
+            }
             pos++;
         }
-        return s;
+
+        return stringArray[0].compareTo("ok") == 0 ? set.toArray(new String[set.size()]):stringArray;
     }
+
+
 
     /**
      * Generates a point list with what you need to do based on selected elements.
