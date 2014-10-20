@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_weight="0"
-            android:text="Add item (N/A yet)"/>
+            android:text="Add item"/>
         </LinearLayout>
 
 
