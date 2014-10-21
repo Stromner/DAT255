@@ -54,7 +54,6 @@ public class SearchTab extends Activity {
         mainActivity = (MainActivity) getParent();
         currentTab = (CurrentTab) mainActivity.getCurrentTab();
         setupSearch();
-
     }
 
     /**
