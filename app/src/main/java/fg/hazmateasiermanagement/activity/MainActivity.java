@@ -1,11 +1,13 @@
 package fg.hazmateasiermanagement.activity;
 
+import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+import android.widget.Toast;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,73 +26,62 @@ import fg.hazmateasiermanagement.activity.tab.SearchTab;
  *
  * @author Kallten, Magnus
  * @author Wijk, Benjamin
- * @version 2014-10-19
+ * @version 2014-10-21
  */
 
 public class MainActivity extends TabActivity {
 
-    private final String SHARED_PREF = "fg.hazmateasiermanagment.firstRun";
     private Database db;
     private AccessDatabase accessDatabase;
     private TabHost tabHost;
-    private TabSpec tab1, tab2, tab3;
-    private SharedPreferences sharedPreferences;
-    private List<Element> addedElements;
+    private TabSpec tab1, tab2;
+
+    private Intent intTab1, intTab2;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*
-        sharedPreferences = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
-
-        if (sharedPreferences.getBoolean("firstRun", true)) {
-            //Seed
-            sharedPreferences.edit().putBoolean("firstRun", false).commit();
-        }
-        else{
-            //Nothing?
-        }
-        */
-
         db = new Database(this.getApplicationContext());
         Seed seed = Seed.getInstance();
         seed.seedElements(db);
         accessDatabase = new AccessDatabase(db);
-        addedElements = new LinkedList<Element>();
+
         addTabs();
     }
 
     private void addTabs(){
-        //(TabHost)findViewById(R.id.tabHost);
+
         tabHost = getTabHost();
         tabHost.setup();
 
+        intTab1 = new Intent(this, SearchTab.class);
+        intTab2 = new Intent(this, CurrentTab.class);
+
+        intTab1.putExtra("db", accessDatabase);
+
         tab1 = tabHost.newTabSpec("First Tab");
         tab1.setIndicator("Search");
-        //tab1.setContent(R.id.tabSearch);
-        Intent intTab1 = new Intent(this, SearchTab.class);
-        intTab1.putExtra("db", accessDatabase);
-        intTab1.putExtra("addedElements",(LinkedList) addedElements);
         tab1.setContent(intTab1);
-        tabHost.addTab(tab1);
 
         tab2 = tabHost.newTabSpec("Second Tab");
         tab2.setIndicator("Current");
-       // Intent intTab2 = new Intent(this, CurrentTab.class);
-       // intTab2.putExtra("addedElements",(LinkedList) addedElements);
-        //tab2.setContent(R.id.tabCurrent);
-        tab2.setContent(new Intent(this, CurrentTab.class));
-        tabHost.addTab(tab2);
+        tab2.setContent(intTab2);
 
-        /*
-        tab3 = tabHost.newTabSpec("Third tab");
-        tab3.setIndicator("Checkout");
-        //tab3.setContent(R.id.tabHistory);
-        tab3.setContent(new Intent(this, CheckOutTab.class));
-        tabHost.addTab(tab3);
-        */
+        tabHost.addTab(tab2);
+        tabHost.addTab(tab1);
+
+        //Initializes Current and SearchTab
+        tabHost.setCurrentTab(0);
+        tabHost.setCurrentTab(1);
+
+    }
+
+    public Activity getCurrentTab(){
+        return getLocalActivityManager().getActivity("Second Tab");
     }
 
 }

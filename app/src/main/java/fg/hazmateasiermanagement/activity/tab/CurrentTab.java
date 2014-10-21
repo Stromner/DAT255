@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -27,7 +29,7 @@ import fg.hazmateasiermanagement.R;
  * @author Kallten, Magnus
  * @version 2014-10-17
  */
-public class CurrentTab extends Activity {
+public class CurrentTab extends Activity implements Serializable {
 
     private LinearLayout elementContainerLayout;
     private Button getChecklistButton;
@@ -48,10 +50,12 @@ public class CurrentTab extends Activity {
             }
         });
 
+        getIntent().putExtra("currentTab", this);
+
         //Need to load elements if there are any active here.
 
         //Example values copied from Seed
-        addElementPanel(new Element(2909, "URANIUM", "RADIOACTIVE MATERIAL", 1f, "5.2", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;3;4.1;4:2;4.3;5.2;6.1;6.2;7;8;9"));
+        addElementPanel(new Element(2909, this.toString(), "RADIOACTIVE MATERIAL", 1f, "5.2", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;3;4.1;4:2;4.3;5.2;6.1;6.2;7;8;9"));
         addElementPanel(new Element(1541, "ACETONE CYANOHYDRIN", "(STABILIZED)", 2f, "6.1", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;4.1;5.2"));
         addElementPanel(new Element(1474, "MAGNESIUM NITRATE", "SALT", 3f, "5.1", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;3;4.1;4:2;4.3;5.2;6.1;6.2;7;8;9"));
         addElementPanel(new Element(4, "AMMONIUM PICTRATE", "Dry or wetted with less than 10% water, by mass", 4f, "2.1", "ic_launcher", "1;1.4;1.5;1.6;4.1;5.2"));
@@ -63,7 +67,7 @@ public class CurrentTab extends Activity {
      * a edit text meant for the weight (in Kg) of the transported element.
      * @param element An object of the selected element.
      */
-    private void addElementPanel(final Element element) {
+    public void addElementPanel(final Element element) {
         //Makes sure there aren't more than one element of the same typ in the lists.
         for(Element el : elementList){
             if(el.getUNNumber() == element.getUNNumber()){
@@ -103,7 +107,7 @@ public class CurrentTab extends Activity {
         });
 
         //If there is an image for the element it will change the sign for that image (Otherwise it will stay as the standard)
-        if(!(element.getHazmatImage() == null)){
+        if((element.getHazmatImage() == null)){
             String image = "@drawable/" + element.getHazmatImage();
             int drawableID = getResources().getIdentifier(image, null, getPackageName());
             Drawable drawable = getResources().getDrawable(drawableID);
@@ -192,6 +196,10 @@ public class CurrentTab extends Activity {
         Intent intent = new Intent(this, ElementInformationActivity.class);
         intent.putExtra(INTENT_INFORMATION_ID, e);
         startActivity(intent);
+    }
+
+    public Activity getActivity(){
+        return this;
     }
 
 }
