@@ -29,7 +29,7 @@ import fg.hazmateasiermanagement.R;
  * @author Kallten, Magnus
  * @version 2014-10-17
  */
-public class CurrentTab extends Activity implements Serializable {
+public class CurrentTab extends Activity {
 
     private LinearLayout elementContainerLayout;
     private Button getChecklistButton;
@@ -50,7 +50,6 @@ public class CurrentTab extends Activity implements Serializable {
             }
         });
 
-        getIntent().putExtra("currentTab", this);
 
         //Need to load elements if there are any active here.
 
@@ -107,7 +106,7 @@ public class CurrentTab extends Activity implements Serializable {
         });
 
         //If there is an image for the element it will change the sign for that image (Otherwise it will stay as the standard)
-        if((element.getHazmatImage() == null)){
+        if(!(element.getHazmatImage() == null)){
             String image = "@drawable/" + element.getHazmatImage();
             int drawableID = getResources().getIdentifier(image, null, getPackageName());
             Drawable drawable = getResources().getDrawable(drawableID);
@@ -196,10 +195,6 @@ public class CurrentTab extends Activity implements Serializable {
         Intent intent = new Intent(this, ElementInformationActivity.class);
         intent.putExtra(INTENT_INFORMATION_ID, e);
         startActivity(intent);
-    }
-
-    public Activity getActivity(){
-        return this;
     }
 
 }

@@ -3,14 +3,10 @@ package fg.hazmateasiermanagement.activity;
 import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
-import android.widget.Toast;
 
-import java.util.LinkedList;
-import java.util.List;
 
 import fg.hazmateasiermanagement.R;
 import fg.hazmateasiermanagement.database.AccessDatabase;

@@ -26,7 +26,7 @@ import fg.hazmateasiermanagement.database.Element;
  * The search tab, enables you to search or filter through the entire list of UN items and add them to your current route tab.
  *
  * @author  Wijk, Benjamin
- * @version 2014-10-19
+ * @version 2014-10-21
  */
 public class SearchTab extends Activity {
     AccessDatabase accessDatabase;
@@ -65,7 +65,6 @@ public class SearchTab extends Activity {
             @Override
             public void afterTextChanged(Editable s) {
                 searchMapDisplay.clear();
-
 
                 //Test if string matches a UN-number (UN doesn't exceed 4 digits), otherwise search through list.
                 if(s.toString().length() <= 4) {
