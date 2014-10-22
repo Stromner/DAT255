@@ -8,6 +8,9 @@ import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
 
+import java.util.LinkedList;
+import java.util.List;
+
 import fg.hazmateasiermanagement.R;
 import fg.hazmateasiermanagement.database.AccessDatabase;
 import fg.hazmateasiermanagement.database.Database;
@@ -27,19 +30,31 @@ import fg.hazmateasiermanagement.activity.tab.SearchTab;
 
 public class MainActivity extends TabActivity {
 
+    //private final String SHARED_PREF = "fg.hazmateasiermanagment.firstRun";
     private Database db;
     private AccessDatabase accessDatabase;
     private TabHost tabHost;
     private TabSpec tab1, tab2;
-
+    //private SharedPreferences sharedPreferences;
     private Intent intTab1, intTab2;
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*
+        //If the seed only needs to be created once
+        sharedPreferences = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
+
+        if (sharedPreferences.getBoolean("firstRun", true)) {
+            //Seed
+            sharedPreferences.edit().putBoolean("firstRun", false).commit();
+        }
+        else{
+            //Nothing?
+        }
+        */
 
         db = new Database(this.getApplicationContext());
         Seed seed = Seed.getInstance();

@@ -19,9 +19,9 @@ import fg.hazmateasiermanagement.R;
 
 /**
  * @author Kallten, Magnus
- * @version 2014-10-17
+ * @version 2014-10-22
  */
-public class CheckOutTab extends Activity {
+public class CheckoutActivity extends Activity {
     private LinearLayout checkoutLayout;
     private ArrayList<Element> elementList;
     private Button backButton;
@@ -35,7 +35,7 @@ public class CheckOutTab extends Activity {
     }
 
     /**
-     *
+     * Sets up the checkout if an elementList is sent via intent.
      */
     private void setupCheckout(){
         checkoutLayout = (LinearLayout) findViewById(R.id.checkoutLayout);

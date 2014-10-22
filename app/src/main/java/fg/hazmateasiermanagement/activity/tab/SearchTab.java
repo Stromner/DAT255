@@ -149,12 +149,10 @@ public class SearchTab extends Activity {
 
             @Override
             public void onClick(View v) {
-                //if(
-                currentTab.addElementPanel(accessDatabase.getElement(uN));
-                //then {
+                if(currentTab.addElementPanel(accessDatabase.getElement(uN)))
                     Toast.makeText(getApplicationContext(), "UN " + uN +" has been added.",
                             Toast.LENGTH_SHORT).show();
-                //}else
+                else
                     Toast.makeText(getApplicationContext(), "UN " + uN +" already exists.",
                             Toast.LENGTH_SHORT).show();
 
