@@ -10,10 +10,9 @@ import fg.hazmateasiermanagement.R;
 import fg.hazmateasiermanagement.database.Element;
 
 /**
- * Currently useless, just leaving it here in case things change.
- *
+ * Activity to show information about an element.
  * @author Kallten, Magnus
- * @version 2014-10-17
+ * @version 2014-10-22
  */
 public class ElementInformationActivity extends Activity {
 

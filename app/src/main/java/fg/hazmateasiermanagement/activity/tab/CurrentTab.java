@@ -25,7 +25,7 @@ import fg.hazmateasiermanagement.R;
 
 /**
  * @author Kallten, Magnus
- * @version 2014-10-17
+ * @version 2014-10-22
  */
 public class CurrentTab extends Activity {
 
