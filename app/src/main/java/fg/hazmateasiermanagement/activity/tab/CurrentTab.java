@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -62,7 +64,8 @@ public class CurrentTab extends Activity {
      * @param element An object of the selected element.
      * @return False if the element is already in the list, otherwise true;
      */
-    private boolean addElementPanel(final Element element) {
+
+    public boolean addElementPanel(final Element element) {
         //Makes sure there aren't more than one element of the same typ in the lists.
         for(Element el : elementList){
             if(el.getUNNumber() == element.getUNNumber())

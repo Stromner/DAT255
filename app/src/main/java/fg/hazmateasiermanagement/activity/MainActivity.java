@@ -1,11 +1,12 @@
 package fg.hazmateasiermanagement.activity;
 
+import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +25,7 @@ import fg.hazmateasiermanagement.activity.tab.SearchTab;
  *
  * @author Kallten, Magnus
  * @author Wijk, Benjamin
- * @version 2014-10-19
+ * @version 2014-10-21
  */
 
 public class MainActivity extends TabActivity {
@@ -35,7 +36,7 @@ public class MainActivity extends TabActivity {
     private TabHost tabHost;
     private TabSpec tab1, tab2;
     //private SharedPreferences sharedPreferences;
-    private List<Element> addedElements;
+    private Intent intTab1, intTab2;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -59,28 +60,39 @@ public class MainActivity extends TabActivity {
         Seed seed = Seed.getInstance();
         seed.seedElements(db);
         accessDatabase = new AccessDatabase(db);
-        addedElements = new LinkedList<Element>();
+
         addTabs();
     }
 
     private void addTabs(){
+
         tabHost = getTabHost();
         tabHost.setup();
 
+        intTab1 = new Intent(this, SearchTab.class);
+        intTab2 = new Intent(this, CurrentTab.class);
+
+        intTab1.putExtra("db", accessDatabase);
+
         tab1 = tabHost.newTabSpec("First Tab");
         tab1.setIndicator("Search");
-        Intent intTab1 = new Intent(this, SearchTab.class);
-        intTab1.putExtra("db", accessDatabase);
-        intTab1.putExtra("addedElements",(LinkedList) addedElements);
         tab1.setContent(intTab1);
 
         tab2 = tabHost.newTabSpec("Second Tab");
         tab2.setIndicator("Current");
-        tab2.setContent(new Intent(this, CurrentTab.class));
+        tab2.setContent(intTab2);
 
-        tabHost.addTab(tab1);
         tabHost.addTab(tab2);
+        tabHost.addTab(tab1);
 
+        //Initializes Current and SearchTab
+        tabHost.setCurrentTab(0);
+        tabHost.setCurrentTab(1);
+
+    }
+
+    public Activity getCurrentTab(){
+        return getLocalActivityManager().getActivity("Second Tab");
     }
 
 }

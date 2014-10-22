@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -17,15 +18,15 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import fg.hazmateasiermanagement.R;
+import fg.hazmateasiermanagement.activity.MainActivity;
 import fg.hazmateasiermanagement.database.AccessDatabase;
-import fg.hazmateasiermanagement.database.Database;
 import fg.hazmateasiermanagement.database.Element;
 
 /**
  * The search tab, enables you to search or filter through the entire list of UN items and add them to your current route tab.
  *
  * @author  Wijk, Benjamin
- * @version 2014-10-19
+ * @version 2014-10-21
  */
 public class SearchTab extends Activity {
     AccessDatabase accessDatabase;
@@ -34,6 +35,8 @@ public class SearchTab extends Activity {
     List<Element> elementList;
     List<Element> addedElements;
     TreeMap<Integer, String> searchMapDisplay;
+    CurrentTab currentTab;
+    MainActivity mainActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,13 +46,14 @@ public class SearchTab extends Activity {
         searchListContainer = (LinearLayout) findViewById(R.id.search_list);
         searchBar = (EditText) findViewById(R.id.search_text);
 
-        accessDatabase = (AccessDatabase) getIntent().getSerializableExtra("db");
-
         searchMapDisplay = new TreeMap<Integer, String>(Collections.reverseOrder());
-        elementList = accessDatabase.getCompleteDatabase();
-        addedElements = (LinkedList) getIntent().getSerializableExtra("addedElements");
-        setupSearch();
+        addedElements = new LinkedList<Element>();
 
+        accessDatabase = (AccessDatabase) getIntent().getSerializableExtra("db");
+        elementList = accessDatabase.getCompleteDatabase();
+        mainActivity = (MainActivity) getParent();
+        currentTab = (CurrentTab) mainActivity.getCurrentTab();
+        setupSearch();
     }
 
     /**
@@ -61,7 +65,6 @@ public class SearchTab extends Activity {
             @Override
             public void afterTextChanged(Editable s) {
                 searchMapDisplay.clear();
-
 
                 //Test if string matches a UN-number (UN doesn't exceed 4 digits), otherwise search through list.
                 if(s.toString().length() <= 4) {
@@ -138,25 +141,21 @@ public class SearchTab extends Activity {
 
         displayItemText.setText(itemName);
         displayUNText.setText("UN: " + uN);
-        for(Element element: addedElements)
-            if(element.getUNNumber() == uN)
-                displayButton.setText("Remove Item");
-            else
-                displayButton.setText("Add Item");
 
-        displayButton.setOnClickListener(new CustomButtonOnClickListener(uN, displayButton) {
+        getIntent().putExtra("uN", uN);
+
+        displayButton.setOnClickListener(new View.OnClickListener() {
+            private int uN = getIntent().getIntExtra("uN", 0);
+
             @Override
             public void onClick(View v) {
-                if(added == true){
-                    addedElements.remove(accessDatabase.getElement(uN));
-                    displayButton.setText("Add Item");
-                    added = false;
-                }
-                else{
-                    addedElements.add(accessDatabase.getElement(uN));
-                    displayButton.setText("Remove Item");
-                    added = true;
-                }
+                if(currentTab.addElementPanel(accessDatabase.getElement(uN)))
+                    Toast.makeText(getApplicationContext(), "UN " + uN +" has been added.",
+                            Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getApplicationContext(), "UN " + uN +" already exists.",
+                            Toast.LENGTH_SHORT).show();
+
             }
         });
 
