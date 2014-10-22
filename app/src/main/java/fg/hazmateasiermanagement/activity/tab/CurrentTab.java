@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -48,10 +50,11 @@ public class CurrentTab extends Activity {
             }
         });
 
+
         //Need to load elements if there are any active here.
 
         //Example values copied from Seed
-        addElementPanel(new Element(2909, "URANIUM", "RADIOACTIVE MATERIAL", 1f, "5.2", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;3;4.1;4:2;4.3;5.2;6.1;6.2;7;8;9"));
+        addElementPanel(new Element(2909, this.toString(), "RADIOACTIVE MATERIAL", 1f, "5.2", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;3;4.1;4:2;4.3;5.2;6.1;6.2;7;8;9"));
         addElementPanel(new Element(1541, "ACETONE CYANOHYDRIN", "(STABILIZED)", 2f, "6.1", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;4.1;5.2"));
         addElementPanel(new Element(1474, "MAGNESIUM NITRATE", "SALT", 3f, "5.1", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;3;4.1;4:2;4.3;5.2;6.1;6.2;7;8;9"));
         addElementPanel(new Element(4, "AMMONIUM PICTRATE", "Dry or wetted with less than 10% water, by mass", 4f, "2.1", "ic_launcher", "1;1.4;1.5;1.6;4.1;5.2"));
@@ -63,7 +66,7 @@ public class CurrentTab extends Activity {
      * a edit text meant for the weight (in Kg) of the transported element.
      * @param element An object of the selected element.
      */
-    private void addElementPanel(final Element element) {
+    public void addElementPanel(final Element element) {
         //Makes sure there aren't more than one element of the same typ in the lists.
         for(Element el : elementList){
             if(el.getUNNumber() == element.getUNNumber()){
