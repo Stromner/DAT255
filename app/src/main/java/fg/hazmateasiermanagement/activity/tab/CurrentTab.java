@@ -1,8 +1,6 @@
 package fg.hazmateasiermanagement.activity.tab;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -38,7 +36,7 @@ public class CurrentTab extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current);
-        elementContainerLayout = (LinearLayout) findViewById(R.id.elementContainerLayout);
+        elementContainerLayout = (LinearLayout) findViewById(R.id.currentLayout);
         getChecklistButton = (Button) findViewById(R.id.getChecklistButton);
         getChecklistButton.setVisibility(View.INVISIBLE);
 
@@ -48,13 +46,13 @@ public class CurrentTab extends Activity {
             }
         });
 
-        //Need to load elements if there are any active here.
-
+        /*
         //Example values copied from Seed
-        addElementPanel(new Element(2909, "URANIUM", "RADIOACTIVE MATERIAL", 1f, "5.2", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;3;4.1;4:2;4.3;5.2;6.1;6.2;7;8;9"));
-        addElementPanel(new Element(1541, "ACETONE CYANOHYDRIN", "(STABILIZED)", 2f, "6.1", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;4.1;5.2"));
+        addElementPanel(new Element(2909, "URANIUM", "RADIOACTIVE MATERIAL", 1f, "5.2", "corrosive", "1;1.4;1.5;1.6;2.1;2.2;2.3;3;4.1;4:2;4.3;5.2;6.1;6.2;7;8;9"));
+        addElementPanel(new Element(1541, "ACETONE CYANOHYDRIN", "(STABILIZED)", 2f, "6.1", "asdasd", "1;1.4;1.5;1.6;2.1;2.2;2.3;4.1;5.2"));
         addElementPanel(new Element(1474, "MAGNESIUM NITRATE", "SALT", 3f, "5.1", "ic_launcher", "1;1.4;1.5;1.6;2.1;2.2;2.3;3;4.1;4:2;4.3;5.2;6.1;6.2;7;8;9"));
         addElementPanel(new Element(4, "AMMONIUM PICTRATE", "Dry or wetted with less than 10% water, by mass", 4f, "2.1", "ic_launcher", "1;1.4;1.5;1.6;4.1;5.2"));
+        */
 
     }
 
@@ -62,23 +60,13 @@ public class CurrentTab extends Activity {
      * Adds a new tablelayout that containing information about the element. It will also contain
      * a edit text meant for the weight (in Kg) of the transported element.
      * @param element An object of the selected element.
+     * @return False if the element is already in the list, otherwise true;
      */
-    private void addElementPanel(final Element element) {
+    private boolean addElementPanel(final Element element) {
         //Makes sure there aren't more than one element of the same typ in the lists.
         for(Element el : elementList){
-            if(el.getUNNumber() == element.getUNNumber()){
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("Look at this dialog!")
-                        .setCancelable(false)
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                //Do nothing
-                            }
-                        });
-                AlertDialog alert = builder.create();
-                alert.show();
-                return;
-            }
+            if(el.getUNNumber() == element.getUNNumber())
+                return false;
         }
 
         elementList.add(element);
@@ -104,10 +92,12 @@ public class CurrentTab extends Activity {
 
         //If there is an image for the element it will change the sign for that image (Otherwise it will stay as the standard)
         if(!(element.getHazmatImage() == null)){
-            String image = "@drawable/" + element.getHazmatImage();
-            int drawableID = getResources().getIdentifier(image, null, getPackageName());
-            Drawable drawable = getResources().getDrawable(drawableID);
-            imageViewElementSign.setImageDrawable(drawable);
+            if(!(getResources().getIdentifier(element.getHazmatImage(), "drawable", getPackageName()) == 0)){
+                String image = "@drawable/" + element.getHazmatImage();
+                int drawableID = getResources().getIdentifier(image, null, getPackageName());
+                Drawable drawable = getResources().getDrawable(drawableID);
+                imageViewElementSign.setImageDrawable(drawable);
+            }
         }
 
         textViewElementId.setText(String.valueOf(element.getUNNumber()));
@@ -119,10 +109,12 @@ public class CurrentTab extends Activity {
         }
 
         elementContainerLayout.addView(elementPanel, 0);
+
+        return true;
     }
 
     /**
-     * Removes it's parent when called.
+     * Removes the buttons parentView, i.e, the elementPanel.
      * @param view The remove button view
      */
     public void removeElementPanel(View view){
@@ -152,11 +144,11 @@ public class CurrentTab extends Activity {
     }
 
     /**
-     * Will add the weights from the editable text input to the
+     * Will add the weights from the editable text input to the elementList before sending the list to the checkout activity.
      */
-    private void checkout(){
+    private void checkout() {
         //Don't really need this check since the button is invisible when there are no elements in the list.
-        if(elementContainerLayout.getChildCount() == 0)
+        if (elementContainerLayout.getChildCount() == 0)
             return;
 
         int noElementPanels = elementContainerLayout.getChildCount();
@@ -165,21 +157,20 @@ public class CurrentTab extends Activity {
         EditText et;
         float weight;
 
-        for(int i = 0; i < noElementPanels; i++){
+        for (int i = 0; i < noElementPanels; i++) {
             elementPanel = (TableLayout) elementContainerLayout.getChildAt(i);
             row = (TableRow) elementPanel.getChildAt(2);
             et = (EditText) row.getChildAt(0);
+
             try {
                 weight = Float.valueOf(et.getText().toString());
-            }
-            catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 weight = 0;
             }
+
             elementList.get(i).setWeight(weight);
         }
-
-
-        Intent intent = new Intent(this, CheckOutTab.class);
+        Intent intent = new Intent(this, CheckoutActivity.class);
         intent.putExtra("elementListWrapper", new ListWrapper(elementList));
         startActivity(intent);
     }
