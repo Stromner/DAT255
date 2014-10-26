@@ -19,9 +19,9 @@ import fg.hazmateasiermanagement.R;
 
 /**
  * @author Kallten, Magnus
- * @version 2014-10-17
+ * @version 2014-10-22
  */
-public class CheckOutTab extends Activity {
+public class CheckoutActivity extends Activity {
     private LinearLayout checkoutLayout;
     private ArrayList<Element> elementList;
     private Button backButton;
@@ -35,7 +35,7 @@ public class CheckOutTab extends Activity {
     }
 
     /**
-     *
+     * Sets up the checkout if an elementList is sent via intent.
      */
     private void setupCheckout(){
         checkoutLayout = (LinearLayout) findViewById(R.id.checkoutLayout);
@@ -89,7 +89,7 @@ public class CheckOutTab extends Activity {
 
 
     /**
-     * Generates a point list with what you need to do based on selected elements.
+     * Generates a point list of what you need to do based on selected elements.
      * @param list The string list of what needs to be done.
      */
     private void addCheckoutList(String[] list){
@@ -104,7 +104,7 @@ public class CheckOutTab extends Activity {
     }
 
     /**
-     * Emptys the layout.
+     * Empties the layout.
      */
     private void emptyCheckoutList(){
         checkoutLayout.removeAllViews();

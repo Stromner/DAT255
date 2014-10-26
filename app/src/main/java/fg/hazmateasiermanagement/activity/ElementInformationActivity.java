@@ -10,10 +10,9 @@ import fg.hazmateasiermanagement.R;
 import fg.hazmateasiermanagement.database.Element;
 
 /**
- * Currently useless, just leaving it here in case things change.
- *
+ * Activity to show information about an element.
  * @author Kallten, Magnus
- * @version 2014-10-17
+ * @version 2014-10-22
  */
 public class ElementInformationActivity extends Activity {
 
@@ -32,7 +31,7 @@ public class ElementInformationActivity extends Activity {
     }
 
     /**
-     *
+     * Receives an element object from currentTab and gives the activity a title and adds the information text.
      */
     private void setupElementInformation(){
         tvInformationText = (TextView) findViewById(R.id.tvInformationText);
@@ -47,12 +46,10 @@ public class ElementInformationActivity extends Activity {
 
         element = (Element) getIntent().getSerializableExtra(INTENT_INFORMATION_ID);
 
-        String elementInformationTitle = element.getUNNumber() + " : " + element.getName();
+        String elementInformationTitle = "UN" + element.getUNNumber() + " : " + element.getName();
         String elementInformation = element.getDescription();
 
         tvInformationTitle.setText(elementInformationTitle);
-        tvInformationText = (TextView) findViewById(R.id.tvInformationText);
-
         tvInformationText.setText(elementInformation);
     }
 }
