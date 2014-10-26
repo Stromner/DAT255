@@ -89,7 +89,7 @@ public class CheckoutActivity extends Activity {
 
 
     /**
-     * Generates a point list with what you need to do based on selected elements.
+     * Generates a point list of what you need to do based on selected elements.
      * @param list The string list of what needs to be done.
      */
     private void addCheckoutList(String[] list){
@@ -104,7 +104,7 @@ public class CheckoutActivity extends Activity {
     }
 
     /**
-     * Emptys the layout.
+     * Empties the layout.
      */
     private void emptyCheckoutList(){
         checkoutLayout.removeAllViews();
