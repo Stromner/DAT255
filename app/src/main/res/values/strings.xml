@@ -8,7 +8,9 @@
     <string name="getChecklist">Get Checklist</string>
     <string name="information">Information</string>
     <string name="remove">Remove</string>
-    <string name="weightHintText">Weight of load (Kilograms)</string>
+    <string name="back">Back</string>
+    <string name="checkout_list">Checkout List</string>
+    <string name="weightHintText">Weight (Kilograms)</string>
 
 
 </resources>

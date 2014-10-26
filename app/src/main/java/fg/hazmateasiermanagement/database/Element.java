@@ -1,5 +1,6 @@
-package fg.hazmateasiermanagement;
+package fg.hazmateasiermanagement.database;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,90 +14,138 @@ import java.util.List;
  * @version 2014-10-14
  */
 
-public class Element implements Cloneable{
+public class Element implements Cloneable, Serializable{
     private int unNumber;       // UN number
     private String name;        // Name of the element
     private String description; // Describing the Element in detail
-    // private int classNumber;    // Class number that covers dangerous substance or article
-    // private String packingGroup;// Packing Group I II or III
+    private float maxWeight;    // The maximum total weight allowed for the element.
     private String label;       // Labels used to show what material that can be shipped together.
     private float weight;       // The weight of the material
     private String hazmatImage; // String that contains the name of the image
     private List<String> notCompatible;  // String that shows which labels this element cannot be shipped with.
 
-    public Element(int unNumber, String name, String description, String label, String hazmatImage, String notCompatible){
+    public Element(int unNumber, String name, String description, float maxWeight, String label, String hazmatImage, String notCompatible){
         this.unNumber = unNumber;
         this.name = name;
         this.description = description;
+        this.maxWeight = maxWeight;
         this.label = label;
         this.hazmatImage = hazmatImage;
         this.notCompatible = Arrays.asList(notCompatible.split(";"));
     }
 
     /**
-     * Minimal constructor with only the number of the element, used for testing.
-     * @param unNumber
+     *
+     * @return the UN number if exist, null ow
      */
-    public Element(int unNumber){    //Minimum constructor
-        this.unNumber = unNumber;
-    }
-
     public int getUNNumber(){
         return unNumber;
     }
 
+    /**
+     *
+     * @return the name if exist, null ow
+     */
     public String getName(){
         return name;
     }
 
+    /**
+     *
+     * @return the description if exist, null ow
+     */
     public String getDescription(){ return description;}
 
-   /* public int getClassNumber(){
-       return classNumber;
-    }
+    /**
+     *
+     * @return the total max weight allowed if exist, null ow
+     */
+    public float getMaxWeight() { return maxWeight; }
 
-    public String getPackingGroup(){
-        return packingGroup;
-    }*/
-
+    /**
+     *
+     * @return the label if exist, null ow
+     */
     public String getLabel(){
         return label;
     }
 
+    /**
+     *
+     * @return the weight if exist, null ow
+     */
     public float getWeight(){
         return weight;
     }
 
+    /**
+     *
+     * @param weight value to set to new weight
+     */
     public void setWeight(float weight){
         this.weight = weight;
     }
 
+    /**
+     * Returns the name of the image file that has the correct "dagner type"
+     * So far: explosive, flammable, corrosive, radioactive, environmentally and default.
+     * @return the name of the Image that is to be associated with the element.
+     */
     public String getHazmatImage(){
         return hazmatImage;
     }
 
+    /**
+     *
+     * @param hazmatImage the new name for the hazmat image.
+     */
     public void setHazmatImage(String hazmatImage){
         this.hazmatImage = hazmatImage;
     }
 
+    /**
+     *
+      * @return a list of the not compatible labels
+     */
     public List<String> getNotCompatible() {
         return notCompatible;
     }
 
+    /**
+     * Set the new not compatible labels for this elemnt, notice that this is not a list but a string.
+     * @param notCompatible value for the new not compatible labels
+     */
     public void setNotCompatible(String notCompatible){
         this.notCompatible = Arrays.asList(notCompatible.split(";"));
     }
 
+    /**
+     * Checks if two elements are compatible with each other.
+     * @param other is the element that want to be checked with this element
+     * @return true if the elements can be transported together, false ow
+     */
     public boolean isCompatible(Element other) {
         return !other.getNotCompatible().contains(label) && !notCompatible.contains(other.label);
     }
 
+    /**
+     * Compares a list of elements to see if they are compatible
+     * @param list the list that should be checked for compabilty
+     * @return a string that shows which elements who are not compatible.
+     */
     public String isCompatible(List<Element> list){
-        String s = unNumber+"("+name+") is incompatible with\n";
+        String s = "• " + unNumber+"("+name+") is incompatible with\n";
         for(Element e: list){
-            if(isCompatible(e)){
-                s += e.unNumber+"("+e.name+")\n";
+            if(!isCompatible(e)){
+                s += "\t- " + e.unNumber+"("+e.name+")\n";
             }
+        }
+        if(weight > maxWeight){
+            s+="\nCan't transport more than " + maxWeight + "kg of this material, you're trying to transport " + weight + " kg";
+        }
+
+        if(s.compareTo("• " + unNumber+"("+name+") is incompatible with\n") == 0){
+            return "ok";
         }
 
         return s;

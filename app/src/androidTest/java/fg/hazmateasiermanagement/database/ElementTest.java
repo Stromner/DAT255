@@ -4,8 +4,6 @@ import android.app.Application;
 import android.test.ApplicationTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
 
-import fg.hazmateasiermanagement.Element;
-
 /**
  * Created by Henrik on 2014-10-14.
  */
@@ -32,7 +30,7 @@ public class ElementTest extends ApplicationTestCase<Application> {
     @SmallTest
     public void testCloneElement(){
         Element element,clonedElement;
-        element = new Element(0, "name1", "description", "A", "default","B;C;D");
+        element = new Element(0, "name1", "description",3500, "A", "default","B;C;D");
         try{
             clonedElement = (Element) element.clone();
 
@@ -64,9 +62,9 @@ public class ElementTest extends ApplicationTestCase<Application> {
     @SmallTest
     public void testElementCompatible(){
         Element element1,element2,element3;
-        element1 = new Element(0, "name1", "description", "A", "default","B;C;D");
-        element2 = new Element(1, "name2", "description2", "A", "default","B;C;D");
-        element3 = new Element(2, "name3", "description", "B", "default","A;C;D");
+        element1 = new Element(0, "name1", "description",3500, "A", "default","B;C;D");
+        element2 = new Element(1, "name2", "description2",3500, "A", "default","B;C;D");
+        element3 = new Element(2, "name3", "description",3500, "B", "default","A;C;D");
 
         // Can you package an element with itself?
         assertTrue(element1.isCompatible(element1));
