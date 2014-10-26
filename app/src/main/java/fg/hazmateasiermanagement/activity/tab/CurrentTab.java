@@ -42,12 +42,6 @@ public class CurrentTab extends Activity {
         getChecklistButton = (Button) findViewById(R.id.getChecklistButton);
         getChecklistButton.setVisibility(View.INVISIBLE);
 
-        getChecklistButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                checkout();
-            }
-        });
-
         /*
         //Example values copied from Seed
         addElementPanel(new Element(2909, "URANIUM", "RADIOACTIVE MATERIAL", 1f, "5.2", "corrosive", "1;1.4;1.5;1.6;2.1;2.2;2.3;3;4.1;4:2;4.3;5.2;6.1;6.2;7;8;9"));
@@ -118,6 +112,7 @@ public class CurrentTab extends Activity {
 
     /**
      * Removes the buttons parentView, i.e, the elementPanel.
+     * Most of the code is for removing the selected element from the elementList though.
      * @param view The remove button view
      */
     public void removeElementPanel(View view){
@@ -149,7 +144,7 @@ public class CurrentTab extends Activity {
     /**
      * Will add the weights from the editable text input to the elementList before sending the list to the checkout activity.
      */
-    private void checkout() {
+    public void checkout(View view) {
         //Don't really need this check since the button is invisible when there are no elements in the list.
         if (elementContainerLayout.getChildCount() == 0)
             return;
