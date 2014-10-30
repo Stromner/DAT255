@@ -4,6 +4,7 @@ An Android app that handles what hazardous materials your truck can transport.
 Getting Started
 
 git clone https://github.com/Stromner/DAT255.git
+Inside file "Group Flygande Gurkan" is documentation, post mortem and generated javadoc.
 
 Java 7 SE development environment
 Android SDK
