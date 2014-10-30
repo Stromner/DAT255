@@ -6,6 +6,7 @@
 !/app/
 !.gitignore
 !README.txt
+!DAT255 Flygande Gurkan
 
 # But ignore these sub files in the allowed files
 /app/app.iml
